@@ -1,6 +1,7 @@
 package com.be.grooming_mood.diary.domain;
 
 import com.be.grooming_mood.common.domain.BaseTimeEntity;
+import com.be.grooming_mood.feeling.domain.FeelingType;
 import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -18,11 +19,13 @@ public class Diary extends BaseTimeEntity {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "diary_title", nullable = false)
-    private String diaryTitle;
+    @Column(name = "feeling", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private FeelingType feeling;
 
     @Column(name = "diary_content", nullable = false)
     private String diaryContent;
 
-
+    @Column(name = "is_public", nullable = false)
+    private Boolean isPublic;
 }

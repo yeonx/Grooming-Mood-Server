@@ -26,9 +26,11 @@ public class QDiary extends EntityPathBase<Diary> {
 
     public final StringPath diaryContent = createString("diaryContent");
 
-    public final StringPath diaryTitle = createString("diaryTitle");
+    public final EnumPath<com.be.grooming_mood.feeling.domain.FeelingType> feeling = createEnum("feeling", com.be.grooming_mood.feeling.domain.FeelingType.class);
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
+
+    public final BooleanPath isPublic = createBoolean("isPublic");
 
     //inherited
     public final DateTimePath<java.time.LocalDateTime> modifiedDate = _super.modifiedDate;
