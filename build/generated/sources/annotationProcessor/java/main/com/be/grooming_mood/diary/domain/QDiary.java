@@ -19,11 +19,19 @@ public class QDiary extends EntityPathBase<Diary> {
 
     public static final QDiary diary = new QDiary("diary");
 
+    public final com.be.grooming_mood.common.domain.QBaseTimeEntity _super = new com.be.grooming_mood.common.domain.QBaseTimeEntity(this);
+
+    //inherited
+    public final DateTimePath<java.time.LocalDateTime> createdDate = _super.createdDate;
+
     public final StringPath diaryContent = createString("diaryContent");
 
     public final StringPath diaryTitle = createString("diaryTitle");
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
+
+    //inherited
+    public final DateTimePath<java.time.LocalDateTime> modifiedDate = _super.modifiedDate;
 
     public QDiary(String variable) {
         super(Diary.class, forVariable(variable));
