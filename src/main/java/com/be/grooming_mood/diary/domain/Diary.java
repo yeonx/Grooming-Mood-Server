@@ -2,10 +2,7 @@ package com.be.grooming_mood.diary.domain;
 
 import com.be.grooming_mood.common.domain.BaseTimeEntity;
 import com.be.grooming_mood.feeling.domain.FeelingType;
-import lombok.AccessLevel;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -28,4 +25,13 @@ public class Diary extends BaseTimeEntity {
 
     @Column(name = "is_public", nullable = false)
     private Boolean isPublic;
+
+    @Builder
+    public Diary(FeelingType feeling,
+                 String diaryContent,
+                 Boolean isPublic){
+        this.feeling = feeling;
+        this.diaryContent = diaryContent;
+        this.isPublic = isPublic;
+    }
 }
