@@ -7,11 +7,11 @@ import lombok.Getter;
 @Getter
 public class DiarySimpleInfoCriteria {
     private Long diaryId;
-    private String content;
+    private String diaryContent;
 
     @QueryProjection @Builder
-    public DiarySimpleInfoCriteria(Long diaryId, String content){
+    public DiarySimpleInfoCriteria(Long diaryId, String diaryContent){
         this.diaryId = diaryId;
-        this.content = content;
+        this.diaryContent = diaryContent;
     }
 }
