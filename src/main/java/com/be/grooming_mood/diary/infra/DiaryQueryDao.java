@@ -1,6 +1,8 @@
 package com.be.grooming_mood.diary.infra;
 
+import com.be.grooming_mood.diary.application.criteria.DiaryDetailInfoCriteria;
 import com.be.grooming_mood.diary.application.criteria.DiarySimpleInfoCriteria;
+import com.be.grooming_mood.diary.application.criteria.QDiaryDetailInfoCriteria;
 import com.be.grooming_mood.diary.application.criteria.QDiarySimpleInfoCriteria;
 import com.be.grooming_mood.diary.domain.QDiary;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -17,7 +19,7 @@ import static com.querydsl.core.group.GroupBy.groupBy;
 public class DiaryQueryDao {
     private final JPAQueryFactory queryFactory;
 
-    public Optional<DiarySimpleInfoCriteria> findSimpleInfo(long diaryId){
+    public Optional<DiarySimpleInfoCriteria> findSimpleInfo(Long diaryId){
         return Optional.ofNullable(
                 queryFactory
                         .from(diary)
@@ -31,4 +33,16 @@ public class DiaryQueryDao {
         );
     }
 
+    public Optional<DiaryDetailInfoCriteria> findDetailInfo(Long diaryId){
+        return Optional.ofNullable(
+                queryFactory
+                        .from(diary)
+                        .where(diary.id.eq(diaryId))
+                        .transform(
+                                groupBy(diary.id).as(
+                                        new QDiaryDetailInfoCriteria(diary)
+                                )
+                        ).get(diaryId)
+        );
+    }
 }
