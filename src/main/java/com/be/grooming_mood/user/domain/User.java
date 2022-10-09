@@ -1,6 +1,7 @@
 package com.be.grooming_mood.user.domain;
 
 import com.be.grooming_mood.common.domain.BaseTimeEntity;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -25,6 +26,13 @@ public class User extends BaseTimeEntity {
 
     @Column(name="profileImg", columnDefinition = "TEXT")
     private String profileImg;
+
+    @Builder
+    public User(String email, String nickname, String profileImg) {
+        this.email = email;
+        this.nickname = nickname;
+        this.profileImg = profileImg;
+    }
 
     public void modifyUserInfo(String nickname, String profileImg) {
         this.nickname = nickname;
