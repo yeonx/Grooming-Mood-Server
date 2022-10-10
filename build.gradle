@@ -28,7 +28,16 @@ dependencies {
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	runtimeOnly 'mysql:mysql-connector-java'
+
+	//Lombok & Mapstruct
+	implementation 'org.projectlombok:lombok'
+	implementation 'org.mapstruct:mapstruct:1.5.1.Final'
+	implementation 'org.projectlombok:lombok-mapstruct-binding:0.2.0'
+
+	annotationProcessor 'org.projectlombok:lombok-mapstruct-binding:0.2.0'
+	annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.1.Final'
 	annotationProcessor 'org.projectlombok:lombok'
+
 	//querydsl
 	implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.8.0'
 	implementation 'com.querydsl:querydsl-jpa'

@@ -16,6 +16,6 @@ public class DiaryController {
 
 //    @PostMapping("/{userId}")
 //    public long createDiary(@PathVariable("userId") Long userId, @RequestBody DiaryCreateDto diaryCreateDto){
-////        return diaryCommandService.create();
+//        return diaryCommandService.create();
 //    }
 }
