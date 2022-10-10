@@ -1,6 +1,7 @@
 package com.be.grooming_mood.config.auth;
 
 
+import com.be.grooming_mood.user.domain.Role;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -20,23 +21,15 @@ public class SecurityConfig  {
 
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .csrf()
-                .disable()
-                .headers()
-                .frameOptions()
-                .disable()
+                .csrf().disable()
+                .headers().frameOptions().disable()
                 .and()
                 .authorizeRequests()
-                .antMatchers("/", "/login/**")
-                .permitAll()
+                .antMatchers("/", "/css/**", "/image/**", "/js/**", "/h2-console/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .logout()
                 .logoutSuccessUrl("/")
-                .and()
-                .formLogin()
-                .loginPage("/login")
-                .defaultSuccessUrl("/")
                 .and()
                 .oauth2Login()
                 .userInfoEndpoint()
