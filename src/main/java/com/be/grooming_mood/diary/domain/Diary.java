@@ -2,6 +2,7 @@ package com.be.grooming_mood.diary.domain;
 
 import com.be.grooming_mood.common.domain.BaseTimeEntity;
 import com.be.grooming_mood.feeling.domain.FeelingType;
+import com.be.grooming_mood.user.domain.User;
 import lombok.*;
 
 import javax.persistence.*;
@@ -15,6 +16,10 @@ public class Diary extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
 
     @Column(name = "feeling", nullable = false)
     @Enumerated(EnumType.STRING)
