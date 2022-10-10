@@ -2,6 +2,7 @@ package com.be.grooming_mood.diary.application;
 
 import com.be.grooming_mood.diary.application.command.DiaryCreateCommand;
 import com.be.grooming_mood.diary.domain.Diary;
+import com.be.grooming_mood.diary.domain.DiaryJpaInterfaceRepository;
 import com.be.grooming_mood.diary.domain.DiaryRepository;
 import com.be.grooming_mood.user.domain.User;
 import com.be.grooming_mood.user.domain.UserRepository;
@@ -15,6 +16,7 @@ import java.util.Optional;
 @Service
 public class DiaryCommandService {
     private final DiaryRepository diaryRepository;
+    private final DiaryJpaInterfaceRepository diaryJpaInterfaceRepository;
     private final UserRepository userRepository;
 
     @Transactional
@@ -32,5 +34,10 @@ public class DiaryCommandService {
                 .build();
         diaryRepository.save(diary);
         return diary.getId();
+    }
+
+    @Transactional
+    public void delete(Long diaryId){
+        diaryJpaInterfaceRepository.deleteById(diaryId);
     }
 }
