@@ -27,6 +27,10 @@ public class User extends BaseTimeEntity {
     @Column(name="profileImg", columnDefinition = "TEXT")
     private String profileImg;
 
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Role role;
+
     @Builder
     public User(String email, String nickname, String profileImg) {
         this.email = email;
@@ -34,9 +38,14 @@ public class User extends BaseTimeEntity {
         this.profileImg = profileImg;
     }
 
-    public void modifyUserInfo(String nickname, String profileImg) {
+    public User update(String nickname, String profileImg) {
         this.nickname = nickname;
         this.profileImg = profileImg;
+
+        return this;
     }
 
+    public String getRoleKey(){
+        return this.role.getKey();
+    }
 }
