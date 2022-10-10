@@ -32,9 +32,10 @@ public class Diary extends BaseTimeEntity {
     private Boolean isPublic;
 
     @Builder
-    public Diary(FeelingType feeling,
+    public Diary(User user, FeelingType feeling,
                  String diaryContent,
                  Boolean isPublic){
+        this.user = user;
         this.feeling = feeling;
         this.diaryContent = diaryContent;
         this.isPublic = isPublic;
