@@ -1,6 +1,7 @@
 package com.be.grooming_mood.diary.application;
 
 import com.be.grooming_mood.diary.application.command.DiaryCreateCommand;
+import com.be.grooming_mood.diary.application.command.DiaryUpdateCommand;
 import com.be.grooming_mood.diary.domain.Diary;
 import com.be.grooming_mood.diary.domain.DiaryJpaInterfaceRepository;
 import com.be.grooming_mood.diary.domain.DiaryRepository;
@@ -34,6 +35,15 @@ public class DiaryCommandService {
                 .build();
         diaryRepository.save(diary);
         return diary.getId();
+    }
+
+    @Transactional
+    public void update(Long diaryId, DiaryUpdateCommand diaryUpdateCommand){
+        Optional<Diary> diaryCheck = diaryJpaInterfaceRepository.findById(diaryId);
+        Diary diary = diaryCheck.orElseThrow(() ->
+                new RuntimeException("다이어리를 찾을 수 없습니다."));
+        diary.update(diaryUpdateCommand.getContent(),diaryUpdateCommand.getIsPublic());
+
     }
 
     @Transactional
