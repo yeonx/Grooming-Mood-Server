@@ -46,11 +46,12 @@ public class DiaryQueryDao {
                         ).get(diaryId)
         );
     }
-    public DiaryListQueryResult findAllDiaryList(String cursor, int size){
+    public DiaryListQueryResult findMyDiaryList(Long userId, String cursor, int size){
         List<DiarySimpleInfoCriteria> infoList = queryFactory
                 .select(new QDiarySimpleInfoCriteria(diary.id, diary.diaryContent,
                         user.name, user.profileImg))
                 .from(diary)
+                .where(user.id.eq(userId))
                 .limit(size + 1)
                 .orderBy(diary.id.desc())
                 .fetch();
