@@ -28,8 +28,7 @@ public class DiaryQueryDao {
                                         new QDiarySimpleInfoCriteria(diary.id, diary.diaryContent,
                                                 user.name, user.profileImg)
                                 )
-                        )
-                        .get(diaryId)
+                        ).get(diaryId)
         );
     }
 
@@ -38,9 +37,11 @@ public class DiaryQueryDao {
                 queryFactory
                         .from(diary)
                         .where(diary.id.eq(diaryId))
+                        .leftJoin(user).on(user.id.eq(diary.user.id))
                         .transform(
                                 groupBy(diary.id).as(
-                                        new QDiaryDetailInfoCriteria(diary)
+                                        new QDiaryDetailInfoCriteria(diary.id, diary.diaryContent, diary.feeling,
+                                                user.name, user.profileImg)
                                 )
                         ).get(diaryId)
         );
