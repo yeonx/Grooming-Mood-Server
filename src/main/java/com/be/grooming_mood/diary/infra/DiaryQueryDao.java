@@ -1,7 +1,6 @@
 package com.be.grooming_mood.diary.infra;
 
 import com.be.grooming_mood.diary.application.criteria.*;
-import com.be.grooming_mood.diary.domain.QDiary;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -10,6 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static com.be.grooming_mood.diary.domain.QDiary.diary;
+import static com.be.grooming_mood.user.domain.QUser.user;
 import static com.querydsl.core.group.GroupBy.groupBy;
 
 @RequiredArgsConstructor
@@ -22,12 +22,13 @@ public class DiaryQueryDao {
                 queryFactory
                         .from(diary)
                         .where(diary.id.eq(diaryId))
+                        .leftJoin(user).on(user.id.eq(diary.user.id))
                         .transform(
                                 groupBy(diary.id).as(
-                                        new QDiarySimpleInfoCriteria(diary.id, diary.diaryContent)
+                                        new QDiarySimpleInfoCriteria(diary.id, diary.diaryContent,
+                                                user.name, user.profileImg)
                                 )
-                        )
-                        .get(diaryId)
+                        ).get(diaryId)
         );
     }
 
@@ -36,17 +37,21 @@ public class DiaryQueryDao {
                 queryFactory
                         .from(diary)
                         .where(diary.id.eq(diaryId))
+                        .leftJoin(user).on(user.id.eq(diary.user.id))
                         .transform(
                                 groupBy(diary.id).as(
-                                        new QDiaryDetailInfoCriteria(diary)
+                                        new QDiaryDetailInfoCriteria(diary.id, diary.diaryContent, diary.feeling,
+                                                user.name, user.profileImg)
                                 )
                         ).get(diaryId)
         );
     }
-    public DiaryListQueryResult findAllDiaryList(String cursor, int size){
+    public DiaryListQueryResult findMyDiaryList(Long userId, String cursor, int size){
         List<DiarySimpleInfoCriteria> infoList = queryFactory
-                .select(new QDiarySimpleInfoCriteria(diary.id, diary.diaryContent))
+                .select(new QDiarySimpleInfoCriteria(diary.id, diary.diaryContent,
+                        user.name, user.profileImg))
                 .from(diary)
+                .where(user.id.eq(userId))
                 .limit(size + 1)
                 .orderBy(diary.id.desc())
                 .fetch();

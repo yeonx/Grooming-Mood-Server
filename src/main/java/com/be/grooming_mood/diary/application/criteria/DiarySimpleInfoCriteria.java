@@ -6,12 +6,16 @@ import lombok.Getter;
 
 @Getter
 public class DiarySimpleInfoCriteria {
+    private String userName;
+    private String profileImg;
     private Long diaryId;
     private String diaryContent;
 
     @QueryProjection @Builder
-    public DiarySimpleInfoCriteria(Long diaryId, String diaryContent){
+    public DiarySimpleInfoCriteria(Long diaryId, String diaryContent, String userName, String profileImg){
         this.diaryId = diaryId;
         this.diaryContent = diaryContent;
+        this.userName = userName;
+        this.profileImg = profileImg;
     }
 }

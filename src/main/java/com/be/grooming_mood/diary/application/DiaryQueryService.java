@@ -1,11 +1,37 @@
 package com.be.grooming_mood.diary.application;
 
+import com.be.grooming_mood.diary.application.criteria.DiaryDetailInfoCriteria;
+import com.be.grooming_mood.diary.application.criteria.DiaryListQueryResult;
+import com.be.grooming_mood.diary.application.criteria.DiarySimpleInfoCriteria;
+import com.be.grooming_mood.diary.infra.DiaryQueryDao;
+import com.be.grooming_mood.exception.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import static com.be.grooming_mood.exception.ErrorCode.DIARY_NOT_FOUND;
 
 @RequiredArgsConstructor
 @Service
 public class DiaryQueryService {
 
+    private final DiaryQueryDao diaryQueryDao;
+
+    @Transactional(readOnly = true)
+    public DiarySimpleInfoCriteria findSimpleInfo(Long diaryId){
+        return diaryQueryDao.findSimpleInfo(diaryId)
+                .orElseThrow(() -> new NotFoundException(DIARY_NOT_FOUND));
+    }
+
+    @Transactional(readOnly = true)
+    public DiaryDetailInfoCriteria findDetailInfo(Long diaryId){
+        return diaryQueryDao.findDetailInfo(diaryId)
+                .orElseThrow(()-> new NotFoundException(DIARY_NOT_FOUND));
+    }
+
+    @Transactional(readOnly = true)
+    public DiaryListQueryResult findMyDiaryList(long userId, String cursor,int size){
+        return diaryQueryDao.findMyDiaryList(userId,cursor,size);
+    }
 
 }
