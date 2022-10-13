@@ -5,6 +5,7 @@ import com.be.grooming_mood.diary.application.command.DiaryUpdateCommand;
 import com.be.grooming_mood.diary.domain.Diary;
 import com.be.grooming_mood.diary.domain.DiaryJpaInterfaceRepository;
 import com.be.grooming_mood.diary.domain.DiaryRepository;
+import com.be.grooming_mood.exception.NotFoundException;
 import com.be.grooming_mood.user.domain.User;
 import com.be.grooming_mood.user.domain.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -12,6 +13,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
+
+import static com.be.grooming_mood.exception.ErrorCode.DIARY_NOT_FOUND;
+import static com.be.grooming_mood.exception.ErrorCode.USER_NOT_FOUND;
 
 @RequiredArgsConstructor
 @Service
@@ -25,7 +29,7 @@ public class DiaryCommandService {
         Optional<User> userCheck = userRepository.findById(userId);
 
         User user = userCheck.orElseThrow(() ->
-                new RuntimeException("유저를 찾을 수 없습니다."));
+                new NotFoundException(USER_NOT_FOUND));
 
         Diary diary = Diary.builder()
                 .user(user)
@@ -41,7 +45,7 @@ public class DiaryCommandService {
     public void update(Long diaryId, DiaryUpdateCommand diaryUpdateCommand){
         Optional<Diary> diaryCheck = diaryJpaInterfaceRepository.findById(diaryId);
         Diary diary = diaryCheck.orElseThrow(() ->
-                new RuntimeException("다이어리를 찾을 수 없습니다."));
+                new NotFoundException(DIARY_NOT_FOUND));
         diary.update(diaryUpdateCommand.getContent(),diaryUpdateCommand.getIsPublic());
 
     }
