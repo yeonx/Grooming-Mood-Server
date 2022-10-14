@@ -1,5 +1,6 @@
 package com.be.grooming_mood.feeling.domain;
 
+import com.be.grooming_mood.common.domain.BaseTimeEntity;
 import com.be.grooming_mood.user.domain.User;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -13,7 +14,7 @@ import javax.persistence.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @Table(name="feelingHistory")
-public class FeelingHistory {
+public class FeelingHistory extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
