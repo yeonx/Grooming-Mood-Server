@@ -18,10 +18,10 @@ import java.util.List;
 public class FeelingHistoryController {
     private final FeelingHistoryService feelingHistoryService;
 
-    @GetMapping("/feeling-history")
-    public List<FeelingHistoryDto> getFeelingHistoryInWeek(@LoginUser SessionUser user) {
-        return feelingHistoryService.getFeelingHistory(user.getId());
-    }
+//    @GetMapping("/feeling-history")
+//    public List<FeelingHistoryDto> getFeelingHistoryInWeek(@LoginUser SessionUser user) {
+//        return feelingHistoryService.getFeelingHistory(user.getId());
+//    }
 
     @PostMapping("/feeling-history")
     public void createFeelingHistory(@LoginUser SessionUser user, @Valid FeelingHistoryCreateDto feelingHistoryCreateDto) {
