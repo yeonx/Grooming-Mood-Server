@@ -14,7 +14,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-public class feelingController {
+public class FeelingController {
     private final FeelingHistoryService feelingHistoryService;
 
     @GetMapping("/feeling-history/{userId}")
