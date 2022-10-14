@@ -9,6 +9,8 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Getter
 public class SessionUser implements Serializable {
+
+    private Long id;
     private String name;
     private String email;
     private String profileImg;
