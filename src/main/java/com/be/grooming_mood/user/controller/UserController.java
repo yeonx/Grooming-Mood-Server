@@ -1,6 +1,8 @@
 package com.be.grooming_mood.user.controller;
 
 import com.be.grooming_mood.config.auth.LoginUser;
+import com.be.grooming_mood.exception.ErrorCode;
+import com.be.grooming_mood.exception.NotFoundException;
 import com.be.grooming_mood.user.domain.SessionUser;
 import com.be.grooming_mood.user.domain.User;
 import com.be.grooming_mood.user.dto.UserUpdateDto;
@@ -10,16 +12,20 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 @RequiredArgsConstructor
 @RestController
 public class UserController {
-
+    private final HttpSession httpSession;
     private final UserService userService;
 
     @GetMapping("/user-info")
-    public User getUserInfo(@LoginUser SessionUser user) {
+
+    public User getUserInfo() {
+        SessionUser user = (SessionUser) httpSession.getAttribute("user");
+
         return userService.getUserInfo(user.getId());
     }
 

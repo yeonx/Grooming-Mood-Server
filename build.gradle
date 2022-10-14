@@ -29,6 +29,7 @@ dependencies {
 
 
 	compileOnly 'org.projectlombok:lombok'
+	compileOnly 'org.springframework.session:spring-session-jdbc'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	runtimeOnly 'mysql:mysql-connector-java'
 
