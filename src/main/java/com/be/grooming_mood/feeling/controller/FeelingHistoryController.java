@@ -7,7 +7,6 @@ import com.be.grooming_mood.feeling.service.FeelingHistoryService;
 import com.be.grooming_mood.user.domain.SessionUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
