@@ -52,4 +52,10 @@ public class DiaryController {
         return diaryQueryService.findAllDiaryList(cursor,size);
     }
 
+    @GetMapping("/happy")
+    public DiaryListQueryResult getHappyDiaryList(@RequestParam(required = false) String cursor,
+                                                @RequestParam(required = false, defaultValue = "10") int size){
+        return diaryQueryService.findHappyDiaryList(cursor,size);
+    }
+
 }
