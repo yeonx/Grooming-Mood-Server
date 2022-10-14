@@ -64,4 +64,10 @@ public class DiaryController {
         return diaryQueryService.findSadDiaryList(cursor,size);
     }
 
+    @GetMapping("/normal")
+    public DiaryListQueryResult getNormalDiaryList(@RequestParam(required = false) String cursor,
+                                                @RequestParam(required = false, defaultValue = "10") int size){
+        return diaryQueryService.findNormalDiaryList(cursor,size);
+    }
+
 }
