@@ -20,7 +20,7 @@ public class DiaryController {
     private final DiaryDtoMapper diaryDtoMapper;
 
     @PostMapping("/{userId}")
-    public long createDiary(@PathVariable("userId") Long userId,@Valid DiaryCreateDto diaryCreateDto){
+    public long createDiary(@PathVariable("userId") Long userId, @Valid DiaryCreateDto diaryCreateDto){
         return diaryCommandService.create(userId, diaryDtoMapper.toCreateCommand(diaryCreateDto));
     }
 
