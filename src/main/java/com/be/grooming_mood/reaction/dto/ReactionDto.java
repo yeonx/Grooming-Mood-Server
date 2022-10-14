@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class ReactionCreateDto {
+public class ReactionDto {
 
     private ReactionType reaction;
 }
