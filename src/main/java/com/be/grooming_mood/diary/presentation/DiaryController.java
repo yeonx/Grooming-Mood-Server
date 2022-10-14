@@ -52,4 +52,28 @@ public class DiaryController {
         return diaryQueryService.findAllDiaryList(cursor,size);
     }
 
+    @GetMapping("/happy")
+    public DiaryListQueryResult getHappyDiaryList(@RequestParam(required = false) String cursor,
+                                                @RequestParam(required = false, defaultValue = "10") int size){
+        return diaryQueryService.findHappyDiaryList(cursor,size);
+    }
+
+    @GetMapping("/sad")
+    public DiaryListQueryResult getSadDiaryList(@RequestParam(required = false) String cursor,
+                                                  @RequestParam(required = false, defaultValue = "10") int size){
+        return diaryQueryService.findSadDiaryList(cursor,size);
+    }
+
+    @GetMapping("/normal")
+    public DiaryListQueryResult getNormalDiaryList(@RequestParam(required = false) String cursor,
+                                                @RequestParam(required = false, defaultValue = "10") int size){
+        return diaryQueryService.findNormalDiaryList(cursor,size);
+    }
+
+    @GetMapping("/angry")
+    public DiaryListQueryResult getAngryDiaryList(@RequestParam(required = false) String cursor,
+                                                   @RequestParam(required = false, defaultValue = "10") int size){
+        return diaryQueryService.findAngryDiaryList(cursor,size);
+    }
+
 }

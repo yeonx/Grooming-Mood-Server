@@ -39,4 +39,24 @@ public class DiaryQueryService {
         return diaryQueryDao.findAllDiaryList(cursor,size);
     }
 
+    @Transactional(readOnly = true)
+    public DiaryListQueryResult findHappyDiaryList(String cursor,int size){
+        return diaryQueryDao.findHappyDiaryList(cursor,size);
+    }
+
+    @Transactional(readOnly = true)
+    public DiaryListQueryResult findSadDiaryList(String cursor,int size){
+        return diaryQueryDao.findSadDiaryList(cursor,size);
+    }
+
+    @Transactional(readOnly = true)
+    public DiaryListQueryResult findNormalDiaryList(String cursor,int size){
+        return diaryQueryDao.findNormalDiaryList(cursor,size);
+    }
+
+    @Transactional(readOnly = true)
+    public DiaryListQueryResult findAngryDiaryList(String cursor,int size){
+        return diaryQueryDao.findAngryDiaryList(cursor,size);
+    }
+
 }
