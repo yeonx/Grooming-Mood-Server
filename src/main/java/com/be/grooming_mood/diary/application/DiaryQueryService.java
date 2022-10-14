@@ -39,4 +39,9 @@ public class DiaryQueryService {
         return diaryQueryDao.findAllDiaryList(cursor,size);
     }
 
+    @Transactional(readOnly = true)
+    public DiaryListQueryResult findHappyDiaryList(String cursor,int size){
+        return diaryQueryDao.findHappyDiaryList(cursor,size);
+    }
+
 }
