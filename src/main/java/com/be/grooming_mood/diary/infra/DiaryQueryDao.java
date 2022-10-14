@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static com.be.grooming_mood.diary.domain.QDiary.diary;
+import static com.be.grooming_mood.feeling.domain.FeelingType.HAPPY;
 import static com.be.grooming_mood.user.domain.QUser.user;
 import static com.querydsl.core.group.GroupBy.groupBy;
 
@@ -71,6 +72,20 @@ public class DiaryQueryDao {
         String nextCursor = hasNext ? getDiaryIdNextCursor(infoList) : null;
         return new DiaryListQueryResult(infoList,hasNext,nextCursor);
     }
+    public DiaryListQueryResult findHappyDiaryList(String cursor, int size){
+        List<DiarySimpleInfoCriteria> infoList = queryFactory
+                .select(new QDiarySimpleInfoCriteria(diary.id, diary.diaryContent,
+                        user.name, user.profileImg))
+                .from(diary)
+                .where(diary.feeling.eq(HAPPY))
+                .limit(size + 1)
+                .orderBy(diary.id.desc())
+                .fetch();
+        boolean hasNext = hasNext(size, infoList);
+        String nextCursor = hasNext ? getDiaryIdNextCursor(infoList) : null;
+        return new DiaryListQueryResult(infoList,hasNext,nextCursor);
+    }
+
     private boolean hasNext(int size, List<DiarySimpleInfoCriteria> infoList){
         boolean hasNext = false;
         if(infoList.size() >size){
