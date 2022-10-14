@@ -58,4 +58,10 @@ public class DiaryController {
         return diaryQueryService.findHappyDiaryList(cursor,size);
     }
 
+    @GetMapping("/sad")
+    public DiaryListQueryResult getSadDiaryList(@RequestParam(required = false) String cursor,
+                                                  @RequestParam(required = false, defaultValue = "10") int size){
+        return diaryQueryService.findSadDiaryList(cursor,size);
+    }
+
 }
