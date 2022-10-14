@@ -59,6 +59,18 @@ public class DiaryQueryDao {
         String nextCursor = hasNext ? getDiaryIdNextCursor(infoList) : null;
         return new DiaryListQueryResult(infoList,hasNext,nextCursor);
     }
+    public DiaryListQueryResult findAllDiaryList(String cursor, int size){
+        List<DiarySimpleInfoCriteria> infoList = queryFactory
+                .select(new QDiarySimpleInfoCriteria(diary.id, diary.diaryContent,
+                        user.name, user.profileImg))
+                .from(diary)
+                .limit(size + 1)
+                .orderBy(diary.id.desc())
+                .fetch();
+        boolean hasNext = hasNext(size, infoList);
+        String nextCursor = hasNext ? getDiaryIdNextCursor(infoList) : null;
+        return new DiaryListQueryResult(infoList,hasNext,nextCursor);
+    }
     private boolean hasNext(int size, List<DiarySimpleInfoCriteria> infoList){
         boolean hasNext = false;
         if(infoList.size() >size){
