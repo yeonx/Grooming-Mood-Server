@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static com.be.grooming_mood.diary.domain.QDiary.diary;
-import static com.be.grooming_mood.feeling.domain.FeelingType.HAPPY;
+import static com.be.grooming_mood.feeling.domain.FeelingType.*;
 import static com.be.grooming_mood.user.domain.QUser.user;
 import static com.querydsl.core.group.GroupBy.groupBy;
 
@@ -78,6 +78,48 @@ public class DiaryQueryDao {
                         user.name, user.profileImg))
                 .from(diary)
                 .where(diary.feeling.eq(HAPPY))
+                .limit(size + 1)
+                .orderBy(diary.id.desc())
+                .fetch();
+        boolean hasNext = hasNext(size, infoList);
+        String nextCursor = hasNext ? getDiaryIdNextCursor(infoList) : null;
+        return new DiaryListQueryResult(infoList,hasNext,nextCursor);
+    }
+
+    public DiaryListQueryResult findSadDiaryList(String cursor, int size){
+        List<DiarySimpleInfoCriteria> infoList = queryFactory
+                .select(new QDiarySimpleInfoCriteria(diary.id, diary.diaryContent,
+                        user.name, user.profileImg))
+                .from(diary)
+                .where(diary.feeling.eq(SAD))
+                .limit(size + 1)
+                .orderBy(diary.id.desc())
+                .fetch();
+        boolean hasNext = hasNext(size, infoList);
+        String nextCursor = hasNext ? getDiaryIdNextCursor(infoList) : null;
+        return new DiaryListQueryResult(infoList,hasNext,nextCursor);
+    }
+
+    public DiaryListQueryResult findNormalDiaryList(String cursor, int size){
+        List<DiarySimpleInfoCriteria> infoList = queryFactory
+                .select(new QDiarySimpleInfoCriteria(diary.id, diary.diaryContent,
+                        user.name, user.profileImg))
+                .from(diary)
+                .where(diary.feeling.eq(NORMAL))
+                .limit(size + 1)
+                .orderBy(diary.id.desc())
+                .fetch();
+        boolean hasNext = hasNext(size, infoList);
+        String nextCursor = hasNext ? getDiaryIdNextCursor(infoList) : null;
+        return new DiaryListQueryResult(infoList,hasNext,nextCursor);
+    }
+
+    public DiaryListQueryResult findAngryDiaryList(String cursor, int size){
+        List<DiarySimpleInfoCriteria> infoList = queryFactory
+                .select(new QDiarySimpleInfoCriteria(diary.id, diary.diaryContent,
+                        user.name, user.profileImg))
+                .from(diary)
+                .where(diary.feeling.eq(ANGRY))
                 .limit(size + 1)
                 .orderBy(diary.id.desc())
                 .fetch();
