@@ -70,4 +70,10 @@ public class DiaryController {
         return diaryQueryService.findNormalDiaryList(cursor,size);
     }
 
+    @GetMapping("/angry")
+    public DiaryListQueryResult getAngryDiaryList(@RequestParam(required = false) String cursor,
+                                                   @RequestParam(required = false, defaultValue = "10") int size){
+        return diaryQueryService.findAngryDiaryList(cursor,size);
+    }
+
 }
