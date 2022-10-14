@@ -46,4 +46,10 @@ public class DiaryController {
         return diaryQueryService.findMyDiaryList(userId,cursor,size);
     }
 
+    @GetMapping("/all")
+    public DiaryListQueryResult getAllDiaryList(@RequestParam(required = false) String cursor,
+                                               @RequestParam(required = false, defaultValue = "10") int size){
+        return diaryQueryService.findAllDiaryList(cursor,size);
+    }
+
 }
