@@ -95,18 +95,29 @@ public class DiaryQueryDao {
         return new DiaryListQueryResult(infoList);
     }
 
-    public DiaryListQueryPagingResult findHappyDiaryList(String cursor, int size){
+//    public DiaryListQueryPagingResult findHappyDiaryList(String cursor, int size){
+//        List<DiarySimpleInfoCriteria> infoList = queryFactory
+//                .select(new QDiarySimpleInfoCriteria(diary.id, diary.diaryContent,
+//                        user.name, user.profileImg, diary.feeling))
+//                .from(diary)
+//                .where(diary.feeling.eq(HAPPY))
+//                .limit(size + 1)
+//                .orderBy(diary.id.desc())
+//                .fetch();
+//        boolean hasNext = hasNext(size, infoList);
+//        String nextCursor = hasNext ? getDiaryIdNextCursor(infoList) : null;
+//        return new DiaryListQueryPagingResult(infoList,hasNext,nextCursor);
+//    }
+    public DiaryListQueryResult findHappyDiaryList(){
         List<DiarySimpleInfoCriteria> infoList = queryFactory
                 .select(new QDiarySimpleInfoCriteria(diary.id, diary.diaryContent,
                         user.name, user.profileImg, diary.feeling))
                 .from(diary)
                 .where(diary.feeling.eq(HAPPY))
-                .limit(size + 1)
+                .where(diary.isPublic.isTrue())
                 .orderBy(diary.id.desc())
                 .fetch();
-        boolean hasNext = hasNext(size, infoList);
-        String nextCursor = hasNext ? getDiaryIdNextCursor(infoList) : null;
-        return new DiaryListQueryPagingResult(infoList,hasNext,nextCursor);
+        return new DiaryListQueryResult(infoList);
     }
 
     public DiaryListQueryPagingResult findSadDiaryList(String cursor, int size){
