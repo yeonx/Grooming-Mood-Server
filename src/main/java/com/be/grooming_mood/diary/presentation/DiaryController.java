@@ -43,47 +43,48 @@ public class DiaryController {
         return diaryQueryService.findDetailInfo(diaryId);
     }
 
-    /**
-     *
-     * 페이징 처리
-     * @param size - 10개 씩
-     * @return
-     */
-    @GetMapping("/my-page-paging")
+    @GetMapping("/my-page")
     public DiaryListQueryResult getMyDiaryList(@RequestParam(required = false) String cursor,
                                                @RequestParam(required = false, defaultValue = "10") int size){
         SessionUser user = (SessionUser) httpSession.getAttribute("user");
-        return diaryQueryService.findMyDiaryList(user.getId(),cursor,size);
+        return diaryQueryService.findMyDiaryList(user.getId());
     }
 
-    @GetMapping("/all-paging")
-    public DiaryListQueryResult getAllDiaryList(@RequestParam(required = false) String cursor,
-                                               @RequestParam(required = false, defaultValue = "10") int size){
-        return diaryQueryService.findAllDiaryList(cursor,size);
-    }
-
-    @GetMapping("/happy-paging")
-    public DiaryListQueryResult getHappyDiaryList(@RequestParam(required = false) String cursor,
-                                                @RequestParam(required = false, defaultValue = "10") int size){
-        return diaryQueryService.findHappyDiaryList(cursor,size);
-    }
-
-    @GetMapping("/sad-paging")
-    public DiaryListQueryResult getSadDiaryList(@RequestParam(required = false) String cursor,
-                                                  @RequestParam(required = false, defaultValue = "10") int size){
-        return diaryQueryService.findSadDiaryList(cursor,size);
-    }
-
-    @GetMapping("/normal-paging")
-    public DiaryListQueryResult getNormalDiaryList(@RequestParam(required = false) String cursor,
-                                                @RequestParam(required = false, defaultValue = "10") int size){
-        return diaryQueryService.findNormalDiaryList(cursor,size);
-    }
-
-    @GetMapping("/angry-paging")
-    public DiaryListQueryResult getAngryDiaryList(@RequestParam(required = false) String cursor,
-                                                   @RequestParam(required = false, defaultValue = "10") int size){
-        return diaryQueryService.findAngryDiaryList(cursor,size);
-    }
+//    @GetMapping("/my-page")
+//    public DiaryListQueryResult getMyDiaryList(@RequestParam(required = false) String cursor,
+//                                               @RequestParam(required = false, defaultValue = "10") int size){
+//        SessionUser user = (SessionUser) httpSession.getAttribute("user");
+//        return diaryQueryService.findMyDiaryList(user.getId(),cursor,size);
+//    }
+//
+//    @GetMapping("/all-paging")
+//    public DiaryListQueryResult getAllDiaryList(@RequestParam(required = false) String cursor,
+//                                               @RequestParam(required = false, defaultValue = "10") int size){
+//        return diaryQueryService.findAllDiaryList(cursor,size);
+//    }
+//
+//    @GetMapping("/happy-paging")
+//    public DiaryListQueryResult getHappyDiaryList(@RequestParam(required = false) String cursor,
+//                                                @RequestParam(required = false, defaultValue = "10") int size){
+//        return diaryQueryService.findHappyDiaryList(cursor,size);
+//    }
+//
+//    @GetMapping("/sad-paging")
+//    public DiaryListQueryResult getSadDiaryList(@RequestParam(required = false) String cursor,
+//                                                  @RequestParam(required = false, defaultValue = "10") int size){
+//        return diaryQueryService.findSadDiaryList(cursor,size);
+//    }
+//
+//    @GetMapping("/normal-paging")
+//    public DiaryListQueryResult getNormalDiaryList(@RequestParam(required = false) String cursor,
+//                                                @RequestParam(required = false, defaultValue = "10") int size){
+//        return diaryQueryService.findNormalDiaryList(cursor,size);
+//    }
+//
+//    @GetMapping("/angry-paging")
+//    public DiaryListQueryResult getAngryDiaryList(@RequestParam(required = false) String cursor,
+//                                                   @RequestParam(required = false, defaultValue = "10") int size){
+//        return diaryQueryService.findAngryDiaryList(cursor,size);
+//    }
 
 }
