@@ -37,7 +37,12 @@ public class DiaryQueryService {
 
     @Transactional(readOnly = true)
     public DiaryListQueryPagingResult findAllDiaryList(String cursor, int size){
-        return diaryQueryDao.findAllDiaryList(cursor,size);
+        return diaryQueryDao.findAllDiaryListPaging(cursor,size);
+    }
+    
+    @Transactional(readOnly = true)
+    public DiaryListQueryResult findAllDiaryList(){
+        return diaryQueryDao.findAllDiaryList();
     }
 
     @Transactional(readOnly = true)

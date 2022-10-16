@@ -66,13 +66,12 @@ public class DiaryQueryDao {
                         user.name, user.profileImg, diary.feeling))
                 .from(diary)
                 .where(user.id.eq(userId))
-
                 .orderBy(diary.id.desc())
                 .fetch();
         return new DiaryListQueryResult(infoList);
     }
 
-    public DiaryListQueryPagingResult findAllDiaryList(String cursor, int size){
+    public DiaryListQueryPagingResult findAllDiaryListPaging(String cursor, int size){
         List<DiarySimpleInfoCriteria> infoList = queryFactory
                 .select(new QDiarySimpleInfoCriteria(diary.id, diary.diaryContent,
                         user.name, user.profileImg, diary.feeling))
@@ -84,6 +83,18 @@ public class DiaryQueryDao {
         String nextCursor = hasNext ? getDiaryIdNextCursor(infoList) : null;
         return new DiaryListQueryPagingResult(infoList,hasNext,nextCursor);
     }
+
+    public DiaryListQueryResult findAllDiaryList(){
+        List<DiarySimpleInfoCriteria> infoList = queryFactory
+                .select(new QDiarySimpleInfoCriteria(diary.id, diary.diaryContent,
+                        user.name, user.profileImg, diary.feeling))
+                .from(diary)
+                .where(diary.isPublic.isTrue())
+                .orderBy(diary.id.desc())
+                .fetch();
+        return new DiaryListQueryResult(infoList);
+    }
+
     public DiaryListQueryPagingResult findHappyDiaryList(String cursor, int size){
         List<DiarySimpleInfoCriteria> infoList = queryFactory
                 .select(new QDiarySimpleInfoCriteria(diary.id, diary.diaryContent,
