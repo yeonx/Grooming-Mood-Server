@@ -45,29 +45,43 @@ public class DiaryQueryService {
         return diaryQueryDao.findAllDiaryList();
     }
 
-//    @Transactional(readOnly = true)
-//    public DiaryListQueryPagingResult findHappyDiaryList(String cursor,int size){
-//        return diaryQueryDao.findHappyDiaryList(cursor,size);
-//    }
-
     @Transactional(readOnly = true)
     public DiaryListQueryResult findHappyDiaryList(){
         return diaryQueryDao.findHappyDiaryList();
     }
 
     @Transactional(readOnly = true)
-    public DiaryListQueryPagingResult findSadDiaryList(String cursor,int size){
-        return diaryQueryDao.findSadDiaryList(cursor,size);
+    public DiaryListQueryResult findSadDiaryList(){
+        return diaryQueryDao.findSadDiaryList();
     }
 
     @Transactional(readOnly = true)
-    public DiaryListQueryPagingResult findNormalDiaryList(String cursor,int size){
-        return diaryQueryDao.findNormalDiaryList(cursor,size);
+    public DiaryListQueryResult findNormalDiaryList(){
+        return diaryQueryDao.findNormalDiaryList();
     }
 
     @Transactional(readOnly = true)
     public DiaryListQueryPagingResult findAngryDiaryList(String cursor,int size){
         return diaryQueryDao.findAngryDiaryList(cursor,size);
     }
+
+//    @Transactional(readOnly = true)
+//    public DiaryListQueryPagingResult findHappyDiaryList(String cursor,int size){
+//        return diaryQueryDao.findHappyDiaryList(cursor,size);
+//    }
+//    @Transactional(readOnly = true)
+//    public DiaryListQueryPagingResult findSadDiaryList(String cursor,int size){
+//        return diaryQueryDao.findSadDiaryList(cursor,size);
+//    }
+//
+//    @Transactional(readOnly = true)
+//    public DiaryListQueryPagingResult findNormalDiaryList(String cursor,int size){
+//        return diaryQueryDao.findNormalDiaryList(cursor,size);
+//    }
+//
+//    @Transactional(readOnly = true)
+//    public DiaryListQueryPagingResult findAngryDiaryList(String cursor,int size){
+//        return diaryQueryDao.findAngryDiaryList(cursor,size);
+//    }
 
 }
