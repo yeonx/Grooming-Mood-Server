@@ -56,8 +56,8 @@ public class DiaryQueryService {
     }
 
     @Transactional(readOnly = true)
-    public DiaryListQueryPagingResult findNormalDiaryList(String cursor,int size){
-        return diaryQueryDao.findNormalDiaryList(cursor,size);
+    public DiaryListQueryResult findNormalDiaryList(){
+        return diaryQueryDao.findNormalDiaryList();
     }
 
     @Transactional(readOnly = true)

@@ -119,18 +119,16 @@ public class DiaryQueryDao {
         return new DiaryListQueryResult(infoList);
     }
 
-    public DiaryListQueryPagingResult findNormalDiaryList(String cursor, int size){
+    public DiaryListQueryResult findNormalDiaryList(){
         List<DiarySimpleInfoCriteria> infoList = queryFactory
                 .select(new QDiarySimpleInfoCriteria(diary.id, diary.diaryContent,
                         user.name, user.profileImg, diary.feeling))
                 .from(diary)
                 .where(diary.feeling.eq(NORMAL))
-                .limit(size + 1)
+                .where(diary.isPublic.isTrue())
                 .orderBy(diary.id.desc())
                 .fetch();
-        boolean hasNext = hasNext(size, infoList);
-        String nextCursor = hasNext ? getDiaryIdNextCursor(infoList) : null;
-        return new DiaryListQueryPagingResult(infoList,hasNext,nextCursor);
+        return new DiaryListQueryResult(infoList);
     }
 
     public DiaryListQueryPagingResult findAngryDiaryList(String cursor, int size){

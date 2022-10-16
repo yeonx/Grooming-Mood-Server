@@ -59,6 +59,15 @@ public class DiaryController {
     public DiaryListQueryResult getHappyDiaryList(){
         return diaryQueryService.findHappyDiaryList();
     }
+    @GetMapping("/sad-paging")
+    public DiaryListQueryResult getSadDiaryList(){
+        return diaryQueryService.findSadDiaryList();
+    }
+
+    @GetMapping("/normal-paging")
+    public DiaryListQueryResult getNormalDiaryList(){
+        return diaryQueryService.findNormalDiaryList();
+    }
 
 //    @GetMapping("/my-page")
 //    public DiaryListQueryResult getMyDiaryList(@RequestParam(required = false) String cursor,
