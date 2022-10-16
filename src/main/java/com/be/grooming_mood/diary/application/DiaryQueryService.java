@@ -61,8 +61,8 @@ public class DiaryQueryService {
     }
 
     @Transactional(readOnly = true)
-    public DiaryListQueryPagingResult findAngryDiaryList(String cursor,int size){
-        return diaryQueryDao.findAngryDiaryList(cursor,size);
+    public DiaryListQueryResult findAngryDiaryList(){
+        return diaryQueryDao.findAngryDiaryList();
     }
 
 //    @Transactional(readOnly = true)

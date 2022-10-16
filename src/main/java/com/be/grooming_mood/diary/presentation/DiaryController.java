@@ -69,6 +69,11 @@ public class DiaryController {
         return diaryQueryService.findNormalDiaryList();
     }
 
+    @GetMapping("/angry-paging")
+    public DiaryListQueryResult getAngryDiaryList(){
+        return diaryQueryService.findAngryDiaryList();
+    }
+
 //    @GetMapping("/my-page")
 //    public DiaryListQueryResult getMyDiaryList(@RequestParam(required = false) String cursor,
 //                                               @RequestParam(required = false, defaultValue = "10") int size){
