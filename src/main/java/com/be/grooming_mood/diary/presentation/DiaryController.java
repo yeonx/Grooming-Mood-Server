@@ -50,6 +50,16 @@ public class DiaryController {
         return diaryQueryService.findMyDiaryList(user.getId());
     }
 
+    @GetMapping("/all-paging")
+    public DiaryListQueryResult getAllDiaryList(){
+        return diaryQueryService.findAllDiaryList();
+    }
+
+    @GetMapping("/happy-paging")
+    public DiaryListQueryResult getHappyDiaryList(){
+        return diaryQueryService.findHappyDiaryList();
+    }
+
 //    @GetMapping("/my-page")
 //    public DiaryListQueryResult getMyDiaryList(@RequestParam(required = false) String cursor,
 //                                               @RequestParam(required = false, defaultValue = "10") int size){

@@ -39,15 +39,20 @@ public class DiaryQueryService {
     public DiaryListQueryPagingResult findAllDiaryList(String cursor, int size){
         return diaryQueryDao.findAllDiaryListPaging(cursor,size);
     }
-    
+
     @Transactional(readOnly = true)
     public DiaryListQueryResult findAllDiaryList(){
         return diaryQueryDao.findAllDiaryList();
     }
 
+//    @Transactional(readOnly = true)
+//    public DiaryListQueryPagingResult findHappyDiaryList(String cursor,int size){
+//        return diaryQueryDao.findHappyDiaryList(cursor,size);
+//    }
+
     @Transactional(readOnly = true)
-    public DiaryListQueryPagingResult findHappyDiaryList(String cursor,int size){
-        return diaryQueryDao.findHappyDiaryList(cursor,size);
+    public DiaryListQueryResult findHappyDiaryList(){
+        return diaryQueryDao.findHappyDiaryList();
     }
 
     @Transactional(readOnly = true)
