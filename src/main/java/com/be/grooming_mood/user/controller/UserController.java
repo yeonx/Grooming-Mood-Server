@@ -1,8 +1,5 @@
 package com.be.grooming_mood.user.controller;
 
-import com.be.grooming_mood.config.auth.LoginUser;
-import com.be.grooming_mood.exception.ErrorCode;
-import com.be.grooming_mood.exception.NotFoundException;
 import com.be.grooming_mood.user.domain.SessionUser;
 import com.be.grooming_mood.user.domain.User;
 import com.be.grooming_mood.user.dto.UserUpdateDto;
@@ -21,8 +18,10 @@ public class UserController {
     private final HttpSession httpSession;
     private final UserService userService;
 
-    @GetMapping("/user-info")
 
+
+
+    @GetMapping("/user-info")
     public User getUserInfo() {
         SessionUser user = (SessionUser) httpSession.getAttribute("user");
 
@@ -30,8 +29,10 @@ public class UserController {
     }
 
     @PostMapping("/user-info")
-    public void updateUserInfo(@LoginUser SessionUser user,
-                               @Valid UserUpdateDto userUpdateDto) {
+    public void updateUserInfo(@Valid UserUpdateDto userUpdateDto) {
+        SessionUser user = (SessionUser) httpSession.getAttribute("user");
+
+        System.out.println("user : " + user);
         userService.updateUser(user.getId(), userUpdateDto);
     }
 }

@@ -1,19 +1,17 @@
-package com.be.grooming_mood.config.auth;
+package com.be.grooming_mood.oauth;
 
 
-import com.be.grooming_mood.user.domain.Role;
+import com.be.grooming_mood.oauth.service.CustomOAuth2UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 
-@RequiredArgsConstructor
 @Configuration
+@RequiredArgsConstructor
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig  {
 
     private final CustomOAuth2UserService customOAuth2UserService;
@@ -21,11 +19,13 @@ public class SecurityConfig  {
 
     protected void configure(HttpSecurity http) throws Exception {
         http
+                .cors()
+                .and()
                 .csrf().disable()
-                .headers().frameOptions().disable()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/", "/css/**", "/image/**", "/js/**", "/h2-console/**").permitAll()
+                .antMatchers("/", "/css/**", "/image/**", "/js/**", "/h2-console/**", "/swagger-ui/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .logout()
@@ -37,4 +37,6 @@ public class SecurityConfig  {
 
 
     }
+
+
 }

@@ -1,6 +1,5 @@
-package com.be.grooming_mood.config.auth;
+package com.be.grooming_mood.oauth.service;
 
-import com.be.grooming_mood.config.auth.dto.OAuthAttributes;
 import com.be.grooming_mood.user.domain.SessionUser;
 import com.be.grooming_mood.user.domain.User;
 import com.be.grooming_mood.user.domain.UserRepository;

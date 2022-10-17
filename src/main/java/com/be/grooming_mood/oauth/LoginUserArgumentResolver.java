@@ -1,4 +1,4 @@
-package com.be.grooming_mood.config.auth;
+package com.be.grooming_mood.oauth;
 
 import com.be.grooming_mood.user.domain.SessionUser;
 import lombok.RequiredArgsConstructor;
@@ -19,10 +19,10 @@ public class LoginUserArgumentResolver implements HandlerMethodArgumentResolver 
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
 
-        boolean isLoginUserAnnotion = parameter.getParameterAnnotation(LoginUser.class) != null;
+        boolean isLoginUserAnnotation = parameter
+                .getParameterAnnotation(LoginUser.class) != null;
         boolean isUserClass = SessionUser.class.equals(parameter.getParameterType());
-
-        return isLoginUserAnnotion && isUserClass;
+        return isLoginUserAnnotation && isUserClass;
     }
 
     @Override
