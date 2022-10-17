@@ -7,12 +7,8 @@ import java.util.List;
 @Getter
 public class DiaryListQueryResult {
     private List<DiarySimpleInfoCriteria> diaryList;
-    private boolean hasNext;
-    private String nextCursor;
 
-    public DiaryListQueryResult(List<DiarySimpleInfoCriteria> diaryList,boolean hasNext, String nextCursor ){
+    public DiaryListQueryResult(List<DiarySimpleInfoCriteria> diaryList){
         this.diaryList = diaryList;
-        this.hasNext = hasNext;
-        this.nextCursor = nextCursor;
     }
 }
