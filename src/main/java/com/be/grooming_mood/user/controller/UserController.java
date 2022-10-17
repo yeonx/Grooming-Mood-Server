@@ -7,6 +7,7 @@ import com.be.grooming_mood.user.domain.SessionUser;
 import com.be.grooming_mood.user.domain.User;
 import com.be.grooming_mood.user.dto.UserUpdateDto;
 import com.be.grooming_mood.user.service.UserService;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,6 +22,7 @@ public class UserController {
     private final HttpSession httpSession;
     private final UserService userService;
 
+    @ApiOperation(value = "내 정보 보기")
     @GetMapping("/user-info")
 
     public User getUserInfo() {
@@ -29,6 +31,7 @@ public class UserController {
         return userService.getUserInfo(user.getId());
     }
 
+    @ApiOperation(value = "내 정보 수정")
     @PostMapping("/user-info")
     public void updateUserInfo(@LoginUser SessionUser user,
                                @Valid UserUpdateDto userUpdateDto) {
