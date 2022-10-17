@@ -8,6 +8,7 @@ import com.be.grooming_mood.diary.application.criteria.DiaryListQueryResult;
 import com.be.grooming_mood.diary.presentation.dto.DiaryCreateDto;
 import com.be.grooming_mood.diary.presentation.dto.DiaryDtoMapper;
 import com.be.grooming_mood.user.domain.SessionUser;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,6 +23,7 @@ public class DiaryController {
     private final DiaryDtoMapper diaryDtoMapper;
     private final HttpSession httpSession;
 
+    @ApiOperation(value = "일기 등록")
     @PostMapping("/my-page")
     public long createDiary( @Valid DiaryCreateDto diaryCreateDto){
         SessionUser user = (SessionUser) httpSession.getAttribute("user");

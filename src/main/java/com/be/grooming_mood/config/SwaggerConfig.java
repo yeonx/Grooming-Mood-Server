@@ -2,78 +2,37 @@ package com.be.grooming_mood.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 
-import com.google.common.base.Predicate;
-import com.google.common.base.Predicates;
-
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
+import springfox.documentation.service.ApiInfo;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
-import springfox.documentation.swagger.web.UiConfiguration;
-import springfox.documentation.swagger.web.UiConfigurationBuilder;
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
-@Configuration    // 스프링 실행시 설정파일 읽어드리기 위한 어노테이션
-@EnableSwagger2	// Swagger2를 사용하겠다는 어노테이션
-@SuppressWarnings("unchecked")	// warning밑줄 제거를 위한 태그
-public class SwaggerConfig extends WebMvcConfigurationSupport {
-    //리소스 핸들러 설
-    @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
-        registry.addResourceHandler("swagger-ui.html").addResourceLocations("classpath:/META-INF/resources/");
-        registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
-    }
-
-
-    // API마다 구분짓기 위한 설정.
-    @Bean
-    public Docket productApi() {
-        return getDocket("유저", Predicates.or(
-                PathSelectors.regex("/user.*")));
-    }
-
+@Configuration
+@EnableWebMvc
+public class SwaggerConfig {
 
     @Bean
-    public Docket searchApi() {
-        return getDocket("예약", Predicates.or(
-                PathSelectors.regex("/reservation.*")));
-    }
-
-
-    @Bean
-    public Docket commonApi() {
-        return getDocket("공통", Predicates.or(
-                PathSelectors.regex("/test.*")));
-
-    }
-
-    @Bean
-    public Docket allApi() {
-        return getDocket("전체", Predicates.or(
-                PathSelectors.regex("/*.*")));
-    }
-
-    //swagger 설정.
-    public Docket getDocket(String groupName, Predicate<String> predicate) {
-        return new Docket(DocumentationType.SWAGGER_2)
-                .groupName(groupName)
+    public Docket swaggerAPI(){
+        //Docket : swagger Bean
+        return new Docket(DocumentationType.OAS_30)
+                .useDefaultResponseMessages(true) //기본 응답 메시지 표시 여부
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.cc.kr"))
-                .paths(predicate)
-                .apis(RequestHandlerSelectors.any())
+                .apis(RequestHandlerSelectors.basePackage("com.base.batchproject")) //swagger탐색 대상 패키지
+                .paths(PathSelectors.any())
+                .build()
+                .apiInfo(apiInfo());
+    }
+
+    private ApiInfo apiInfo() {
+        return new ApiInfoBuilder()
+                .title("Batch Swagger")
+                .description("batch execute swagger")
+                .version("1.0")
                 .build();
     }
 
-    //swagger ui 설정.
-    @Bean
-    public UiConfiguration uiConfig() {
-        return UiConfigurationBuilder.builder()
-                .displayRequestDuration(true)
-                .validatorUrl("")
-                .build();
-    }
 }
