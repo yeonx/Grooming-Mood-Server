@@ -21,7 +21,7 @@ public class SwaggerConfig {
         return new Docket(DocumentationType.OAS_30)
                 .useDefaultResponseMessages(true) //기본 응답 메시지 표시 여부
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.base.batchproject")) //swagger탐색 대상 패키지
+                .apis(RequestHandlerSelectors.basePackage("com.be.grooming_mood")) //swagger탐색 대상 패키지
                 .paths(PathSelectors.any())
                 .build()
                 .apiInfo(apiInfo());
@@ -29,8 +29,8 @@ public class SwaggerConfig {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("Batch Swagger")
-                .description("batch execute swagger")
+                .title("Grooming Mood Swagger")
+                .description("Grooming Mood swagger")
                 .version("1.0")
                 .build();
     }
