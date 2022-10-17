@@ -23,7 +23,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
-	implementation 'org.springframework.boot:spring-boot-starter-mustache'
+	implementation 'org.springframework.session:spring-session-jdbc'
 
 	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-validation'
 
@@ -53,7 +53,7 @@ dependencies {
 	testImplementation 'org.springframework.security:spring-security-test'
 
 	//swagger
-	implementation group: 'io.springfox', name: 'springfox-boot-starter', version: '3.0.0'
+	implementation "io.springfox:springfox-boot-starter:3.0.0"
 }
 
 tasks.named('test') {
