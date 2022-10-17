@@ -31,7 +31,7 @@ public class DiaryController {
 //    }
     @ApiOperation(value = "일기 등록")
     @PostMapping("/my-page/{userId}")
-    public Long createDiary(@PathVariable("userId") Long userId, @Valid DiaryCreateDto diaryCreateDto){
+    public long createDiary(@PathVariable("userId") Long userId, @Valid DiaryCreateDto diaryCreateDto){
         return diaryCommandService.create(userId, diaryCreateDto);
     }
 
@@ -41,41 +41,50 @@ public class DiaryController {
         diaryCommandService.update(diaryId,diaryUpdateCommand);
     }
 
+    @ApiOperation(value = "일기 삭제")
     @DeleteMapping("/{diaryId}")
     public void deleteDiary(@PathVariable("diaryId") Long diaryId){
         diaryCommandService.delete(diaryId);
     }
 
+    @ApiOperation(value = "일기 상세보기")
     @GetMapping("/{diaryId}")
     public DiaryDetailInfoCriteria getDiaryInfo(@PathVariable long diaryId){
         return diaryQueryService.findDetailInfo(diaryId);
     }
 
+    @ApiOperation(value = "내 일기 리스트 보기")
     @GetMapping("/my-page")
     public DiaryListQueryResult getMyDiaryList(){
         SessionUser user = (SessionUser) httpSession.getAttribute("user");
         return diaryQueryService.findMyDiaryList(user.getId());
     }
 
+    @ApiOperation(value = "일기 피드 보기")
     @GetMapping("/all")
     public DiaryListQueryResult getAllDiaryList(){
         return diaryQueryService.findAllDiaryList();
     }
 
+    @ApiOperation(value = "행복한 일기 보기")
     @GetMapping("/happy")
     public DiaryListQueryResult getHappyDiaryList(){
         return diaryQueryService.findHappyDiaryList();
     }
+
+    @ApiOperation(value = "슬픈 일기 보기")
     @GetMapping("/sad")
     public DiaryListQueryResult getSadDiaryList(){
         return diaryQueryService.findSadDiaryList();
     }
 
+    @ApiOperation(value = "평범 일기 보기")
     @GetMapping("/normal")
     public DiaryListQueryResult getNormalDiaryList(){
         return diaryQueryService.findNormalDiaryList();
     }
 
+    @ApiOperation(value = "화난 일기 보기")
     @GetMapping("/angry")
     public DiaryListQueryResult getAngryDiaryList(){
         return diaryQueryService.findAngryDiaryList();

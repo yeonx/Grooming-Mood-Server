@@ -5,6 +5,7 @@ import com.be.grooming_mood.config.auth.LoginUser;
 import com.be.grooming_mood.reaction.dto.ReactionDto;
 import com.be.grooming_mood.reaction.service.ReactionService;
 import com.be.grooming_mood.user.domain.SessionUser;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,6 +18,7 @@ public class ReactionController {
 
     private final ReactionService reactionService;
 
+    @ApiOperation(value = "리액션 등록")
     @PostMapping("/reaction/{diaryId}")
     public void createReaction(
             @LoginUser SessionUser user,
@@ -26,6 +28,7 @@ public class ReactionController {
         reactionService.createReaction(user.getId(), diaryId, reactionDto);
     }
 
+    @ApiOperation(value = "리액션 취소")
     @DeleteMapping("/reaction/{diaryId}")
     public void cancelReaction(
             @LoginUser SessionUser user,
