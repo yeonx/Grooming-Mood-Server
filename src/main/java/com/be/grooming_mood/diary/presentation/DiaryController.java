@@ -23,11 +23,16 @@ public class DiaryController {
     private final DiaryDtoMapper diaryDtoMapper;
     private final HttpSession httpSession;
 
+//    @ApiOperation(value = "일기 등록")
+//    @PostMapping("/my-page/{userId}")
+//    public long createDiary(@PathVariable("userId") Long userId,@Valid DiaryCreateDto diaryCreateDto){
+////        SessionUser user = (SessionUser) httpSession.getAttribute("user");
+//        return diaryCommandService.create(userId, diaryDtoMapper.toCreateCommand(diaryCreateDto));
+//    }
     @ApiOperation(value = "일기 등록")
-    @PostMapping("/my-page")
-    public long createDiary( @Valid DiaryCreateDto diaryCreateDto){
-        SessionUser user = (SessionUser) httpSession.getAttribute("user");
-        return diaryCommandService.create(user.getId(), diaryDtoMapper.toCreateCommand(diaryCreateDto));
+    @PostMapping("/my-page/{userId}")
+    public Long createDiary(@PathVariable("userId") Long userId, @Valid DiaryCreateDto diaryCreateDto){
+        return diaryCommandService.create(userId, diaryCreateDto);
     }
 
     @ApiOperation(value = "일기 수정")
@@ -47,32 +52,31 @@ public class DiaryController {
     }
 
     @GetMapping("/my-page")
-    public DiaryListQueryResult getMyDiaryList(@RequestParam(required = false) String cursor,
-                                               @RequestParam(required = false, defaultValue = "10") int size){
+    public DiaryListQueryResult getMyDiaryList(){
         SessionUser user = (SessionUser) httpSession.getAttribute("user");
         return diaryQueryService.findMyDiaryList(user.getId());
     }
 
-    @GetMapping("/all-paging")
+    @GetMapping("/all")
     public DiaryListQueryResult getAllDiaryList(){
         return diaryQueryService.findAllDiaryList();
     }
 
-    @GetMapping("/happy-paging")
+    @GetMapping("/happy")
     public DiaryListQueryResult getHappyDiaryList(){
         return diaryQueryService.findHappyDiaryList();
     }
-    @GetMapping("/sad-paging")
+    @GetMapping("/sad")
     public DiaryListQueryResult getSadDiaryList(){
         return diaryQueryService.findSadDiaryList();
     }
 
-    @GetMapping("/normal-paging")
+    @GetMapping("/normal")
     public DiaryListQueryResult getNormalDiaryList(){
         return diaryQueryService.findNormalDiaryList();
     }
 
-    @GetMapping("/angry-paging")
+    @GetMapping("/angry")
     public DiaryListQueryResult getAngryDiaryList(){
         return diaryQueryService.findAngryDiaryList();
     }
