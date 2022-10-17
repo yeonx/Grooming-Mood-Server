@@ -30,6 +30,7 @@ public class DiaryController {
         return diaryCommandService.create(user.getId(), diaryDtoMapper.toCreateCommand(diaryCreateDto));
     }
 
+    @ApiOperation(value = "일기 수정")
     @PostMapping("/my-page/{diaryId}")
     public void updateDiary(@PathVariable("diaryId") Long diaryId,@Valid DiaryUpdateCommand diaryUpdateCommand){
         diaryCommandService.update(diaryId,diaryUpdateCommand);
