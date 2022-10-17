@@ -1,6 +1,6 @@
 package com.be.grooming_mood.user.controller;
 
-import com.be.grooming_mood.user.domain.SessionUser;
+
 import com.be.grooming_mood.user.domain.User;
 import com.be.grooming_mood.user.dto.UserUpdateDto;
 import com.be.grooming_mood.user.service.UserService;
@@ -21,18 +21,18 @@ public class UserController {
 
 
 
-    @GetMapping("/user-info")
-    public User getUserInfo() {
-        SessionUser user = (SessionUser) httpSession.getAttribute("user");
+//    @GetMapping("/user-info")
+//    public User getUserInfo() {
+//        SessionUser user = (SessionUser) httpSession.getAttribute("user");
+//
+//        return userService.getUserInfo(user.getId());
+//    }
 
-        return userService.getUserInfo(user.getId());
-    }
-
-    @PostMapping("/user-info")
-    public void updateUserInfo(@Valid UserUpdateDto userUpdateDto) {
-        SessionUser user = (SessionUser) httpSession.getAttribute("user");
-
-        System.out.println("user : " + user);
-        userService.updateUser(user.getId(), userUpdateDto);
-    }
+//    @PostMapping("/user-info")
+//    public void updateUserInfo(@Valid UserUpdateDto userUpdateDto) {
+//        SessionUser user = (SessionUser) httpSession.getAttribute("user");
+//
+//        System.out.println("user : " + user);
+//        userService.updateUser(user.getId(), userUpdateDto);
+//    }
 }

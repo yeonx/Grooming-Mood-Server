@@ -3,7 +3,6 @@ package com.be.grooming_mood.feeling.controller;
 import com.be.grooming_mood.oauth.LoginUser;
 import com.be.grooming_mood.feeling.dto.FeelingHistoryCreateDto;
 import com.be.grooming_mood.feeling.service.FeelingHistoryService;
-import com.be.grooming_mood.user.domain.SessionUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,8 +19,8 @@ public class FeelingHistoryController {
 //        return feelingHistoryService.getFeelingHistory(user.getId());
 //    }
 
-    @PostMapping("/feeling-history")
-    public void createFeelingHistory(@LoginUser SessionUser user, @Valid FeelingHistoryCreateDto feelingHistoryCreateDto) {
-        feelingHistoryService.createFeelingHistory(user.getId(), feelingHistoryCreateDto);
-    }
+//    @PostMapping("/feeling-history")
+//    public void createFeelingHistory(@LoginUser SessionUser user, @Valid FeelingHistoryCreateDto feelingHistoryCreateDto) {
+//        feelingHistoryService.createFeelingHistory(user.getId(), feelingHistoryCreateDto);
+//    }
 }
