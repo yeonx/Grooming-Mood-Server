@@ -210,5 +210,5 @@ gradle-app.setting
 /src/main/resources/application-oauth.properties
 /src/main/resources/env.properties
 
-/src/main/resources/application.properties
-/src/main/resources/application-oauth.properties
+application.properties
+applicarion-oauth.properties
