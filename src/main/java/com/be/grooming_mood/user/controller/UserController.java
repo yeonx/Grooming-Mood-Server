@@ -28,11 +28,11 @@ public class UserController {
     }
 
 
-//    @PostMapping("/login")
-//    public PostLoginRes login(@Valid UserLoginDto userLoginDto) {
-//        PostLoginRes loginUser = userService.login(userLoginDto);
-//        return loginUser;
-//    }
+    @PostMapping("/login")
+    public PostLoginRes login(@Valid UserLoginDto userLoginDto) {
+        PostLoginRes loginUser = userService.loginUser(userLoginDto);
+        return loginUser;
+    }
 
 //    @GetMapping("/user-info")
 //    public User getUserInfo() {

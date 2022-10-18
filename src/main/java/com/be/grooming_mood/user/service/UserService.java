@@ -1,5 +1,6 @@
 package com.be.grooming_mood.user.service;
 
+import com.be.grooming_mood.exception.BadRequestException;
 import com.be.grooming_mood.exception.NotFoundException;
 import com.be.grooming_mood.user.domain.Role;
 import com.be.grooming_mood.user.domain.User;
@@ -14,9 +15,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+
 import java.util.Optional;
 
-import static com.be.grooming_mood.exception.ErrorCode.INVALID_EMAIL;
+import static com.be.grooming_mood.exception.ErrorCode.*;
 
 @RequiredArgsConstructor
 @Service
@@ -46,11 +48,23 @@ public class UserService {
         return user.getId();
     }
 
-    // 로그인 구현
-//    @Transactional
-//    public PostLoginRes login(UserLoginDto userLoginDto) {
-//
-//    }
+
+    @Transactional
+    public PostLoginRes loginUser(UserLoginDto userLoginDto) {
+        Optional<User> emailCheck = userRepository.findByEmail(userLoginDto.getEmail());
+
+        User user = emailCheck.orElseThrow(() ->
+                new NotFoundException(USER_NOT_FOUND));
+
+        String encodedPassword = passwordEncoder.encode(userLoginDto.getPassword());
+
+        if(!passwordEncoder.matches(user.getPassword(), encodedPassword)) {
+            throw new BadRequestException(INVALID_PASSWORD);
+        }
+
+        PostLoginRes postLoginRes;
+        return new PostLoginRes();
+    }
 
     @Transactional
     public void updateUser(Long userId, UserUpdateDto userUpdateDto) {
