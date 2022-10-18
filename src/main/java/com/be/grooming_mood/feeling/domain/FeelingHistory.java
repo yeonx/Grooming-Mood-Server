@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Fetch;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -30,8 +31,11 @@ public class FeelingHistory extends BaseTimeEntity {
 
     @Builder
     public FeelingHistory(User user,
-                          FeelingType feeling){
+                          FeelingType feeling,
+                          LocalDateTime createdDate){
         this.user = user;
         this.feeling = feeling;
+        this.createdDate = createdDate;
+
     }
 }

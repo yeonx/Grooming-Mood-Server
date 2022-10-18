@@ -1,4 +1,4 @@
-package com.be.grooming_mood.config.auth;
+package com.be.grooming_mood.oauth;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

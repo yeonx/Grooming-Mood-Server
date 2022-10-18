@@ -1,4 +1,4 @@
-package com.be.grooming_mood.config.auth.dto;
+package com.be.grooming_mood.oauth.service;
 
 import com.be.grooming_mood.user.domain.Role;
 import com.be.grooming_mood.user.domain.User;

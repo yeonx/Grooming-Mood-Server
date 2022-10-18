@@ -14,14 +14,4 @@ public class FeelingHistoryDto {
 
     private Long id;
     private FeelingType feeling;
-    private LocalDateTime createdDate;
-
-    @Builder
-    public FeelingHistoryDto(
-            FeelingType feeling,
-            LocalDateTime createdDate){
-        this.feeling = feeling;
-        this.createdDate = createdDate;
-
-    }
 }
