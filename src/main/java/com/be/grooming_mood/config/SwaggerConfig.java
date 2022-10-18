@@ -22,7 +22,7 @@ public class SwaggerConfig {
                 .useDefaultResponseMessages(true) //기본 응답 메시지 표시 여부
                 .apiInfo(apiInfo())
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.be.grooming_mood")) //swagger탐색 대상 패키지
+                .apis(RequestHandlerSelectors.basePackage("com.be.grooming_mood")) //swagger 탐색 대상 패키지
                 .paths(PathSelectors.any())
                 .build();
 
