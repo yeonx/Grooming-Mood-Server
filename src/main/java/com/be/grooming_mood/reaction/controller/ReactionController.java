@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 @RestController
 @RequiredArgsConstructor
 public class ReactionController {
@@ -25,13 +27,10 @@ public class ReactionController {
 //        reactionService.createReaction(user.getId(), diaryId, reactionDto);
 //    }
 
-//    @DeleteMapping("/reaction/{diaryId}")
-//    public void cancelReaction(
-//            @LoginUser SessionUser user,
-//            @PathVariable("diaryId") Long diaryId,
-//            ReactionDto reactionDto) {
-//
-//        reactionService.deleteReaction(user.getId(), diaryId, reactionDto);
-//    }
+    @DeleteMapping("/reaction/")
+    public void cancelReaction(@Valid ReactionDto reactionDto) {
+
+        reactionService.deleteReaction(reactionDto.getUserId(), reactionDto.getDiaryId(), reactionDto.getReaction());
+    }
 
 }
