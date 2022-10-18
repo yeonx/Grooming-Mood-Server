@@ -37,10 +37,9 @@ public class UserController {
         return userService.getUserInfo(userId);
     }
 
-//    @PostMapping("/info")
-//    public void updateUserInfo(@Valid UserUpdateDto userUpdateDto) {
-//
-////        System.out.println("user : " + user);
-////        userService.updateUser(user.getId(), userUpdateDto);
-//    }
+    @PostMapping("/{userId}/info")
+    public void updateUserInfo(@PathVariable Long userId, @Valid @RequestBody UserUpdateDto userUpdateDto) {
+
+       userService.updateUser(userId, userUpdateDto);
+    }
 }

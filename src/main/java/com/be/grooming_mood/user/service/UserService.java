@@ -80,8 +80,7 @@ public class UserService {
         User user = userCheck.orElseThrow(() ->
                 new NotFoundException(USER_NOT_FOUND));
 
-        user.update(userUpdateDto.getName(), userUpdateDto.getProfileImg());
-        userRepository.save(user);
+        userRepository.save(user.update(userUpdateDto.getName(), userUpdateDto.getProfileImg()));
     }
 
     @Transactional
@@ -93,7 +92,5 @@ public class UserService {
 
         return user;
     }
-
-
 
 }
