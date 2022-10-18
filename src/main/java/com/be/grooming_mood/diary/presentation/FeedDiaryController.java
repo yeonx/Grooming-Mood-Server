@@ -2,7 +2,9 @@ package com.be.grooming_mood.diary.presentation;
 
 import com.be.grooming_mood.diary.application.DiaryCommandService;
 import com.be.grooming_mood.diary.application.DiaryQueryService;
+import com.be.grooming_mood.diary.application.criteria.DiaryListQueryResult;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -11,7 +13,30 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/feed-diary")
 public class FeedDiaryController {
     private final DiaryQueryService diaryQueryService;
-    private final DiaryCommandService diaryCommandService;
+
+    @GetMapping("/all")
+    public DiaryListQueryResult getAllDiaryList(){
+        return diaryQueryService.findAllDiaryList();
+    }
+
+    @GetMapping("/happy")
+    public DiaryListQueryResult getHappyDiaryList(){
+        return diaryQueryService.findHappyDiaryList();
+    }
+    @GetMapping("/sad")
+    public DiaryListQueryResult getSadDiaryList(){
+        return diaryQueryService.findSadDiaryList();
+    }
+
+    @GetMapping("/normal")
+    public DiaryListQueryResult getNormalDiaryList(){
+        return diaryQueryService.findNormalDiaryList();
+    }
+
+    @GetMapping("/angry")
+    public DiaryListQueryResult getAngryDiaryList(){
+        return diaryQueryService.findAngryDiaryList();
+    }
 
 /**
  * 페이징
