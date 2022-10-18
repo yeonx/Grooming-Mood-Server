@@ -33,7 +33,7 @@ public class MyDiaryController {
     }
 
     @ApiOperation(value ="내 일기 상세 보기")
-    @GetMapping("/{diaryId}")
+    @GetMapping("/{userId}/{diaryId}")
     public DiaryDetailInfoCriteria getDiaryInfo(@PathVariable long diaryId){
         return diaryQueryService.findDetailInfo(diaryId);
     }
