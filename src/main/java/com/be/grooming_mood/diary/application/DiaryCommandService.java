@@ -42,7 +42,7 @@ public class DiaryCommandService {
 //        return diary.getId();
 //    }
     @Transactional
-    public long create(Long userId, DiaryCreateDto diaryCreateDto){
+    public Long create(Long userId, DiaryCreateDto diaryCreateDto){
         Optional<User> userCheck = userRepository.findById(userId);
 
         User user = userCheck.orElseThrow(() ->
@@ -54,7 +54,7 @@ public class DiaryCommandService {
                 .diaryContent(diaryCreateDto.getDiaryContent())
                 .isPublic(diaryCreateDto.getIsPublic())
                 .build();
-        diaryRepository.save(diary);
+        diaryJpaInterfaceRepository.save(diary);
         return diary.getId();
     }
 
