@@ -1,24 +1,27 @@
 package com.be.grooming_mood.feeling.controller;
 
+import com.be.grooming_mood.feeling.domain.FeelingHistory;
 import com.be.grooming_mood.feeling.dto.FeelingHistoryDto;
+import com.be.grooming_mood.feeling.service.FeelingHistoryService;
 import com.be.grooming_mood.oauth.LoginUser;
 import com.be.grooming_mood.feeling.dto.FeelingHistoryCreateDto;
-import com.be.grooming_mood.feeling.service.FeelingHistoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/feeling-history")
 public class FeelingHistoryController {
+
     private final FeelingHistoryService feelingHistoryService;
 
-//    @GetMapping("/feeling-history")
-//    public List<FeelingHistoryDto> getFeelingHistoryInWeek() {
-//        return feelingHistoryService.getFeelingHistory(user.getId());
+
+//    @GetMapping("/userId/{userId}")
+//    public List<FeelingHistory> getFeelingHistoryInWeek(@PathVariable("userId") Long userId) {
+//        return feelingHistoryService.getFeelingHistory(userId);
 //    }
 
     @PostMapping("")

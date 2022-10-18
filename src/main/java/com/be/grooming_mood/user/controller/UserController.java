@@ -9,8 +9,6 @@ import com.be.grooming_mood.user.dto.UserUpdateDto;
 import com.be.grooming_mood.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 @RequiredArgsConstructor
