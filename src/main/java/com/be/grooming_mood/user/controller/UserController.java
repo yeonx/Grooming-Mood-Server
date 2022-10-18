@@ -10,7 +10,7 @@ import com.be.grooming_mood.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 @RequiredArgsConstructor
@@ -31,18 +31,16 @@ public class UserController {
         return loginUser;
     }
 
-//    @GetMapping("/user-info")
-//    public User getUserInfo() {
-//        SessionUser user = (SessionUser) httpSession.getAttribute("user");
-//
-//        return userService.getUserInfo(user.getId());
-//    }
+    @GetMapping("/{userId}/info")
+    public User getUserInfo(@PathVariable Long userId) {
 
-//    @PostMapping("/user-info")
+        return userService.getUserInfo(userId);
+    }
+
+//    @PostMapping("/info")
 //    public void updateUserInfo(@Valid UserUpdateDto userUpdateDto) {
-//        SessionUser user = (SessionUser) httpSession.getAttribute("user");
 //
-//        System.out.println("user : " + user);
-//        userService.updateUser(user.getId(), userUpdateDto);
+////        System.out.println("user : " + user);
+////        userService.updateUser(user.getId(), userUpdateDto);
 //    }
 }

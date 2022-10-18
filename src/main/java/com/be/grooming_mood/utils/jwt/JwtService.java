@@ -7,8 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
-import java.util.Base64;
+import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 
 @RequiredArgsConstructor
@@ -21,12 +20,11 @@ public class JwtService {
     private Long tokenValidSecond = 1000L * 60 * 60 * 24 * 60;
 
     public String createJwtToken(String email) {
-        Claims claims = Jwts.claims().setSubject(email);
         Date now = new Date();
 
         return Jwts.builder()
                 .setHeaderParam("type", "jwt")
-                .setClaims(claims)
+                .claim("jwt", email)
                 .setExpiration(new Date(now.getTime() + tokenValidSecond))
                 .signWith(SignatureAlgorithm.HS256, secretKey )
                 .compact();

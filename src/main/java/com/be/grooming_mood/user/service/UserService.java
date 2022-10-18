@@ -78,7 +78,7 @@ public class UserService {
         Optional<User> userCheck = userRepository.findById(userId);
 
         User user = userCheck.orElseThrow(() ->
-                new RuntimeException("유저를 찾을 수 없습니다."));
+                new NotFoundException(USER_NOT_FOUND));
 
         user.update(userUpdateDto.getName(), userUpdateDto.getProfileImg());
         userRepository.save(user);
@@ -89,7 +89,7 @@ public class UserService {
         Optional<User> userCheck = userRepository.findById(userId);
 
         User user = userCheck.orElseThrow(() ->
-                new RuntimeException("유저를 찾을 수 없습니다."));
+                new NotFoundException(USER_NOT_FOUND));
 
         return user;
     }
