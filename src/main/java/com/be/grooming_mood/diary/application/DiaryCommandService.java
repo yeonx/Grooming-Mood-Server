@@ -63,7 +63,7 @@ public class DiaryCommandService {
         Optional<Diary> diaryCheck = diaryJpaInterfaceRepository.findById(diaryId);
         Diary diary = diaryCheck.orElseThrow(() ->
                 new NotFoundException(DIARY_NOT_FOUND));
-        diary.update(diaryUpdateCommand.getContent(),diaryUpdateCommand.getIsPublic());
+        diary.update(diaryUpdateCommand.getContent());
 
     }
 

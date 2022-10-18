@@ -14,6 +14,4 @@ public class DiaryUpdateCommand {
     @NotNull
     private String content;
 
-    @NotNull
-    private Boolean isPublic;
 }
