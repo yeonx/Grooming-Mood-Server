@@ -60,10 +60,7 @@ public class UserService {
                 new NotFoundException(USER_NOT_FOUND));
 
 
-        System.out.println(passwordEncoder.matches(user.getPassword(), userLoginDto.getPassword()));
-        System.out.println(user.getPassword());
-
-        if(passwordEncoder.matches(userLoginDto.getPassword(), user.getPassword())) {
+        if(!passwordEncoder.matches(userLoginDto.getPassword(), user.getPassword())) {
             throw new BadRequestException(INVALID_PASSWORD);
         }
 
