@@ -6,10 +6,8 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class UserUpdateDto {
+public class UserLoginDto {
 
-    private String name;
-
-    private String profileImg;
-
+    private String email;
+    private String password;
 }

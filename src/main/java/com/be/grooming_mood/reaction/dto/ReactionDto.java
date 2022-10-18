@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ReactionDto {
-
+    private Long userId;
+    private Long diaryId;
     private ReactionType reaction;
 }

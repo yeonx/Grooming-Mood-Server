@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class FeelingHistoryCreateDto {
-
+    private Long userId;
     private FeelingType feeling;
 
 }
