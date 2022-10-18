@@ -18,19 +18,22 @@ public class ReactionController {
 
     private final ReactionService reactionService;
 
-//    @PostMapping("/reaction/{diaryId}")
-//    public void createReaction(
-//            @LoginUser SessionUser user,
-//            @PathVariable("diaryId") Long diaryId,
-//            ReactionDto reactionDto) {
-//
-//        reactionService.createReaction(user.getId(), diaryId, reactionDto);
-//    }
+    @PostMapping("/reaction/{diaryId}")
+    public void createReaction(@Valid ReactionDto reactionDto) {
+
+        reactionService.createReaction(
+                reactionDto.getUserId(),
+                reactionDto.getDiaryId(),
+                reactionDto.getReaction());
+    }
 
     @DeleteMapping("/reaction/")
     public void cancelReaction(@Valid ReactionDto reactionDto) {
 
-        reactionService.deleteReaction(reactionDto.getUserId(), reactionDto.getDiaryId(), reactionDto.getReaction());
+        reactionService.deleteReaction(
+                reactionDto.getUserId(),
+                reactionDto.getDiaryId(),
+                reactionDto.getReaction());
     }
 
 }

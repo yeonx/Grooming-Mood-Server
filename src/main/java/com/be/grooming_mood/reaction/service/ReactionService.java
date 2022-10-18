@@ -25,14 +25,14 @@ public class ReactionService {
     private final DiaryJpaInterfaceRepository diaryRepository;
 
     @Transactional
-    public void createReaction(Long userId, Long diaryId, ReactionDto reactionDto) {
+    public void createReaction(Long userId, Long diaryId, ReactionType reactionType) {
         User user = validateUser(userId);
         Diary diary = validateDiary(diaryId);
 
         Reaction reaction = Reaction.builder()
                 .user(user)
                 .diary(diary)
-                .reaction(reactionDto.getReaction())
+                .reaction(reactionType)
                 .build();
 
         reactionRepository.save(reaction);
