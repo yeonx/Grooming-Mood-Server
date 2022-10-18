@@ -1,36 +1,31 @@
-package com.be.grooming_mood.oauth.jwt;
+package com.be.grooming_mood.utils.jwt;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import java.util.Base64;
 import java.util.Date;
 
 @RequiredArgsConstructor
-@Component
-public class JwtTokenProvider {
+@Service
+public class JwtService {
 
-    @Value("spring.jwt.secret")
+    @Value("${spring.jwt.secret_key}")
     private String secretKey;
 
+    private Long tokenValidSecond = 1000L * 60 * 60 * 24 * 60;
 
-    private Long tokenValidSecond = 1000L * 60 * 60 * 6;
-
-    @PostConstruct
-    protected void init() {
-        secretKey  = Base64.getEncoder().encodeToString(secretKey.getBytes());
-    }
-
-    public String createToken(String email) {
+    public String createJwtToken(String email) {
         Claims claims = Jwts.claims().setSubject(email);
         Date now = new Date();
 
         return Jwts.builder()
+                .setHeaderParam("type", "jwt")
                 .setClaims(claims)
                 .setExpiration(new Date(now.getTime() + tokenValidSecond))
                 .signWith(SignatureAlgorithm.HS256, secretKey )
