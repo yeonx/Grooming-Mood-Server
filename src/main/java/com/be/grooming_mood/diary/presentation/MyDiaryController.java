@@ -2,6 +2,7 @@ package com.be.grooming_mood.diary.presentation;
 
 import com.be.grooming_mood.diary.application.DiaryCommandService;
 import com.be.grooming_mood.diary.application.DiaryQueryService;
+import com.be.grooming_mood.diary.application.command.DiaryUpdateCommand;
 import com.be.grooming_mood.diary.application.criteria.DiaryDetailInfoCriteria;
 import com.be.grooming_mood.diary.application.criteria.DiaryListQueryResult;
 import com.be.grooming_mood.diary.presentation.dto.DiaryCreateDto;
@@ -33,13 +34,14 @@ public class MyDiaryController {
     }
 
     @ApiOperation(value ="내 일기 상세 보기")
-    @GetMapping("/{diaryId}")
-    public DiaryDetailInfoCriteria getDiaryInfo(@PathVariable long diaryId){
+    @GetMapping("/{diaryId}/diary-detail")
+    public DiaryDetailInfoCriteria getDiaryInfo(@PathVariable Long diaryId){
         return diaryQueryService.findDetailInfo(diaryId);
     }
 
-    /* 수정 */
-//    @PostMapping("/{diaryId}")
+//    /* 수정 */ -> 방식에 따라 고려
+//    @ApiOperation(value = "일기 수정")
+//    @PostMapping("/{userId}/{diaryId}")
 //    public void updateDiary(@PathVariable("diaryId") Long diaryId,@Valid DiaryUpdateCommand diaryUpdateCommand){
 //        diaryCommandService.update(diaryId,diaryUpdateCommand);
 //    }
