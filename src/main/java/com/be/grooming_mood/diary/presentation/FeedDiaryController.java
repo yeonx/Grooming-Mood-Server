@@ -2,81 +2,45 @@ package com.be.grooming_mood.diary.presentation;
 
 import com.be.grooming_mood.diary.application.DiaryCommandService;
 import com.be.grooming_mood.diary.application.DiaryQueryService;
-import com.be.grooming_mood.diary.application.command.DiaryUpdateCommand;
-import com.be.grooming_mood.diary.application.criteria.DiaryDetailInfoCriteria;
 import com.be.grooming_mood.diary.application.criteria.DiaryListQueryResult;
-import com.be.grooming_mood.diary.presentation.dto.DiaryDtoMapper;
-
-import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.*;
-
-import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
 @RestController
-public class DiaryController_old {
+@RequestMapping("/feed-diary")
+public class FeedDiaryController {
     private final DiaryQueryService diaryQueryService;
-    private final DiaryCommandService diaryCommandService;
-    private final DiaryDtoMapper diaryDtoMapper;
-    private final HttpSession httpSession;
 
-//    @ApiOperation(value = "일기 등록")
-//    @PostMapping("/my-page")
-//    public long createDiary( @Valid DiaryCreateDto diaryCreateDto){
-//
-//
-//        return diaryCommandService.create(user.getId(), diaryDtoMapper.toCreateCommand(diaryCreateDto));
-//    }
-
-    @ApiOperation(value = "일기 수정")
-    @PostMapping("/my-page/{diaryId}")
-    public void updateDiary(@PathVariable("diaryId") Long diaryId,@Valid DiaryUpdateCommand diaryUpdateCommand){
-        diaryCommandService.update(diaryId,diaryUpdateCommand);
-    }
-
-    @DeleteMapping("/{diaryId}")
-    public void deleteDiary(@PathVariable("diaryId") Long diaryId){
-        diaryCommandService.delete(diaryId);
-    }
-
-    @GetMapping("/{diaryId}")
-    public DiaryDetailInfoCriteria getDiaryInfo(@PathVariable long diaryId){
-        return diaryQueryService.findDetailInfo(diaryId);
-    }
-
-//    @GetMapping("/my-page")
-//    public DiaryListQueryResult getMyDiaryList(@RequestParam(required = false) String cursor,
-//                                               @RequestParam(required = false, defaultValue = "10") int size){
-        // SessionUser user = (SessionUser) httpSession.getAttribute("user");
-        // return diaryQueryService.findMyDiaryList(user.getId());
- //   }
-
-    @GetMapping("/all-paging")
+    @GetMapping("/all")
     public DiaryListQueryResult getAllDiaryList(){
         return diaryQueryService.findAllDiaryList();
     }
 
-    @GetMapping("/happy-paging")
+    @GetMapping("/happy")
     public DiaryListQueryResult getHappyDiaryList(){
         return diaryQueryService.findHappyDiaryList();
     }
-    @GetMapping("/sad-paging")
+    @GetMapping("/sad")
     public DiaryListQueryResult getSadDiaryList(){
         return diaryQueryService.findSadDiaryList();
     }
 
-    @GetMapping("/normal-paging")
+    @GetMapping("/normal")
     public DiaryListQueryResult getNormalDiaryList(){
         return diaryQueryService.findNormalDiaryList();
     }
 
-    @GetMapping("/angry-paging")
+    @GetMapping("/angry")
     public DiaryListQueryResult getAngryDiaryList(){
         return diaryQueryService.findAngryDiaryList();
     }
 
+/**
+ * 페이징
+ */
 //    @GetMapping("/my-page")
 //    public DiaryListQueryResult getMyDiaryList(@RequestParam(required = false) String cursor,
 //                                               @RequestParam(required = false, defaultValue = "10") int size){
