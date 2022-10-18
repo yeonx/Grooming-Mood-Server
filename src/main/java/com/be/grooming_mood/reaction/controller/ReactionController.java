@@ -5,21 +5,19 @@ import com.be.grooming_mood.oauth.LoginUser;
 import com.be.grooming_mood.reaction.dto.ReactionDto;
 import com.be.grooming_mood.reaction.service.ReactionService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/reaction")
 public class ReactionController {
 
     private final ReactionService reactionService;
 
-    @PostMapping("/reaction/{diaryId}")
-    public void createReaction(@Valid ReactionDto reactionDto) {
+    @PostMapping("")
+    public void createReaction(@Valid @RequestBody ReactionDto reactionDto) {
 
         reactionService.createReaction(
                 reactionDto.getUserId(),
@@ -27,8 +25,8 @@ public class ReactionController {
                 reactionDto.getReaction());
     }
 
-    @DeleteMapping("/reaction/")
-    public void cancelReaction(@Valid ReactionDto reactionDto) {
+    @DeleteMapping("")
+    public void cancelReaction(@Valid @RequestBody ReactionDto reactionDto) {
 
         reactionService.deleteReaction(
                 reactionDto.getUserId(),
