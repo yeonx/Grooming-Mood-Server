@@ -9,6 +9,7 @@ import com.be.grooming_mood.user.dto.PostLoginRes;
 import com.be.grooming_mood.user.dto.UserCreateDto;
 import com.be.grooming_mood.user.dto.UserLoginDto;
 import com.be.grooming_mood.user.dto.UserUpdateDto;
+import com.be.grooming_mood.utils.jwt.JwtService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -25,6 +26,7 @@ import static com.be.grooming_mood.exception.ErrorCode.*;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final JwtService jwtService;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -52,18 +54,26 @@ public class UserService {
     @Transactional
     public PostLoginRes loginUser(UserLoginDto userLoginDto) {
         Optional<User> emailCheck = userRepository.findByEmail(userLoginDto.getEmail());
+        System.out.println(emailCheck);
 
         User user = emailCheck.orElseThrow(() ->
                 new NotFoundException(USER_NOT_FOUND));
 
-        String encodedPassword = passwordEncoder.encode(userLoginDto.getPassword());
 
-        if(!passwordEncoder.matches(user.getPassword(), encodedPassword)) {
+        System.out.println(passwordEncoder.matches(user.getPassword(), userLoginDto.getPassword()));
+        System.out.println(user.getPassword());
+
+        if(passwordEncoder.matches(userLoginDto.getPassword(), user.getPassword())) {
             throw new BadRequestException(INVALID_PASSWORD);
         }
 
-        PostLoginRes postLoginRes;
-        return new PostLoginRes();
+        String jwt = jwtService.createJwtToken(user.getEmail());
+
+        return PostLoginRes.builder()
+                .jwt(jwt)
+                .id(user.getId())
+                .build();
+
     }
 
     @Transactional

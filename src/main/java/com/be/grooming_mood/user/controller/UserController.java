@@ -8,10 +8,7 @@ import com.be.grooming_mood.user.dto.UserLoginDto;
 import com.be.grooming_mood.user.dto.UserUpdateDto;
 import com.be.grooming_mood.user.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -29,7 +26,7 @@ public class UserController {
 
 
     @PostMapping("/login")
-    public PostLoginRes login(@Valid UserLoginDto userLoginDto) {
+    public PostLoginRes login(@Valid @RequestBody UserLoginDto userLoginDto) {
         PostLoginRes loginUser = userService.loginUser(userLoginDto);
         return loginUser;
     }
