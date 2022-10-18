@@ -23,9 +23,9 @@ public class FeelingHistoryService {
     private final UserRepository userRepository;
 
 //    @Transactional(readOnly = true)
-//    public List<FeelingHistoryDto> getFeelingHistory(Long userId){
+//    public List<FeelingHistory> getFeelingHistory(Long userId){
 //
-//        return feelingHistoryRepositoryCustom.findAllFeelingHistoryInWeek(userId);
+//
 //    }
 
     @Transactional
