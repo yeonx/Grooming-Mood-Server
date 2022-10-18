@@ -7,17 +7,12 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class DiaryCreateDto {
-    @NotNull
+
     private FeelingType feeling;
-
-    @NotNull
     private String diaryContent;
-
-    @NotNull
     private Boolean isPublic;
 
     @Builder
