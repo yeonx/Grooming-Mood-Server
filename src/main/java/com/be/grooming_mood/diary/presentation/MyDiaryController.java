@@ -46,4 +46,10 @@ public class MyDiaryController {
         diaryCommandService.update(diaryId,diaryUpdateCommand);
     }
 
+    @ApiOperation(value = "일기 삭제")
+    @DeleteMapping("/{userId}/{diaryId}")
+    public void deleteDiary(@PathVariable("diaryId") Long diaryId){
+        diaryCommandService.delete(diaryId);
+    }
+
 }
