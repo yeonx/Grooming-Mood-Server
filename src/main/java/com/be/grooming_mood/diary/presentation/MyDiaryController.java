@@ -19,7 +19,6 @@ public class MyDiaryController {
 
     private final DiaryQueryService diaryQueryService;
     private final DiaryCommandService diaryCommandService;
-    private final UserService userService;
 
     @ApiOperation(value = "일기 등록")
     @PostMapping("/{userId}")
@@ -38,7 +37,6 @@ public class MyDiaryController {
     public DiaryDetailInfoCriteria getDiaryInfo(@PathVariable Long diaryId){
         return diaryQueryService.findDetailInfo(diaryId);
     }
-
 
     @ApiOperation(value = "일기 수정")
     @PostMapping("/{userId}/{diaryId}")
