@@ -39,11 +39,11 @@ public class MyDiaryController {
         return diaryQueryService.findDetailInfo(diaryId);
     }
 
-//    /* 수정 */ -> 방식에 따라 고려
-//    @ApiOperation(value = "일기 수정")
-//    @PostMapping("/{userId}/{diaryId}")
-//    public void updateDiary(@PathVariable("diaryId") Long diaryId,@Valid DiaryUpdateCommand diaryUpdateCommand){
-//        diaryCommandService.update(diaryId,diaryUpdateCommand);
-//    }
+
+    @ApiOperation(value = "일기 수정")
+    @PostMapping("/{userId}/{diaryId}")
+    public void updateDiary(@PathVariable("diaryId") Long diaryId,@Valid DiaryUpdateCommand diaryUpdateCommand){
+        diaryCommandService.update(diaryId,diaryUpdateCommand);
+    }
 
 }
