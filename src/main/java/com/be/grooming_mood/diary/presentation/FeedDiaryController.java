@@ -1,10 +1,12 @@
 package com.be.grooming_mood.diary.presentation;
 
 import com.be.grooming_mood.diary.application.DiaryQueryService;
+import com.be.grooming_mood.diary.application.criteria.DiaryDetailInfoCriteria;
 import com.be.grooming_mood.diary.application.criteria.DiaryListQueryResult;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -47,40 +49,40 @@ public class FeedDiaryController {
  * 페이징
  */
 //    @GetMapping("/my-page")
-//    public DiaryListQueryResult getMyDiaryList(@RequestParam(required = false) String cursor,
+//    public DiaryListQueryPagingResult getMyDiaryList(@RequestParam(required = false) String cursor,
 //                                               @RequestParam(required = false, defaultValue = "10") int size){
 //        SessionUser user = (SessionUser) httpSession.getAttribute("user");
-//        return diaryQueryService.findMyDiaryList(user.getId(),cursor,size);
+//        return DiaryListQueryPagingResult.findMyDiaryList(user.getId(),cursor,size);
 //    }
 //
 //    @GetMapping("/all-paging")
-//    public DiaryListQueryResult getAllDiaryList(@RequestParam(required = false) String cursor,
+//    public DiaryListQueryPagingResult getAllDiaryList(@RequestParam(required = false) String cursor,
 //                                               @RequestParam(required = false, defaultValue = "10") int size){
-//        return diaryQueryService.findAllDiaryList(cursor,size);
+//        return DiaryListQueryPagingResult.findAllDiaryList(cursor,size);
 //    }
 //
 //    @GetMapping("/happy-paging")
-//    public DiaryListQueryResult getHappyDiaryList(@RequestParam(required = false) String cursor,
+//    public DiaryListQueryPagingResult getHappyDiaryList(@RequestParam(required = false) String cursor,
 //                                                @RequestParam(required = false, defaultValue = "10") int size){
-//        return diaryQueryService.findHappyDiaryList(cursor,size);
+//        return DiaryListQueryPagingResult.findHappyDiaryList(cursor,size);
 //    }
 //
 //    @GetMapping("/sad-paging")
-//    public DiaryListQueryResult getSadDiaryList(@RequestParam(required = false) String cursor,
+//    public DiaryListQueryPagingResult getSadDiaryList(@RequestParam(required = false) String cursor,
 //                                                  @RequestParam(required = false, defaultValue = "10") int size){
-//        return diaryQueryService.findSadDiaryList(cursor,size);
+//        return DiaryListQueryPagingResult.findSadDiaryList(cursor,size);
 //    }
 //
 //    @GetMapping("/normal-paging")
-//    public DiaryListQueryResult getNormalDiaryList(@RequestParam(required = false) String cursor,
+//    public DiaryListQueryPagingResult getNormalDiaryList(@RequestParam(required = false) String cursor,
 //                                                @RequestParam(required = false, defaultValue = "10") int size){
-//        return diaryQueryService.findNormalDiaryList(cursor,size);
+//        return DiaryListQueryPagingResult.findNormalDiaryList(cursor,size);
 //    }
 //
 //    @GetMapping("/angry-paging")
-//    public DiaryListQueryResult getAngryDiaryList(@RequestParam(required = false) String cursor,
+//    public DiaryListQueryPagingResult getAngryDiaryList(@RequestParam(required = false) String cursor,
 //                                                   @RequestParam(required = false, defaultValue = "10") int size){
-//        return diaryQueryService.findAngryDiaryList(cursor,size);
+//        return DiaryListQueryPagingResult.findAngryDiaryList(cursor,size);
 //    }
 
 }
