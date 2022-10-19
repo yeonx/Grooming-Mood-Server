@@ -1,10 +1,12 @@
 package com.be.grooming_mood.diary.infra;
 
 import com.be.grooming_mood.diary.application.criteria.*;
+import com.be.grooming_mood.diary.domain.DiaryJpaInterfaceRepository;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 

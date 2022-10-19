@@ -34,6 +34,7 @@ public class DiaryCommandService {
                 .feeling(diaryCreateDto.getFeeling())
                 .diaryContent(diaryCreateDto.getDiaryContent())
                 .isPublic(diaryCreateDto.getIsPublic())
+                
                 .build();
         diaryJpaInterfaceRepository.save(diary);
         return diary.getId();
