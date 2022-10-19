@@ -11,7 +11,6 @@ import javax.persistence.EntityManager;
 @RequiredArgsConstructor
 @Repository
 public class DiaryJpaRepository implements DiaryRepository {
-    private final JPAQueryFactory queryFactory;
     private final EntityManager entityManager;
     @Override
     public void save(Diary diary) {

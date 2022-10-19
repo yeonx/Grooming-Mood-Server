@@ -1,7 +1,6 @@
 package com.be.grooming_mood.diary.presentation.dto;
 
 import com.be.grooming_mood.feeling.domain.FeelingType;
-import com.sun.istack.NotNull;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
