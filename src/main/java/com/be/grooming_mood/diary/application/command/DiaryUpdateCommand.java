@@ -11,9 +11,7 @@ import javax.validation.constraints.NotNull;
 @Getter
 public class DiaryUpdateCommand {
 
-    @NotNull
     private String content;
-
-    @NotNull
     private Boolean isPublic;
+
 }

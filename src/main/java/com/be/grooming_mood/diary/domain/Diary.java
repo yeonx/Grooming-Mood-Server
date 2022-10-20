@@ -6,6 +6,7 @@ import com.be.grooming_mood.user.domain.User;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -39,11 +40,12 @@ public class Diary extends BaseTimeEntity {
         this.feeling = feeling;
         this.diaryContent = diaryContent;
         this.isPublic = isPublic;
+        this.createdDate = LocalDateTime.now();
     }
 
-    public void update(String diaryContent,
-                       Boolean isPublic){
+    public void update(String diaryContent, Boolean isPublic){
         this.diaryContent = diaryContent;
         this.isPublic = isPublic;
+
     }
 }
