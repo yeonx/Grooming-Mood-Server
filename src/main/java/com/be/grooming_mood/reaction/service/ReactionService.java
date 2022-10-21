@@ -7,7 +7,6 @@ import com.be.grooming_mood.exception.ErrorCode;
 import com.be.grooming_mood.exception.NotFoundException;
 import com.be.grooming_mood.reaction.domain.Reaction;
 import com.be.grooming_mood.reaction.domain.ReactionType;
-import com.be.grooming_mood.reaction.dto.ReactionDto;
 import com.be.grooming_mood.reaction.repository.ReactionRepository;
 import com.be.grooming_mood.user.domain.User;
 import com.be.grooming_mood.user.domain.UserRepository;
