@@ -27,12 +27,11 @@ public class FeelingHistoryService {
     @Transactional(readOnly = true)
     public List<FeelingHistory> getFeelingHistoryList(Long userId){
 
-        LocalDateTime startDate = LocalDate.now().atStartOfDay();
+        LocalDateTime startDate = LocalDate.now().minusDays(4).atStartOfDay();
+        LocalDateTime endDate = startDate.plusDays(7);
 
-        LocalDateTime endDate = LocalDateTime.now();
 
-        List<FeelingHistory> feelingHistoryList = feelingHistoryRepository.findAllByUserIdAndRegDateBetween(userId, startDate, endDate);
-        return feelingHistoryList;
+        return feelingHistoryRepository.findAllByCreatedDateBetween(startDate, endDate);
     }
 
     @Transactional
