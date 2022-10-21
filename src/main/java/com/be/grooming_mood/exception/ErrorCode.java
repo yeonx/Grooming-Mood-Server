@@ -14,7 +14,9 @@ public enum ErrorCode {
     USER_NOT_FOUND(NOT_FOUND, "해당 유저를 찾을 수 없습니다."),
 
     INVALID_EMAIL(BAD_REQUEST, "중복된 이메일입니다."),
-    INVALID_PASSWORD(BAD_REQUEST, "잘못된 비밀번호입니다.");
+    INVALID_PASSWORD(BAD_REQUEST, "잘못된 비밀번호입니다."),
+
+    REACTION_NOT_FOUND(NOT_FOUND, "해당 좋아요를 찾을 수 없습니다.");
 
     private final HttpStatus httpStatus;
     private final String detail;
