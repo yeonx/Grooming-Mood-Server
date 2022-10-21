@@ -19,13 +19,13 @@ public class FeelingHistoryController {
     private final FeelingHistoryService feelingHistoryService;
 
 
-//    @GetMapping("/userId/{userId}")
-//    public List<FeelingHistory> getFeelingHistoryInWeek(@PathVariable("userId") Long userId) {
-//        return feelingHistoryService.getFeelingHistory(userId);
-//    }
+    @GetMapping("/userId/{userId}")
+    public List<FeelingHistory> getFeelingHistoryInWeek(@PathVariable("userId") Long userId) {
+        return feelingHistoryService.getFeelingHistoryList(userId);
+    }
 
     @PostMapping("")
-    public void createFeelingHistory(@Valid @RequestBody FeelingHistoryCreateDto feelingHistoryCreateDto) {
-        feelingHistoryService.createFeelingHistory(feelingHistoryCreateDto);
+    public String createFeelingHistory(@Valid @RequestBody FeelingHistoryCreateDto feelingHistoryCreateDto) {
+        return feelingHistoryService.createFeelingHistory(feelingHistoryCreateDto);
     }
 }

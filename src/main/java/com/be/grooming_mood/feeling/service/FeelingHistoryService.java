@@ -10,7 +10,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 import static com.be.grooming_mood.exception.ErrorCode.USER_NOT_FOUND;
@@ -22,14 +24,18 @@ public class FeelingHistoryService {
     private final FeelingHistoryRepository feelingHistoryRepository;
     private final UserRepository userRepository;
 
-//    @Transactional(readOnly = true)
-//    public List<FeelingHistory> getFeelingHistory(Long userId){
-//
-//
-//    }
+    @Transactional(readOnly = true)
+    public List<FeelingHistory> getFeelingHistoryList(Long userId){
+
+        LocalDateTime startDate = LocalDate.now().minusDays(4).atStartOfDay();
+        LocalDateTime endDate = startDate.plusDays(7);
+
+
+        return feelingHistoryRepository.findAllByCreatedDateBetween(startDate, endDate);
+    }
 
     @Transactional
-    public void createFeelingHistory(FeelingHistoryCreateDto feelingHistoryCreateDto) {
+    public String createFeelingHistory(FeelingHistoryCreateDto feelingHistoryCreateDto) {
         Optional<User> userCheck = userRepository.findById(feelingHistoryCreateDto.getUserId());
 
         User user = userCheck.orElseThrow(() ->
@@ -43,5 +49,6 @@ public class FeelingHistoryService {
 
         feelingHistoryRepository.save(feelingHistory);
 
+        return "ok";
     }
 }
