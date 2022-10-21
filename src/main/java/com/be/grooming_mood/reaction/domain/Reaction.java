@@ -32,6 +32,7 @@ public class Reaction extends BaseTimeEntity {
     @Column(name="reaction", nullable = false)
     private ReactionType reaction;
 
+
     @Builder
     public Reaction(User user,
                     Diary diary,
@@ -39,7 +40,6 @@ public class Reaction extends BaseTimeEntity {
         this.user = user;
         this.diary = diary;
         this.reaction = reaction;
-
     }
 
     public void update(ReactionType reaction){
