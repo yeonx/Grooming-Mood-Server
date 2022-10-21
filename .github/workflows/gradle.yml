@@ -30,19 +30,42 @@ jobs:
         distribution: 'temurin'
  
     - name: make application.properties
-    run: |
+      run: |
        cd ./src/main/resources
        touch ./application.properties
        echo "${{ secrets.PROPERTIES }}" > ./application.properties
-    shell: bash
-    
+      shell: bash
     
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
+      
     - name: Build with Gradle
       run: ./gradlew build
       
       
+    - name: Docker build
+      run: |
+       docker login -u ${{ secrets.USERNAME }} -p ${{ secrets.PASSWORD }}
+       docker build -t grooming-mood .
+       docker tag grooming-mood kimdoha/grooming-mood:${GITHUB_SHA::7}
+       docker push kimdoha/grooming-mood:${GITHUB_SHA::7}
+      
+      
+    - name: Deploy
+      uses: appleboy/ssh-action@master
+      with: 
+       host: ec2-54-238-224-53.ap-northeast-1.compute.amazonaws.com
+       username: ec2-user
+       key: ${{ secrets.PRIVATE_KEY }}
+       envs: GITHUB_SHA
+       
+       script: |
+          docker pull kimdoha/grooming-mood:${GITHUB_SHA::7}
+          docker tag kimdoha/grooming-mood:${GITHUB_SHA::7} grooming-mood
+          docker stop server
+          docker run -d --rm --name server -p 80:8080 grooming-mood
+       
+        
       
       
       
