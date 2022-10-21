@@ -45,10 +45,10 @@ jobs:
       
     - name: Docker build
       run: |
-       docker login -u ${{ secrets.USERNAME }} -p ${{ secrets.PASSWORD }}
-       docker build -t grooming-mood .
-       docker tag grooming-mood kimdoha/grooming-mood:${GITHUB_SHA::7}
-       docker push kimdoha/grooming-mood:${GITHUB_SHA::7}
+       docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+       docker build -t groomingmood .
+       docker tag groomingmood groomingmood/groomingmood:${GITHUB_SHA::7}
+       docker push groomingmood/groomingmood:${GITHUB_SHA::7}
       
       
     - name: Deploy
@@ -60,8 +60,8 @@ jobs:
        envs: GITHUB_SHA
        
        script: |
-          docker pull kimdoha/grooming-mood:${GITHUB_SHA::7}
-          docker tag kimdoha/grooming-mood:${GITHUB_SHA::7} grooming-mood
+          docker pull groomingmood/groomingmood:${GITHUB_SHA::7}
+          docker tag groomingmood/groomingmood:${GITHUB_SHA::7} grooming-mood
           docker stop server
           docker run -d --rm --name server -p 80:8080 grooming-mood
        
