@@ -2,7 +2,8 @@ spring:
   datasource:
     url: jdbc:mysql://groomingmood.cxjgn5r5ibzk.ap-northeast-1.rds.amazonaws.com:3306/grooming_mood
     username: admin
-    password: ${db_password}
+    password: groomingmood
+
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
@@ -10,7 +11,7 @@ spring:
     properties:
       hibernate:
         format_sql: true
-    database: mysql
+#    database: mysql
     show-sql: true
   jwt:
     secret_key: ${jwt_secret_key}
