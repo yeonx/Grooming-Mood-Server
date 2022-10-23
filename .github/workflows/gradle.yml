@@ -1,64 +1,64 @@
-  # This workflow uses actions that are not certified by GitHub.
-  # They are provided by a third-party and are governed by
-  # separate terms of service, privacy policy, and support
-  # documentation.
-  # This workflow will build a Java project with Gradle and cache/restore any dependencies to improve the workflow execution time
-  # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-java-with-gradle
-
-  name: Java CI with Gradle
-
-  on:
-    push:
-      branches: [ "master" ]
-  #   pull_request:
-  #     branches: [ "develop" ]
-
-  permissions:
-    contents: read
-
-  jobs:
-    build:
-
-      runs-on: ubuntu-latest
-
-      steps:
-        - uses: actions/checkout@v3
-        - name: Set up JDK 17
-          uses: actions/setup-java@v3
-          with:
-            java-version: '17'
-            distribution: 'temurin'
-
-        - name: make application.properties
-          run: |
-            cd ./src/main/resources
-            touch ./application.properties
-            echo "${{ secrets.PROPERTIES }}" > ./application.properties
-          shell: bash
-
-        - name: Grant execute permission for gradlew
-          run: chmod +x gradlew
-
-        - name: Build with Gradle
-          run: ./gradlew build
-
-
-        - name: Docker build
-          run: |
-            docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
-            docker build -t groomingmood .
-            docker tag groomingmood groomingmood/groomingmood:${GITHUB_SHA::7}
-            docker push groomingmood/groomingmood:${GITHUB_SHA::7}
-        - name: Deploy
-          uses: appleboy/ssh-action@master
-          with:
-            host: ec2-54-238-224-53.ap-northeast-1.compute.amazonaws.com
-            username: ec2-user
-            key: ${{ secrets.PRIVATE_KEY }}
-            envs: GITHUB_SHA
-
-            script: |
-              docker pull groomingmood/groomingmood:${GITHUB_SHA::7}
-              docker tag groomingmood/groomingmood:${GITHUB_SHA::7} grooming-mood
-              docker stop server
-              docker run -d --rm --name server -p 80:8080 grooming-mood
+#  # This workflow uses actions that are not certified by GitHub.
+#  # They are provided by a third-party and are governed by
+#  # separate terms of service, privacy policy, and support
+#  # documentation.
+#  # This workflow will build a Java project with Gradle and cache/restore any dependencies to improve the workflow execution time
+#  # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-java-with-gradle
+#
+#  name: Java CI with Gradle
+#
+#  on:
+#    push:
+#      branches: [ "master" ]
+#  #   pull_request:
+#  #     branches: [ "develop" ]
+#
+#  permissions:
+#    contents: read
+#
+#  jobs:
+#    build:
+#
+#      runs-on: ubuntu-latest
+#
+#      steps:
+#        - uses: actions/checkout@v3
+#        - name: Set up JDK 17
+#          uses: actions/setup-java@v3
+#          with:
+#            java-version: '17'
+#            distribution: 'temurin'
+#
+#        - name: make application.properties
+#          run: |
+#            cd ./src/main/resources
+#            touch ./application.properties
+#            echo "${{ secrets.PROPERTIES }}" > ./application.properties
+#          shell: bash
+#
+#        - name: Grant execute permission for gradlew
+#          run: chmod +x gradlew
+#
+#        - name: Build with Gradle
+#          run: ./gradlew build
+#
+#
+#        - name: Docker build
+#          run: |
+#            docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+#            docker build -t groomingmood .
+#            docker tag groomingmood groomingmood/groomingmood:${GITHUB_SHA::7}
+#            docker push groomingmood/groomingmood:${GITHUB_SHA::7}
+#        - name: Deploy
+#          uses: appleboy/ssh-action@master
+#          with:
+#            host: ec2-54-238-224-53.ap-northeast-1.compute.amazonaws.com
+#            username: ec2-user
+#            key: ${{ secrets.PRIVATE_KEY }}
+#            envs: GITHUB_SHA
+#
+#            script: |
+#              docker pull groomingmood/groomingmood:${GITHUB_SHA::7}
+#              docker tag groomingmood/groomingmood:${GITHUB_SHA::7} grooming-mood
+#              docker stop server
+#              docker run -d --rm --name server -p 80:8080 grooming-mood
