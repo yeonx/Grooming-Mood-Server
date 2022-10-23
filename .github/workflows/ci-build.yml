@@ -6,13 +6,16 @@ on:
   pull_request:
     branches: [ "develop" ,"master"]
 
+permissions:
+  contents: read
+
 jobs:
   build:
 
     runs-on: ubuntu-latest
-    env :
-      working-directory: ./
-      APPLICATION: ${{ secrets.APPLICATION }}
+#    env :
+#      working-directory: ./
+#      APPLICATION: ${{ secrets.APPLICATION }}
 
     steps:
       - uses: actions/checkout@v3
