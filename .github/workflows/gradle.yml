@@ -42,23 +42,23 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew build
 
-
-      - name: Docker build
-        run: |
-          docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
-          docker build -t groomingmood .
-          docker tag groomingmood groomingmood/groomingmood:${GITHUB_SHA::7}
-          docker push groomingmood/groomingmood:${GITHUB_SHA::7}
-      - name: Deploy
-        uses: appleboy/ssh-action@master
-        with:
-          host: ec2-52-196-145-123.ap-northeast-1.compute.amazonaws.com
-          username: ec2-user
-          key: ${{ secrets.PRIVATE_KEY }}
-          envs: GITHUB_SHA
-
-          script: |
-            docker pull groomingmood/groomingmood:${GITHUB_SHA::7}
-            docker tag groomingmood/groomingmood:${GITHUB_SHA::7} grooming-mood
-            docker stop server
-            docker run -d --rm --name server -p 8080:8080 grooming-mood
+#
+#      - name: Docker build
+#        run: |
+#          docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+#          docker build -t groomingmood .
+#          docker tag groomingmood groomingmood/groomingmood:${GITHUB_SHA::7}
+#          docker push groomingmood/groomingmood:${GITHUB_SHA::7}
+#      - name: Deploy
+#        uses: appleboy/ssh-action@master
+#        with:
+#          host: ec2-52-196-145-123.ap-northeast-1.compute.amazonaws.com
+#          username: ec2-user
+#          key: ${{ secrets.PRIVATE_KEY }}
+#          envs: GITHUB_SHA
+#
+#          script: |
+#            docker pull groomingmood/groomingmood:${GITHUB_SHA::7}
+#            docker tag groomingmood/groomingmood:${GITHUB_SHA::7} grooming-mood
+#            docker stop server
+#            docker run -d --rm --name server -p 8080:8080 grooming-mood
