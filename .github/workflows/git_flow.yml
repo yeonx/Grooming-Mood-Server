@@ -19,7 +19,7 @@ jobs:
       - uses: actions/checkout@v3 # github action 버전 지정(major version)
 
       - name: Set up JDK 17 # JAVA 버전 지정
-        uses: actions/setup-java@v1
+        uses: actions/setup-java@v3
         with:
           java-version: 17
 
