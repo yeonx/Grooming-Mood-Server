@@ -61,4 +61,4 @@ jobs:
             docker pull groomingmood/groomingmood:${GITHUB_SHA::7}
             docker tag groomingmood/groomingmood:${GITHUB_SHA::7} grooming-mood
             docker stop server
-            docker run -d --rm --name server -p 80:8080 grooming-mood
+            docker run -d --rm --name server -p 8080:8080 grooming-mood
