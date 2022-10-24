@@ -64,8 +64,7 @@ jobs:
           # 도커 작업
           script: |
             docker pull ${{ secrets.DOCKER_USERNAME }}/cicd:latest
-            docker tag app ${{ secrets.DOCKER_USERNAME }}/cicd:latest
-            docker stop server
-            docker network create -d bridge test
-            docker run -d --network test --network-alias mysql -v  /build/DB/mysql:/var/lib/mysql --name mysqlDB -e MYSQL_DATABASE=anonymous_board -e MYSQL_USER=user01 -e MYSQL_PASSWORD=user01 -e MYSQL_ROOT_PASSWORD=password -p 3306:3306 mysql
-            docker run -d --rm --name app --network test -p 8080:8080 ${{ secrets.DOCKER_USERNAME }}/cicd:latest
+            docker stop $(docker ps -a -q)
+            docker run -d --log-driver=syslog -p 8080:8080 ${{ secrets.DOCKER_USERNAME }}/cicd:latest
+            docker rm $(docker ps --filter 'status=exited' -a -q)
+            docker image prune -a -f
