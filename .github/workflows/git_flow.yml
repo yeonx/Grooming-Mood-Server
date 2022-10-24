@@ -60,7 +60,7 @@ jobs:
         with:
           host: ec2-52-196-145-123.ap-northeast-1.compute.amazonaws.com # EC2 인스턴스 퍼블릭 DNS
           username: ubuntu
-          key: ${{ secrets.EC2_SSH_KEY }} # pem 키--
+          key: ${{ secrets.PRIVATE_KEY }} # pem 키--
           # 도커 작업
           script: |
             docker pull ${{ secrets.DOCKER_USERNAME }}/cicd:latest
