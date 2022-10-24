@@ -1,70 +1,70 @@
-on:
-  push: # feature/*와 develop 브랜치에서 push가 일어났을 때 github action 동작
-    branches:
-      - 'master'
-      - 'develop'
-  pull_request: # feature/*와 develop 브랜치에서 PR이 일어났을 때 github action 동작
-    branches:
-      - 'master'
-      - 'develop'
-
-# 참고사항
-# push가 일어난 브랜치에 PR이 존재하면, push에 대한 이벤트와 PR에 대한 이벤트 모두 발생합니다.
-
-jobs:
-  build:
-    runs-on: ubuntu-latest # 실행 환경 지정
-
-    steps:
-      - uses: actions/checkout@v3 # github action 버전 지정(major version)
-
-      - name: Set up JDK 17 # JAVA 버전 지정
-        uses: actions/setup-java@v3
-        with:
-          java-version: 17
-          distribution: 'temurin'
-
-      - name: Grant execute permission for gradlew
-        run: chmod +x gradlew
-
-      - name: create application yaml
-        run: |
-          touch ./src/main/resources/application.yml
-          echo "${{env.APPLICATION}}" > ./src/main/resources/application.yml
-      - uses: actions/upload-artifact@v3
-        with:
-          name: application.yml
-          path: ./src/main/resources/application.yml
-
-      - name: Grant execute permission for gradlew
-        run: chmod +x gradlew
-
-      - name: Build with Gradle
-        run: ./gradlew build
-
-
-
-      # 배포 Job
-      # 도커허브 push
-      - name: Docker build
-        run: |
-          docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
-          docker build -t app .
-          docker tag app groomingmood/cicd
-          docker push groomingmood/cicd
-
-      # ec2 접속 및 도커 pull
-      # 도커 실행
-      - name: Deploy
-        uses: appleboy/ssh-action@master
-        with:
-          host: ec2-52-196-145-123.ap-northeast-1.compute.amazonaws.com # EC2 인스턴스 퍼블릭 DNS
-          username: ec2-user
-          key: ${{ secrets.PRIVATE_KEY }} # pem 키--
-          # 도커 작업
-          script: |
-            docker pull ${{ secrets.DOCKER_USERNAME }}/cicd:latest
-            docker stop $(docker ps -a -q)
-            docker run -d --log-driver=syslog -p 8080:8080 ${{ secrets.DOCKER_USERNAME }}/cicd:latest
-            docker rm $(docker ps --filter 'status=exited' -a -q)
-            docker image prune -a -f
+#on:
+#  push: # feature/*와 develop 브랜치에서 push가 일어났을 때 github action 동작
+#    branches:
+#      - 'master'
+#      - 'develop'
+#  pull_request: # feature/*와 develop 브랜치에서 PR이 일어났을 때 github action 동작
+#    branches:
+#      - 'master'
+#      - 'develop'
+#
+## 참고사항
+## push가 일어난 브랜치에 PR이 존재하면, push에 대한 이벤트와 PR에 대한 이벤트 모두 발생합니다.
+#
+#jobs:
+#  build:
+#    runs-on: ubuntu-latest # 실행 환경 지정
+#
+#    steps:
+#      - uses: actions/checkout@v3 # github action 버전 지정(major version)
+#
+#      - name: Set up JDK 17 # JAVA 버전 지정
+#        uses: actions/setup-java@v3
+#        with:
+#          java-version: 17
+#          distribution: 'temurin'
+#
+#      - name: Grant execute permission for gradlew
+#        run: chmod +x gradlew
+#
+#      - name: create application yaml
+#        run: |
+#          touch ./src/main/resources/application.yml
+#          echo "${{env.APPLICATION}}" > ./src/main/resources/application.yml
+#      - uses: actions/upload-artifact@v3
+#        with:
+#          name: application.yml
+#          path: ./src/main/resources/application.yml
+#
+#      - name: Grant execute permission for gradlew
+#        run: chmod +x gradlew
+#
+#      - name: Build with Gradle
+#        run: ./gradlew build
+#
+#
+#
+#      # 배포 Job
+#      # 도커허브 push
+#      - name: Docker build
+#        run: |
+#          docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+#          docker build -t app .
+#          docker tag app groomingmood/cicd
+#          docker push groomingmood/cicd
+#
+#      # ec2 접속 및 도커 pull
+#      # 도커 실행
+#      - name: Deploy
+#        uses: appleboy/ssh-action@master
+#        with:
+#          host: ec2-52-196-145-123.ap-northeast-1.compute.amazonaws.com # EC2 인스턴스 퍼블릭 DNS
+#          username: ec2-user
+#          key: ${{ secrets.PRIVATE_KEY }} # pem 키--
+#          # 도커 작업
+#          script: |
+#            docker pull ${{ secrets.DOCKER_USERNAME }}/cicd:latest
+#            docker stop $(docker ps -a -q)
+#            docker run -d --log-driver=syslog -p 8080:8080 ${{ secrets.DOCKER_USERNAME }}/cicd:latest
+#            docker rm $(docker ps --filter 'status=exited' -a -q)
+#            docker image prune -a -f
