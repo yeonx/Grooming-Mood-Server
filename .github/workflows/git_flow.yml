@@ -30,7 +30,7 @@ jobs:
       - name: create application yaml
         run: |
           touch ./src/main/resources/application.yml
-          echo "${{env.APPLICATION}}" > ./src/main/resources/application.yml
+          echo "${{secrets.APPLICATION}}" > ./src/main/resources/application.yml
       - uses: actions/upload-artifact@v3
         with:
           name: application.yml
