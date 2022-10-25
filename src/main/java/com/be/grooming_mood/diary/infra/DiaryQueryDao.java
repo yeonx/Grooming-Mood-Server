@@ -69,6 +69,7 @@ public class DiaryQueryDao {
                 .from(diary)
                 .where(user.id.eq(userId))
                 .orderBy(diary.id.desc())
+                .offset(1)
                 .fetch();
         return new DiaryListQueryResult(infoList);
     }
@@ -80,6 +81,7 @@ public class DiaryQueryDao {
                 .from(diary)
                 .limit(size + 1)
                 .orderBy(diary.id.desc())
+                .offset(1)
                 .fetch();
         boolean hasNext = hasNext(size, infoList);
         String nextCursor = hasNext ? getDiaryIdNextCursor(infoList) : null;
@@ -93,6 +95,7 @@ public class DiaryQueryDao {
                 .from(diary)
                 .where(diary.isPublic.isTrue())
                 .orderBy(diary.id.desc())
+                .offset(1)
                 .fetch();
         return new DiaryListQueryResult(infoList);
     }
@@ -105,6 +108,7 @@ public class DiaryQueryDao {
                 .where(diary.feeling.eq(HAPPY))
                 .where(diary.isPublic.isTrue())
                 .orderBy(diary.id.desc())
+                .offset(1)
                 .fetch();
         return new DiaryListQueryResult(infoList);
     }
@@ -117,6 +121,7 @@ public class DiaryQueryDao {
                 .where(diary.feeling.eq(SAD))
                 .where(diary.isPublic.isTrue())
                 .orderBy(diary.id.desc())
+                .offset(1)
                 .fetch();
         return new DiaryListQueryResult(infoList);
     }
@@ -129,6 +134,7 @@ public class DiaryQueryDao {
                 .where(diary.feeling.eq(NORMAL))
                 .where(diary.isPublic.isTrue())
                 .orderBy(diary.id.desc())
+                .offset(1)
                 .fetch();
         return new DiaryListQueryResult(infoList);
     }
@@ -141,6 +147,7 @@ public class DiaryQueryDao {
                 .where(diary.feeling.eq(ANGRY))
                 .where(diary.isPublic.isTrue())
                 .orderBy(diary.id.desc())
+                .offset(1)
                 .fetch();
         return new DiaryListQueryResult(infoList);
     }
