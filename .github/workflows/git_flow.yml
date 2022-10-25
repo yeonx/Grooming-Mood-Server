@@ -3,10 +3,10 @@ on:
     branches:
       - 'master'
       - 'develop'
-  pull_request: # feature/*와 develop 브랜치에서 PR이 일어났을 때 github action 동작
-    branches:
-      - 'master'
-      - 'develop'
+#  pull_request: # feature/*와 develop 브랜치에서 PR이 일어났을 때 github action 동작
+#    branches:
+#      - 'master'
+#      - 'develop'
 
 # 참고사항
 # push가 일어난 브랜치에 PR이 존재하면, push에 대한 이벤트와 PR에 대한 이벤트 모두 발생합니다.
@@ -50,8 +50,8 @@ jobs:
         run: |
           docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
           docker build -t app .
-          docker tag app groomingmood/cicd
-          docker push groomingmood/cicd
+          docker tag app groomingmood/cicd:latest
+          docker push groomingmood/cicd:latest
       # ec2 접속 및 도커 pull
       # 도커 실행
       - name: Deploy
