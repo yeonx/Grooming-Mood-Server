@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.YearMonth;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,11 +28,10 @@ public class FeelingHistoryService {
     @Transactional(readOnly = true)
     public List<FeelingHistory> getFeelingHistoryList(Long userId){
 
-        LocalDateTime startDate = LocalDate.now().minusDays(4).atStartOfDay();
-        LocalDateTime endDate = startDate.plusDays(7);
+        LocalDateTime start = YearMonth.now().atDay(1).atStartOfDay();
+        LocalDateTime end = YearMonth.now().atEndOfMonth().atStartOfDay();
 
-
-        return feelingHistoryRepository.findAllByCreatedDateBetween(startDate, endDate);
+        return feelingHistoryRepository.findAllByCreatedDateBetween(start, end);
     }
 
     @Transactional

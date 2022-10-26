@@ -40,8 +40,9 @@ public class UserController {
 
     @ApiOperation(value ="유저 정보 수정")
     @PostMapping("/{userId}/info")
-    public void updateUserInfo(@PathVariable Long userId, @Valid @RequestBody UserUpdateDto userUpdateDto) {
+    public User updateUserInfo(@PathVariable Long userId, @Valid @RequestBody UserUpdateDto userUpdateDto) {
 
        userService.updateUser(userId, userUpdateDto);
+       return userService.getUserInfo(userId);
     }
 }
