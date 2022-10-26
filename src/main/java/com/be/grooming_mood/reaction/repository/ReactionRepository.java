@@ -9,5 +9,5 @@ public interface ReactionRepository extends JpaRepository<Reaction, Long> {
 
     Integer countByDiaryId(Long diaryId);
 
-    Optional<Reaction> findByDiaryIdAndUserId(Long diaryId, Long userId);
+    void deleteAllByDiaryIdAndUserId(Long diaryId, Long userId);
 }

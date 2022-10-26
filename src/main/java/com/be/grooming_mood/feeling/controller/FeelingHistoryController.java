@@ -20,7 +20,7 @@ public class FeelingHistoryController {
 
 
     @GetMapping("/userId/{userId}")
-    public List<FeelingHistory> getFeelingHistoryInWeek(@PathVariable("userId") Long userId) {
+    public List<FeelingHistory> getFeelingHistoryInMonth(@PathVariable("userId") Long userId) {
         return feelingHistoryService.getFeelingHistoryList(userId);
     }
 
