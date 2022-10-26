@@ -9,6 +9,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -36,10 +37,12 @@ public class Reaction extends BaseTimeEntity {
     @Builder
     public Reaction(User user,
                     Diary diary,
-                    ReactionType reaction){
+                    ReactionType reaction,
+                    LocalDateTime createdDate){
         this.user = user;
         this.diary = diary;
         this.reaction = reaction;
+        this.createdDate = createdDate;
     }
 
     public void update(ReactionType reaction){

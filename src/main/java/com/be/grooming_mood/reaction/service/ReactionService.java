@@ -14,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
@@ -36,6 +37,7 @@ public class ReactionService {
                 .user(user)
                 .diary(diary)
                 .reaction(reactionType)
+                .createdDate(LocalDateTime.now())
                 .build();
 
         reactionRepository.save(reaction);
