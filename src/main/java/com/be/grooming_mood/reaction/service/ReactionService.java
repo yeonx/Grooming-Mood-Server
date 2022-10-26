@@ -14,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
@@ -36,6 +37,7 @@ public class ReactionService {
                 .user(user)
                 .diary(diary)
                 .reaction(reactionType)
+                .createdDate(LocalDateTime.now())
                 .build();
 
         reactionRepository.save(reaction);
@@ -52,14 +54,10 @@ public class ReactionService {
         Diary diary = validateDiary(diaryId);
 
 
-        Optional<Reaction> reactionCheck = reactionRepository.findByDiaryIdAndUserId(diaryId, userId);
-        Reaction reaction = reactionCheck.orElseThrow(() ->
-                new NotFoundException(ErrorCode.REACTION_NOT_FOUND));
 
-        reactionRepository.deleteById(reaction.getId());
+        reactionRepository.deleteAllByDiaryIdAndUserId(diaryId, userId);
 
-        Integer reactionCnt = reactionRepository.countByDiaryId(diaryId);
-        return reactionCnt;
+        return reactionRepository.countByDiaryId(diaryId);
     }
 
     private User validateUser(Long userId) {
