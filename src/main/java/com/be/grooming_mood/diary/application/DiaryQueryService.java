@@ -23,7 +23,7 @@ public class DiaryQueryService {
     private final DiaryQueryDao diaryQueryDao;
     private final DiaryJpaInterfaceRepository diaryJpaInterfaceRepository;
 
-    @Transactional
+    @Transactional(readOnly = true)
     public DiarySimpleInfoCriteria findSimpleInfo(Long diaryId){
         Optional<Diary> diaryCheck = diaryJpaInterfaceRepository.findById(diaryId);
         Diary diary = diaryCheck.orElseThrow(() ->
@@ -33,7 +33,7 @@ public class DiaryQueryService {
                 .orElseThrow(() -> new NotFoundException(DIARY_NOT_FOUND));
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public DiaryDetailInfoCriteria findDetailInfo(Long diaryId){
         Optional<Diary> diaryCheck = diaryJpaInterfaceRepository.findById(diaryId);
         Diary diary = diaryCheck.orElseThrow(() ->
