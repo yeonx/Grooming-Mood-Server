@@ -2,11 +2,15 @@ package com.be.grooming_mood.diary.domain;
 
 import com.be.grooming_mood.common.domain.BaseTimeEntity;
 import com.be.grooming_mood.feeling.domain.FeelingType;
+import com.be.grooming_mood.like.domain.Likes;
 import com.be.grooming_mood.user.domain.User;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -46,6 +50,26 @@ public class Diary extends BaseTimeEntity {
     public void update(String diaryContent, Boolean isPublic){
         this.diaryContent = diaryContent;
         this.isPublic = isPublic;
-
     }
+
+    //좋아요 개수 매핑
+    @JsonIgnoreProperties({"diary"})
+    @JsonBackReference
+    @OneToMany(mappedBy = "diary", cascade = CascadeType.REMOVE)
+    private List<Likes> likesList;
+
+    @Transient
+    private long likesCount;
+
+    @Transient
+    private boolean likesState;
+
+    public void updateLikesCount(long likesCount) {
+        this.likesCount = likesCount;
+    }
+
+    public void updateLikesState(boolean likesState) {
+        this.likesState = likesState;
+    }
+
 }
