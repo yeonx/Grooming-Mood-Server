@@ -19,7 +19,6 @@ public class DiaryDetailInfoCriteria {
     private String diaryContent;
     private FeelingType feeling;
     private LocalDateTime createdDate;
-    private Integer likeCount;
 
     @Builder @QueryProjection
     public DiaryDetailInfoCriteria(Long diaryId,
@@ -27,15 +26,13 @@ public class DiaryDetailInfoCriteria {
                                    FeelingType feeling,
                                    String userName,
                                    String profileImg,
-                                   LocalDateTime createdDate,
-                                   Integer likeCount){
+                                   LocalDateTime createdDate){
         this.diaryId = diaryId;
         this.diaryContent = diaryContent;
         this.feeling = feeling;
         this.userName = userName;
         this.profileImg = profileImg;
         this.createdDate = createdDate;
-        this.likeCount = likeCount;
     }
 
 }
