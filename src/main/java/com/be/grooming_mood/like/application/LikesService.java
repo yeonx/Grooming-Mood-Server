@@ -36,7 +36,7 @@ public class LikesService {
     }
 
     @Transactional
-    public Integer unLikes(long diaryId, Long userId){
+    public Integer unlikes(long diaryId, Long userId){
         Optional<User> userCheck = userRepository.findById(userId);
         User user = userCheck.orElseThrow(() ->
                 new NotFoundException(USER_NOT_FOUND));
