@@ -35,4 +35,15 @@ public class LikesService {
         return likesRepository.findAllByDiary(diary).size();
     }
 
+    @Transactional
+    public Integer unLikes(long diaryId, Long userId){
+        Optional<User> userCheck = userRepository.findById(userId);
+        User user = userCheck.orElseThrow(() ->
+                new NotFoundException(USER_NOT_FOUND));
+        likesRepository.unLikes(diaryId, user.getId());
+        Optional<Diary> diaryCheck = diaryJpaInterfaceRepository.findById(diaryId);
+        Diary diary = diaryCheck.orElseThrow(() ->
+                new NotFoundException(DIARY_NOT_FOUND));
+        return likesRepository.findAllByDiary(diary).size();
+    }
 }
