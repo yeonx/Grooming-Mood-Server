@@ -4,11 +4,15 @@ import com.be.grooming_mood.diary.application.criteria.DiaryDetailInfoCriteria;
 import com.be.grooming_mood.diary.application.criteria.DiaryListQueryPagingResult;
 import com.be.grooming_mood.diary.application.criteria.DiaryListQueryResult;
 import com.be.grooming_mood.diary.application.criteria.DiarySimpleInfoCriteria;
+import com.be.grooming_mood.diary.domain.Diary;
+import com.be.grooming_mood.diary.domain.DiaryJpaInterfaceRepository;
 import com.be.grooming_mood.diary.infra.DiaryQueryDao;
 import com.be.grooming_mood.exception.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
 
 import static com.be.grooming_mood.exception.ErrorCode.DIARY_NOT_FOUND;
 
@@ -17,15 +21,24 @@ import static com.be.grooming_mood.exception.ErrorCode.DIARY_NOT_FOUND;
 public class DiaryQueryService {
 
     private final DiaryQueryDao diaryQueryDao;
+    private final DiaryJpaInterfaceRepository diaryJpaInterfaceRepository;
 
-    @Transactional(readOnly = true)
+    @Transactional
     public DiarySimpleInfoCriteria findSimpleInfo(Long diaryId){
+        Optional<Diary> diaryCheck = diaryJpaInterfaceRepository.findById(diaryId);
+        Diary diary = diaryCheck.orElseThrow(() ->
+                new NotFoundException(DIARY_NOT_FOUND));
+        diary.updateLikesCount(diary.getLikesList().size());
         return diaryQueryDao.findSimpleInfo(diaryId)
                 .orElseThrow(() -> new NotFoundException(DIARY_NOT_FOUND));
     }
 
-    @Transactional(readOnly = true)
+    @Transactional
     public DiaryDetailInfoCriteria findDetailInfo(Long diaryId){
+        Optional<Diary> diaryCheck = diaryJpaInterfaceRepository.findById(diaryId);
+        Diary diary = diaryCheck.orElseThrow(() ->
+                new NotFoundException(DIARY_NOT_FOUND));
+        diary.updateLikesCount(diary.getLikesList().size());
         return diaryQueryDao.findDetailInfo(diaryId)
                 .orElseThrow(()-> new NotFoundException(DIARY_NOT_FOUND));
     }
