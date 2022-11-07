@@ -9,13 +9,14 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface LikesRepository extends JpaRepository<Likes, Long>,LikesCustomRepository {
-//    @Modifying
-//    @Query(value = "INSERT INTO likes(diary_id, user_id) VALUES(:diaryId, :userId)", nativeQuery = true)
-//    void likes(long diaryId, long userId);
-//
-//    @Modifying
-//    @Query(value = "DELETE FROM likes WHERE diary_id = :diaryId AND user_id = :userId", nativeQuery = true)
-//    void unLikes(long diaryId, long userId);
-//
-//    List<Likes> findAllByDiary(Diary diary);
+    @Modifying
+    @Query(value = "INSERT INTO likes(diary_id, user_id) VALUES(:diaryId, :userId)", nativeQuery = true)
+    void likes(long diaryId, long userId);
+
+    @Modifying
+    @Query(value = "DELETE FROM likes WHERE diary_id = :diaryId AND user_id = :userId", nativeQuery = true)
+    void unLikes(long diaryId, long userId);
+
+    List<Likes> findAllByDiary(Diary diary);
+
 }

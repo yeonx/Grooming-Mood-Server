@@ -18,32 +18,32 @@ import static com.be.grooming_mood.exception.ErrorCode.USER_NOT_FOUND;
 @RequiredArgsConstructor
 @Service
 public class LikesService {
-//    private final LikesRepository likesRepository;
-//    private final UserRepository userRepository;
-//    private final DiaryJpaInterfaceRepository diaryJpaInterfaceRepository;
+    private final LikesRepository likesRepository;
+    private final UserRepository userRepository;
+    private final DiaryJpaInterfaceRepository diaryJpaInterfaceRepository;
 
-//    @Transactional
-//    public Integer likes(long diaryId, long userId){
-//        Optional<User> userCheck = userRepository.findById(userId);
-//        User user = userCheck.orElseThrow(() ->
-//                new NotFoundException(USER_NOT_FOUND));
-//
-//        likesRepository.likes(diaryId, user.getId());
-//        Optional<Diary> diaryCheck = diaryJpaInterfaceRepository.findById(diaryId);
-//        Diary diary = diaryCheck.orElseThrow(() ->
-//                new NotFoundException(DIARY_NOT_FOUND));
-//        return likesRepository.findAllByDiary(diary).size();
-//    }
+    @Transactional
+    public Integer likes(long diaryId, long userId){
+        Optional<User> userCheck = userRepository.findById(userId);
+        User user = userCheck.orElseThrow(() ->
+                new NotFoundException(USER_NOT_FOUND));
 
-//    @Transactional
-//    public Integer unlikes(long diaryId, Long userId){
-//        Optional<User> userCheck = userRepository.findById(userId);
-//        User user = userCheck.orElseThrow(() ->
-//                new NotFoundException(USER_NOT_FOUND));
-//        likesRepository.unLikes(diaryId, user.getId());
-//        Optional<Diary> diaryCheck = diaryJpaInterfaceRepository.findById(diaryId);
-//        Diary diary = diaryCheck.orElseThrow(() ->
-//                new NotFoundException(DIARY_NOT_FOUND));
-//        return likesRepository.findAllByDiary(diary).size();
-//    }
+        likesRepository.likes(diaryId, user.getId());
+        Optional<Diary> diaryCheck = diaryJpaInterfaceRepository.findById(diaryId);
+        Diary diary = diaryCheck.orElseThrow(() ->
+                new NotFoundException(DIARY_NOT_FOUND));
+        return likesRepository.findAllByDiary(diary).size();
+    }
+
+    @Transactional
+    public Integer unlikes(long diaryId, Long userId){
+        Optional<User> userCheck = userRepository.findById(userId);
+        User user = userCheck.orElseThrow(() ->
+                new NotFoundException(USER_NOT_FOUND));
+        likesRepository.unLikes(diaryId, user.getId());
+        Optional<Diary> diaryCheck = diaryJpaInterfaceRepository.findById(diaryId);
+        Diary diary = diaryCheck.orElseThrow(() ->
+                new NotFoundException(DIARY_NOT_FOUND));
+        return likesRepository.findAllByDiary(diary).size();
+    }
 }
