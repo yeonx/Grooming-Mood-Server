@@ -52,24 +52,4 @@ public class Diary extends BaseTimeEntity {
         this.isPublic = isPublic;
     }
 
-    //좋아요 개수 매핑
-    @JsonIgnoreProperties({"diary"})
-    @JsonBackReference
-    @OneToMany(mappedBy = "diary", cascade = CascadeType.REMOVE)
-    private List<Likes> likesList;
-
-    @Transient
-    private long likesCount;
-
-    @Transient
-    private boolean likesState;
-
-    public void updateLikesCount(long likesCount) {
-        this.likesCount = likesCount;
-    }
-
-    public void updateLikesState(boolean likesState) {
-        this.likesState = likesState;
-    }
-
 }

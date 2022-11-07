@@ -28,7 +28,7 @@ public class DiaryQueryDao {
                         .leftJoin(user).on(user.id.eq(diary.user.id))
                         .transform(
                                 groupBy(diary.id).as(
-                                        new QDiarySimpleInfoCriteria(diary.id, diary.diaryContent,
+                                        new QDiarySimpleInfoCriteria( diary.id, diary.diaryContent,
                                                 user.name, user.profileImg, diary.feeling, diary.createdDate)
                                 )
                         ).get(diaryId)
