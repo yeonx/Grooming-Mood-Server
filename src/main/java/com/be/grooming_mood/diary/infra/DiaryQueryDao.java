@@ -43,7 +43,7 @@ public class DiaryQueryDao {
                         .leftJoin(user).on(user.id.eq(diary.user.id))
                         .transform(
                                 groupBy(diary.id).as(
-                                        new QDiaryDetailInfoCriteria(diary.id, diary.diaryContent, diary.feeling,
+                                        new QDiaryDetailInfoCriteria(diary,diary.id, diary.diaryContent, diary.feeling,
                                                 user.name, user.profileImg, diary.createdDate)
                                 )
                         ).get(diaryId)

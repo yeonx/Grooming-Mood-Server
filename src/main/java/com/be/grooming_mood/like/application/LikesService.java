@@ -3,7 +3,7 @@ package com.be.grooming_mood.like.application;
 import com.be.grooming_mood.diary.domain.Diary;
 import com.be.grooming_mood.diary.domain.DiaryJpaInterfaceRepository;
 import com.be.grooming_mood.exception.NotFoundException;
-import com.be.grooming_mood.like.domain.LikesRepository;
+import com.be.grooming_mood.like.infra.LikesRepository;
 import com.be.grooming_mood.user.domain.User;
 import com.be.grooming_mood.user.domain.UserRepository;
 import lombok.RequiredArgsConstructor;
