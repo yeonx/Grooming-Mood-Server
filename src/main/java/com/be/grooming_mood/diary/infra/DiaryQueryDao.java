@@ -28,7 +28,7 @@ public class DiaryQueryDao {
                         .leftJoin(user).on(user.id.eq(diary.user.id))
                         .transform(
                                 groupBy(diary.id).as(
-                                        new QDiarySimpleInfoCriteria(diary.id, diary.diaryContent,
+                                        new QDiarySimpleInfoCriteria(diary, diary.id, diary.diaryContent,
                                                 user.name, user.profileImg, diary.feeling, diary.createdDate)
                                 )
                         ).get(diaryId)
@@ -43,7 +43,7 @@ public class DiaryQueryDao {
                         .leftJoin(user).on(user.id.eq(diary.user.id))
                         .transform(
                                 groupBy(diary.id).as(
-                                        new QDiaryDetailInfoCriteria(diary.id, diary.diaryContent, diary.feeling,
+                                        new QDiaryDetailInfoCriteria(diary,diary.id, diary.diaryContent, diary.feeling,
                                                 user.name, user.profileImg, diary.createdDate)
                                 )
                         ).get(diaryId)
@@ -51,7 +51,7 @@ public class DiaryQueryDao {
     }
     public DiaryListQueryPagingResult findMyDiaryListPaging(Long userId, String cursor, int size){
         List<DiarySimpleInfoCriteria> infoList = queryFactory
-                .select(new QDiarySimpleInfoCriteria(diary.id, diary.diaryContent,
+                .select(new QDiarySimpleInfoCriteria(diary,diary.id, diary.diaryContent,
                         user.name, user.profileImg, diary.feeling, diary.createdDate))
                 .from(diary)
                 .where(user.id.eq(userId))
@@ -64,7 +64,7 @@ public class DiaryQueryDao {
     }
     public DiaryListQueryResult findMyDiaryList(Long userId){
         List<DiarySimpleInfoCriteria> infoList = queryFactory
-                .select(new QDiarySimpleInfoCriteria(diary.id, diary.diaryContent,
+                .select(new QDiarySimpleInfoCriteria(diary,diary.id, diary.diaryContent,
                         user.name, user.profileImg, diary.feeling, diary.createdDate))
                 .from(diary)
                 .where(user.id.eq(userId))
@@ -76,7 +76,7 @@ public class DiaryQueryDao {
 
     public DiaryListQueryPagingResult findAllDiaryListPaging(String cursor, int size){
         List<DiarySimpleInfoCriteria> infoList = queryFactory
-                .select(new QDiarySimpleInfoCriteria(diary.id, diary.diaryContent,
+                .select(new QDiarySimpleInfoCriteria(diary,diary.id, diary.diaryContent,
                         user.name, user.profileImg, diary.feeling, diary.createdDate))
                 .from(diary)
                 .limit(size + 1)
@@ -90,7 +90,7 @@ public class DiaryQueryDao {
 
     public DiaryListQueryResult findAllDiaryList(){
         List<DiarySimpleInfoCriteria> infoList = queryFactory
-                .select(new QDiarySimpleInfoCriteria(diary.id, diary.diaryContent,
+                .select(new QDiarySimpleInfoCriteria(diary,diary.id, diary.diaryContent,
                         user.name, user.profileImg, diary.feeling, diary.createdDate))
                 .from(diary)
                 .where(diary.isPublic.isTrue())
@@ -102,7 +102,7 @@ public class DiaryQueryDao {
 
     public DiaryListQueryResult findHappyDiaryList(){
         List<DiarySimpleInfoCriteria> infoList = queryFactory
-                .select(new QDiarySimpleInfoCriteria(diary.id, diary.diaryContent,
+                .select(new QDiarySimpleInfoCriteria(diary,diary.id, diary.diaryContent,
                         user.name, user.profileImg, diary.feeling, diary.createdDate))
                 .from(diary)
                 .where(diary.feeling.eq(HAPPY))
@@ -115,7 +115,7 @@ public class DiaryQueryDao {
 
     public DiaryListQueryResult findSadDiaryList(){
         List<DiarySimpleInfoCriteria> infoList = queryFactory
-                .select(new QDiarySimpleInfoCriteria(diary.id, diary.diaryContent,
+                .select(new QDiarySimpleInfoCriteria(diary,diary.id, diary.diaryContent,
                         user.name, user.profileImg, diary.feeling, diary.createdDate))
                 .from(diary)
                 .where(diary.feeling.eq(SAD))
@@ -128,7 +128,7 @@ public class DiaryQueryDao {
 
     public DiaryListQueryResult findNormalDiaryList(){
         List<DiarySimpleInfoCriteria> infoList = queryFactory
-                .select(new QDiarySimpleInfoCriteria(diary.id, diary.diaryContent,
+                .select(new QDiarySimpleInfoCriteria(diary,diary.id, diary.diaryContent,
                         user.name, user.profileImg, diary.feeling, diary.createdDate))
                 .from(diary)
                 .where(diary.feeling.eq(NORMAL))
@@ -141,7 +141,7 @@ public class DiaryQueryDao {
 
     public DiaryListQueryResult findAngryDiaryList(){
         List<DiarySimpleInfoCriteria> infoList = queryFactory
-                .select(new QDiarySimpleInfoCriteria(diary.id, diary.diaryContent,
+                .select(new QDiarySimpleInfoCriteria(diary,diary.id, diary.diaryContent,
                         user.name, user.profileImg, diary.feeling, diary.createdDate))
                 .from(diary)
                 .where(diary.feeling.eq(ANGRY))
