@@ -1,5 +1,6 @@
 package com.be.grooming_mood.diary.application.criteria;
 
+import com.be.grooming_mood.diary.domain.Diary;
 import com.be.grooming_mood.feeling.domain.FeelingType;
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.Builder;
@@ -15,11 +16,12 @@ public class DiarySimpleInfoCriteria {
     private String diaryContent;
     private FeelingType feeling;
     private LocalDateTime createdDate;
+    private Integer likesCount;
 
 
     @QueryProjection @Builder
-    public DiarySimpleInfoCriteria(Long diaryId, String diaryContent, String userName,
-                                   String profileImg,FeelingType feeling,
+    public DiarySimpleInfoCriteria(Diary diary, Long diaryId, String diaryContent, String userName,
+                                   String profileImg, FeelingType feeling,
                                    LocalDateTime createdDate){
         this.diaryId = diaryId;
         this.diaryContent = diaryContent;
@@ -27,5 +29,6 @@ public class DiarySimpleInfoCriteria {
         this.profileImg = profileImg;
         this.feeling = feeling;
         this.createdDate = createdDate;
+        this.likesCount = diary.getLikesCount();
     }
 }
