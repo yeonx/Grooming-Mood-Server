@@ -42,6 +42,10 @@ public class DiaryQueryService {
                 .orElseThrow(()-> new NotFoundException(DIARY_NOT_FOUND));
     }
 
+    @Transactional(readOnly = true)
+    public DiaryListQueryPagingResult findMyDiaryList(long userId,String cursor, int size){
+        return diaryQueryDao.findMyDiaryListPaging(userId,cursor,size);
+    }
 
     @Transactional(readOnly = true)
     public DiaryListQueryPagingResult findAllDiaryList(String cursor, int size){

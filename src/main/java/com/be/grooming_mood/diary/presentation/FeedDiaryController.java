@@ -18,11 +18,6 @@ public class FeedDiaryController {
 /**
  * 페이징
  */
-//    @GetMapping("/my-page")
-//    public DiaryListQueryPagingResult getMyDiaryList(@RequestParam(required = false) String cursor,
-//                                                     @RequestParam(required = false, defaultValue = "5") int size){
-//        return DiaryListQueryPagingResult.findMyDiaryList(user.getId(),cursor,size);
-//    }
 
     @GetMapping("/all-paging")
     public DiaryListQueryPagingResult getAllDiaryList(@RequestParam(required = false) String cursor,
