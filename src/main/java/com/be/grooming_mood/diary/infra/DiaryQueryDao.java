@@ -17,6 +17,7 @@ import java.util.Optional;
 import static com.be.grooming_mood.diary.domain.QDiary.diary;
 import static com.be.grooming_mood.exception.ErrorCode.DIARY_NOT_FOUND;
 import static com.be.grooming_mood.feeling.domain.FeelingType.*;
+import static com.be.grooming_mood.like.domain.QLikes.likes;
 import static com.be.grooming_mood.user.domain.QUser.user;
 import static com.querydsl.core.group.GroupBy.groupBy;
 
@@ -31,6 +32,7 @@ public class DiaryQueryDao {
                         .from(diary)
                         .where(diary.id.eq(diaryId))
                         .leftJoin(user).on(user.id.eq(diary.user.id))
+                        .leftJoin(likes).on(likes.diary.id.eq(diaryId))
                         .transform(
                                 groupBy(diary.id).as(
                                         new QDiarySimpleInfoCriteria(diary, diary.id, diary.diaryContent,
@@ -46,6 +48,7 @@ public class DiaryQueryDao {
                         .from(diary)
                         .where(diary.id.eq(diaryId))
                         .leftJoin(user).on(user.id.eq(diary.user.id))
+                        .leftJoin(likes).on(likes.diary.id.eq(diaryId))
                         .transform(
                                 groupBy(diary.id).as(
                                         new QDiaryDetailInfoCriteria(diary,diary.id, diary.diaryContent, diary.feeling,
