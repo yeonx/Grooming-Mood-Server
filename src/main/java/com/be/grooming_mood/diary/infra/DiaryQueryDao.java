@@ -135,6 +135,22 @@ public class DiaryQueryDao {
         return new DiaryListQueryPagingResult(infoList,hasNext,nextCursor);
     }
 
+    public DiaryListQueryPagingResult findAngryDiaryList(String cursor, int size){
+        List<DiarySimpleInfoCriteria> infoList = queryFactory
+                .select(new QDiarySimpleInfoCriteria(diary, diary.id, diary.diaryContent,
+                        user.name, user.profileImg, diary.feeling, diary.createdDate))
+                .from(diary)
+                .where(diary.feeling.eq(ANGRY), diaryIdCursorCondition(cursor))
+                .limit(size + 1)
+                .orderBy(diary.id.desc())
+                .fetch();
+        hasDataCheck(infoList);
+
+        boolean hasNext = hasNext(size, infoList);
+        String nextCursor = hasNext ? getDiaryIdNextCursor(infoList) : null;
+        return new DiaryListQueryPagingResult(infoList,hasNext,nextCursor);
+    }
+
     private String getDiaryIdNextCursor(List<DiarySimpleInfoCriteria> infoList){
         long lastDiaryId = infoList.get(infoList.size() - 1).getDiaryId();
         return String.format("%020d",lastDiaryId);
@@ -174,20 +190,6 @@ public class DiaryQueryDao {
                 .fetch();
         return new DiaryListQueryResult(infoList);
     }
-
-//    public DiaryListQueryPagingResult findAngryDiaryList(String cursor, int size){
-//        List<DiarySimpleInfoCriteria> infoList = queryFactory
-//                .select(new QDiarySimpleInfoCriteria(diary.id, diary.diaryContent,
-//                        user.name, user.profileImg, diary.feeling))
-//                .from(diary)
-//                .where(diary.feeling.eq(ANGRY))
-//                .limit(size + 1)
-//                .orderBy(diary.id.desc())
-//                .fetch();
-//        boolean hasNext = hasNext(size, infoList);
-//        String nextCursor = hasNext ? getDiaryIdNextCursor(infoList) : null;
-//        return new DiaryListQueryPagingResult(infoList,hasNext,nextCursor);
-//    }
 
     public DiaryListQueryResult findAllDiaryList(){
         List<DiarySimpleInfoCriteria> infoList = queryFactory
