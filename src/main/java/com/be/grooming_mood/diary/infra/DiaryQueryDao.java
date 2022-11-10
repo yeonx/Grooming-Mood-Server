@@ -76,6 +76,7 @@ public class DiaryQueryDao {
                         user.name, user.profileImg, diary.feeling, diary.createdDate))
                 .from(diary)
                 .where(diaryIdCursorCondition(cursor))
+                .where(diary.isPublic.isTrue())
                 .limit(size + 1)
                 .orderBy(diary.id.desc())
                 .offset(1)
@@ -93,6 +94,7 @@ public class DiaryQueryDao {
                         user.name, user.profileImg, diary.feeling, diary.createdDate))
                 .from(diary)
                 .where(diary.feeling.eq(HAPPY), diaryIdCursorCondition(cursor))
+                .where(diary.isPublic.isTrue())
                 .limit(size + 1)
                 .orderBy(diary.id.desc())
                 .fetch();
@@ -109,6 +111,7 @@ public class DiaryQueryDao {
                         user.name, user.profileImg, diary.feeling, diary.createdDate))
                 .from(diary)
                 .where(diary.feeling.eq(SAD), diaryIdCursorCondition(cursor))
+                .where(diary.isPublic.isTrue())
                 .limit(size + 1)
                 .orderBy(diary.id.desc())
                 .fetch();
@@ -125,6 +128,7 @@ public class DiaryQueryDao {
                         user.name, user.profileImg, diary.feeling, diary.createdDate))
                 .from(diary)
                 .where(diary.feeling.eq(NORMAL), diaryIdCursorCondition(cursor))
+                .where(diary.isPublic.isTrue())
                 .limit(size + 1)
                 .orderBy(diary.id.desc())
                 .fetch();
