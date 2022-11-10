@@ -51,7 +51,7 @@ public class MyDiaryController {
     @GetMapping("/{userId}")
     public DiaryListQueryPagingResult getMyDiaryList(@PathVariable("userId") Long userId,
                                                      @RequestParam(required = false) String cursor,
-                                                     @RequestParam(required = false, defaultValue = "5") int size){
+                                                     @RequestParam(required = false, defaultValue = "3") int size){
         return diaryQueryService.findMyDiaryList(userId,cursor,size);
     }
 
