@@ -4,6 +4,8 @@ import com.be.grooming_mood.diary.application.criteria.*;
 import com.be.grooming_mood.diary.domain.DiaryJpaInterfaceRepository;
 import com.be.grooming_mood.exception.ErrorCode;
 import com.be.grooming_mood.exception.NotFoundException;
+import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.core.types.dsl.StringExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -61,6 +63,8 @@ public class DiaryQueryDao {
                 .limit(size + 1)
                 .orderBy(diary.id.desc())
                 .fetch();
+        hasDataCheck(infoList);
+
         boolean hasNext = hasNext(size, infoList);
         String nextCursor = hasNext ? getDiaryIdNextCursor(infoList) : null;
         return new DiaryListQueryPagingResult(infoList,hasNext,nextCursor);
@@ -172,6 +176,15 @@ public class DiaryQueryDao {
     private void hasDataCheck(List<DiarySimpleInfoCriteria> infoList) {
         if(infoList.size() == 0)
             throw new NotFoundException(DIARY_NOT_FOUND);
+    }
+
+    private BooleanExpression diaryIdCursorCondition(String cursor) {
+        if(cursorValidate(cursor)) return null;
+        return StringExpressions.lpad(diary.id.stringValue(), 20, '0')
+                .lt(cursor);
+    }
+    private boolean cursorValidate(String cursor) {
+        return cursor == null || cursor.length() < 20;
     }
 
 //    public DiaryListQueryPagingResult findHappyDiaryList(String cursor, int size){
