@@ -2,6 +2,10 @@ package com.be.grooming_mood.diary.infra;
 
 import com.be.grooming_mood.diary.application.criteria.*;
 import com.be.grooming_mood.diary.domain.DiaryJpaInterfaceRepository;
+import com.be.grooming_mood.exception.ErrorCode;
+import com.be.grooming_mood.exception.NotFoundException;
+import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.core.types.dsl.StringExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -11,6 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static com.be.grooming_mood.diary.domain.QDiary.diary;
+import static com.be.grooming_mood.exception.ErrorCode.DIARY_NOT_FOUND;
 import static com.be.grooming_mood.feeling.domain.FeelingType.*;
 import static com.be.grooming_mood.user.domain.QUser.user;
 import static com.querydsl.core.group.GroupBy.groupBy;
@@ -58,6 +63,8 @@ public class DiaryQueryDao {
                 .limit(size + 1)
                 .orderBy(diary.id.desc())
                 .fetch();
+        hasDataCheck(infoList);
+
         boolean hasNext = hasNext(size, infoList);
         String nextCursor = hasNext ? getDiaryIdNextCursor(infoList) : null;
         return new DiaryListQueryPagingResult(infoList,hasNext,nextCursor);
@@ -152,6 +159,11 @@ public class DiaryQueryDao {
         return new DiaryListQueryResult(infoList);
     }
 
+    private String getDiaryIdNextCursor(List<DiarySimpleInfoCriteria> infoList){
+        long lastDiaryId = infoList.get(infoList.size() - 1).getDiaryId();
+        return String.format("%020d",lastDiaryId);
+    }
+
     private boolean hasNext(int size, List<DiarySimpleInfoCriteria> infoList){
         boolean hasNext = false;
         if(infoList.size() >size){
@@ -161,9 +173,18 @@ public class DiaryQueryDao {
         return hasNext;
     }
 
-    private String getDiaryIdNextCursor(List<DiarySimpleInfoCriteria> infoList){
-        long lastDiaryId = infoList.get(infoList.size() - 1).getDiaryId();
-        return String.format("%020d",lastDiaryId);
+    private void hasDataCheck(List<DiarySimpleInfoCriteria> infoList) {
+        if(infoList.size() == 0)
+            throw new NotFoundException(DIARY_NOT_FOUND);
+    }
+
+    private BooleanExpression diaryIdCursorCondition(String cursor) {
+        if(cursorValidate(cursor)) return null;
+        return StringExpressions.lpad(diary.id.stringValue(), 20, '0')
+                .lt(cursor);
+    }
+    private boolean cursorValidate(String cursor) {
+        return cursor == null || cursor.length() < 20;
     }
 
 //    public DiaryListQueryPagingResult findHappyDiaryList(String cursor, int size){
