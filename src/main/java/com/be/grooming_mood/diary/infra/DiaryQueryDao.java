@@ -86,71 +86,6 @@ public class DiaryQueryDao {
         String nextCursor = hasNext ? getDiaryIdNextCursor(infoList) : null;
         return new DiaryListQueryPagingResult(infoList,hasNext,nextCursor);
     }
-
-    public DiaryListQueryResult findAllDiaryList(){
-        List<DiarySimpleInfoCriteria> infoList = queryFactory
-                .select(new QDiarySimpleInfoCriteria(diary,diary.id, diary.diaryContent,
-                        user.name, user.profileImg, diary.feeling, diary.createdDate))
-                .from(diary)
-                .where(diary.isPublic.isTrue())
-                .orderBy(diary.id.desc())
-                .offset(1)
-                .fetch();
-        return new DiaryListQueryResult(infoList);
-    }
-
-    public DiaryListQueryResult findHappyDiaryList(){
-        List<DiarySimpleInfoCriteria> infoList = queryFactory
-                .select(new QDiarySimpleInfoCriteria(diary,diary.id, diary.diaryContent,
-                        user.name, user.profileImg, diary.feeling, diary.createdDate))
-                .from(diary)
-                .where(diary.feeling.eq(HAPPY))
-                .where(diary.isPublic.isTrue())
-                .orderBy(diary.id.desc())
-                .offset(1)
-                .fetch();
-        return new DiaryListQueryResult(infoList);
-    }
-
-    public DiaryListQueryResult findSadDiaryList(){
-        List<DiarySimpleInfoCriteria> infoList = queryFactory
-                .select(new QDiarySimpleInfoCriteria(diary,diary.id, diary.diaryContent,
-                        user.name, user.profileImg, diary.feeling, diary.createdDate))
-                .from(diary)
-                .where(diary.feeling.eq(SAD))
-                .where(diary.isPublic.isTrue())
-                .orderBy(diary.id.desc())
-                .offset(1)
-                .fetch();
-        return new DiaryListQueryResult(infoList);
-    }
-
-    public DiaryListQueryResult findNormalDiaryList(){
-        List<DiarySimpleInfoCriteria> infoList = queryFactory
-                .select(new QDiarySimpleInfoCriteria(diary,diary.id, diary.diaryContent,
-                        user.name, user.profileImg, diary.feeling, diary.createdDate))
-                .from(diary)
-                .where(diary.feeling.eq(NORMAL))
-                .where(diary.isPublic.isTrue())
-                .orderBy(diary.id.desc())
-                .offset(1)
-                .fetch();
-        return new DiaryListQueryResult(infoList);
-    }
-
-    public DiaryListQueryResult findAngryDiaryList(){
-        List<DiarySimpleInfoCriteria> infoList = queryFactory
-                .select(new QDiarySimpleInfoCriteria(diary,diary.id, diary.diaryContent,
-                        user.name, user.profileImg, diary.feeling, diary.createdDate))
-                .from(diary)
-                .where(diary.feeling.eq(ANGRY))
-                .where(diary.isPublic.isTrue())
-                .orderBy(diary.id.desc())
-                .offset(1)
-                .fetch();
-        return new DiaryListQueryResult(infoList);
-    }
-
     private String getDiaryIdNextCursor(List<DiarySimpleInfoCriteria> infoList){
         long lastDiaryId = infoList.get(infoList.size() - 1).getDiaryId();
         return String.format("%020d",lastDiaryId);
@@ -245,4 +180,68 @@ public class DiaryQueryDao {
 //        String nextCursor = hasNext ? getDiaryIdNextCursor(infoList) : null;
 //        return new DiaryListQueryPagingResult(infoList,hasNext,nextCursor);
 //    }
+
+    public DiaryListQueryResult findAllDiaryList(){
+        List<DiarySimpleInfoCriteria> infoList = queryFactory
+                .select(new QDiarySimpleInfoCriteria(diary,diary.id, diary.diaryContent,
+                        user.name, user.profileImg, diary.feeling, diary.createdDate))
+                .from(diary)
+                .where(diary.isPublic.isTrue())
+                .orderBy(diary.id.desc())
+                .offset(1)
+                .fetch();
+        return new DiaryListQueryResult(infoList);
+    }
+
+    public DiaryListQueryResult findHappyDiaryList(){
+        List<DiarySimpleInfoCriteria> infoList = queryFactory
+                .select(new QDiarySimpleInfoCriteria(diary,diary.id, diary.diaryContent,
+                        user.name, user.profileImg, diary.feeling, diary.createdDate))
+                .from(diary)
+                .where(diary.feeling.eq(HAPPY))
+                .where(diary.isPublic.isTrue())
+                .orderBy(diary.id.desc())
+                .offset(1)
+                .fetch();
+        return new DiaryListQueryResult(infoList);
+    }
+
+    public DiaryListQueryResult findSadDiaryList(){
+        List<DiarySimpleInfoCriteria> infoList = queryFactory
+                .select(new QDiarySimpleInfoCriteria(diary,diary.id, diary.diaryContent,
+                        user.name, user.profileImg, diary.feeling, diary.createdDate))
+                .from(diary)
+                .where(diary.feeling.eq(SAD))
+                .where(diary.isPublic.isTrue())
+                .orderBy(diary.id.desc())
+                .offset(1)
+                .fetch();
+        return new DiaryListQueryResult(infoList);
+    }
+
+    public DiaryListQueryResult findNormalDiaryList(){
+        List<DiarySimpleInfoCriteria> infoList = queryFactory
+                .select(new QDiarySimpleInfoCriteria(diary,diary.id, diary.diaryContent,
+                        user.name, user.profileImg, diary.feeling, diary.createdDate))
+                .from(diary)
+                .where(diary.feeling.eq(NORMAL))
+                .where(diary.isPublic.isTrue())
+                .orderBy(diary.id.desc())
+                .offset(1)
+                .fetch();
+        return new DiaryListQueryResult(infoList);
+    }
+
+    public DiaryListQueryResult findAngryDiaryList(){
+        List<DiarySimpleInfoCriteria> infoList = queryFactory
+                .select(new QDiarySimpleInfoCriteria(diary,diary.id, diary.diaryContent,
+                        user.name, user.profileImg, diary.feeling, diary.createdDate))
+                .from(diary)
+                .where(diary.feeling.eq(ANGRY))
+                .where(diary.isPublic.isTrue())
+                .orderBy(diary.id.desc())
+                .offset(1)
+                .fetch();
+        return new DiaryListQueryResult(infoList);
+    }
 }
