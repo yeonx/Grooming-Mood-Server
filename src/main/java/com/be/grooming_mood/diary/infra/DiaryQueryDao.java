@@ -59,7 +59,7 @@ public class DiaryQueryDao {
                 .select(new QDiarySimpleInfoCriteria(diary,diary.id, diary.diaryContent,
                         user.name, user.profileImg, diary.feeling, diary.createdDate))
                 .from(diary)
-                .where(user.id.eq(userId))
+                .where(user.id.eq(userId),diaryIdCursorCondition(cursor))
                 .limit(size + 1)
                 .orderBy(diary.id.desc())
                 .fetch();
