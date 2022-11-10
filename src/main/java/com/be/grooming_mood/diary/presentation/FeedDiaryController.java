@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 public class FeedDiaryController {
     private final DiaryQueryService diaryQueryService;
 
+
 /**
  * 페이징
  */
@@ -25,31 +26,31 @@ public class FeedDiaryController {
 
     @GetMapping("/all-paging")
     public DiaryListQueryPagingResult getAllDiaryList(@RequestParam(required = false) String cursor,
-                                               @RequestParam(required = false, defaultValue = "10") int size){
+                                               @RequestParam(required = false, defaultValue = "5") int size){
         return diaryQueryService.findAllDiaryList(cursor,size);
     }
 
     @GetMapping("/happy-paging")
     public DiaryListQueryPagingResult getHappyDiaryList(@RequestParam(required = false) String cursor,
-                                                @RequestParam(required = false, defaultValue = "10") int size){
+                                                @RequestParam(required = false, defaultValue = "5") int size){
         return diaryQueryService.findHappyDiaryList(cursor,size);
     }
 
     @GetMapping("/sad-paging")
     public DiaryListQueryPagingResult getSadDiaryList(@RequestParam(required = false) String cursor,
-                                                  @RequestParam(required = false, defaultValue = "10") int size){
+                                                  @RequestParam(required = false, defaultValue = "5") int size){
         return diaryQueryService.findSadDiaryList(cursor,size);
     }
 
     @GetMapping("/normal-paging")
     public DiaryListQueryPagingResult getNormalDiaryList(@RequestParam(required = false) String cursor,
-                                                @RequestParam(required = false, defaultValue = "10") int size){
+                                                @RequestParam(required = false, defaultValue = "5") int size){
         return diaryQueryService.findNormalDiaryList(cursor,size);
     }
 
     @GetMapping("/angry-paging")
     public DiaryListQueryPagingResult getAngryDiaryList(@RequestParam(required = false) String cursor,
-                                                   @RequestParam(required = false, defaultValue = "10") int size){
+                                                   @RequestParam(required = false, defaultValue = "5") int size){
         return diaryQueryService.findAngryDiaryList(cursor,size);
     }
 
