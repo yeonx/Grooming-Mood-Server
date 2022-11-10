@@ -23,7 +23,8 @@ public class MyDiaryController {
 
     @ApiOperation(value = "일기 등록")
     @PostMapping("/{userId}")
-    public Long createDiary(@PathVariable("userId") Long userId, @Valid DiaryCreateDto diaryCreateDto){
+    public Long createDiary(@PathVariable("userId") Long userId,
+                            @Valid DiaryCreateDto diaryCreateDto){
         return diaryCommandService.create(userId, diaryCreateDto);
     }
 
@@ -35,7 +36,8 @@ public class MyDiaryController {
 
     @ApiOperation(value = "일기 수정")
     @PostMapping("/{userId}/{diaryId}")
-    public void updateDiary(@PathVariable("diaryId") Long diaryId,@Valid DiaryUpdateCommand diaryUpdateCommand){
+    public void updateDiary(@PathVariable("diaryId") Long diaryId,
+                            @Valid DiaryUpdateCommand diaryUpdateCommand){
         diaryCommandService.update(diaryId,diaryUpdateCommand);
     }
 
