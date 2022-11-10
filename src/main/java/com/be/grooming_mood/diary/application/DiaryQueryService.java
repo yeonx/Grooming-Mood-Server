@@ -43,13 +43,40 @@ public class DiaryQueryService {
     }
 
     @Transactional(readOnly = true)
-    public DiaryListQueryResult findMyDiaryList(long userId){
-        return diaryQueryDao.findMyDiaryList(userId);
+    public DiaryListQueryPagingResult findMyDiaryList(long userId,String cursor, int size){
+        return diaryQueryDao.findMyDiaryListPaging(userId,cursor,size);
     }
 
     @Transactional(readOnly = true)
     public DiaryListQueryPagingResult findAllDiaryList(String cursor, int size){
         return diaryQueryDao.findAllDiaryListPaging(cursor,size);
+    }
+
+    @Transactional(readOnly = true)
+    public DiaryListQueryPagingResult findHappyDiaryList(String cursor,int size){
+        return diaryQueryDao.findHappyDiaryList(cursor,size);
+    }
+    @Transactional(readOnly = true)
+    public DiaryListQueryPagingResult findSadDiaryList(String cursor,int size){
+        return diaryQueryDao.findSadDiaryList(cursor,size);
+    }
+
+    @Transactional(readOnly = true)
+    public DiaryListQueryPagingResult findNormalDiaryList(String cursor,int size){
+        return diaryQueryDao.findNormalDiaryList(cursor,size);
+    }
+
+    @Transactional(readOnly = true)
+    public DiaryListQueryPagingResult findAngryDiaryList(String cursor,int size){
+        return diaryQueryDao.findAngryDiaryList(cursor,size);
+    }
+
+    /**
+     * 스크롤
+     */
+    @Transactional(readOnly = true)
+    public DiaryListQueryResult findMyDiaryList(long userId){
+        return diaryQueryDao.findMyDiaryList(userId);
     }
 
     @Transactional(readOnly = true)
@@ -77,23 +104,5 @@ public class DiaryQueryService {
         return diaryQueryDao.findAngryDiaryList();
     }
 
-//    @Transactional(readOnly = true)
-//    public DiaryListQueryPagingResult findHappyDiaryList(String cursor,int size){
-//        return diaryQueryDao.findHappyDiaryList(cursor,size);
-//    }
-//    @Transactional(readOnly = true)
-//    public DiaryListQueryPagingResult findSadDiaryList(String cursor,int size){
-//        return diaryQueryDao.findSadDiaryList(cursor,size);
-//    }
-//
-//    @Transactional(readOnly = true)
-//    public DiaryListQueryPagingResult findNormalDiaryList(String cursor,int size){
-//        return diaryQueryDao.findNormalDiaryList(cursor,size);
-//    }
-//
-//    @Transactional(readOnly = true)
-//    public DiaryListQueryPagingResult findAngryDiaryList(String cursor,int size){
-//        return diaryQueryDao.findAngryDiaryList(cursor,size);
-//    }
 
 }
