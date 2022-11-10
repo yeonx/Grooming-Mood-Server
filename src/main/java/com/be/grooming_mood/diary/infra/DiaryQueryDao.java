@@ -17,6 +17,7 @@ import java.util.Optional;
 import static com.be.grooming_mood.diary.domain.QDiary.diary;
 import static com.be.grooming_mood.exception.ErrorCode.DIARY_NOT_FOUND;
 import static com.be.grooming_mood.feeling.domain.FeelingType.*;
+import static com.be.grooming_mood.like.domain.QLikes.likes;
 import static com.be.grooming_mood.user.domain.QUser.user;
 import static com.querydsl.core.group.GroupBy.groupBy;
 
@@ -31,6 +32,7 @@ public class DiaryQueryDao {
                         .from(diary)
                         .where(diary.id.eq(diaryId))
                         .leftJoin(user).on(user.id.eq(diary.user.id))
+                        .leftJoin(likes).on(likes.diary.id.eq(diaryId))
                         .transform(
                                 groupBy(diary.id).as(
                                         new QDiarySimpleInfoCriteria(diary, diary.id, diary.diaryContent,
@@ -46,6 +48,7 @@ public class DiaryQueryDao {
                         .from(diary)
                         .where(diary.id.eq(diaryId))
                         .leftJoin(user).on(user.id.eq(diary.user.id))
+                        .leftJoin(likes).on(likes.diary.id.eq(diaryId))
                         .transform(
                                 groupBy(diary.id).as(
                                         new QDiaryDetailInfoCriteria(diary,diary.id, diary.diaryContent, diary.feeling,
@@ -76,6 +79,7 @@ public class DiaryQueryDao {
                         user.name, user.profileImg, diary.feeling, diary.createdDate))
                 .from(diary)
                 .where(diaryIdCursorCondition(cursor))
+                .where(diary.isPublic.isTrue())
                 .limit(size + 1)
                 .orderBy(diary.id.desc())
                 .offset(1)
@@ -93,6 +97,7 @@ public class DiaryQueryDao {
                         user.name, user.profileImg, diary.feeling, diary.createdDate))
                 .from(diary)
                 .where(diary.feeling.eq(HAPPY), diaryIdCursorCondition(cursor))
+                .where(diary.isPublic.isTrue())
                 .limit(size + 1)
                 .orderBy(diary.id.desc())
                 .fetch();
@@ -109,6 +114,7 @@ public class DiaryQueryDao {
                         user.name, user.profileImg, diary.feeling, diary.createdDate))
                 .from(diary)
                 .where(diary.feeling.eq(SAD), diaryIdCursorCondition(cursor))
+                .where(diary.isPublic.isTrue())
                 .limit(size + 1)
                 .orderBy(diary.id.desc())
                 .fetch();
@@ -125,6 +131,7 @@ public class DiaryQueryDao {
                         user.name, user.profileImg, diary.feeling, diary.createdDate))
                 .from(diary)
                 .where(diary.feeling.eq(NORMAL), diaryIdCursorCondition(cursor))
+                .where(diary.isPublic.isTrue())
                 .limit(size + 1)
                 .orderBy(diary.id.desc())
                 .fetch();
