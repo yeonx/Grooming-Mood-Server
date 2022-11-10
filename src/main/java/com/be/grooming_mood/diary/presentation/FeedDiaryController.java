@@ -2,13 +2,11 @@ package com.be.grooming_mood.diary.presentation;
 
 import com.be.grooming_mood.diary.application.DiaryQueryService;
 import com.be.grooming_mood.diary.application.criteria.DiaryDetailInfoCriteria;
+import com.be.grooming_mood.diary.application.criteria.DiaryListQueryPagingResult;
 import com.be.grooming_mood.diary.application.criteria.DiaryListQueryResult;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @RestController
@@ -50,11 +48,11 @@ public class FeedDiaryController {
  */
 //    @GetMapping("/my-page")
 //    public DiaryListQueryPagingResult getMyDiaryList(@RequestParam(required = false) String cursor,
-//                                               @RequestParam(required = false, defaultValue = "10") int size){
+//                                                     @RequestParam(required = false, defaultValue = "5") int size){
 //        SessionUser user = (SessionUser) httpSession.getAttribute("user");
 //        return DiaryListQueryPagingResult.findMyDiaryList(user.getId(),cursor,size);
 //    }
-//
+
 //    @GetMapping("/all-paging")
 //    public DiaryListQueryPagingResult getAllDiaryList(@RequestParam(required = false) String cursor,
 //                                               @RequestParam(required = false, defaultValue = "10") int size){
