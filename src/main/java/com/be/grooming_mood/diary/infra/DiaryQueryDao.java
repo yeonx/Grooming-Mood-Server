@@ -69,27 +69,19 @@ public class DiaryQueryDao {
         String nextCursor = hasNext ? getDiaryIdNextCursor(infoList) : null;
         return new DiaryListQueryPagingResult(infoList,hasNext,nextCursor);
     }
-    public DiaryListQueryResult findMyDiaryList(Long userId){
-        List<DiarySimpleInfoCriteria> infoList = queryFactory
-                .select(new QDiarySimpleInfoCriteria(diary,diary.id, diary.diaryContent,
-                        user.name, user.profileImg, diary.feeling, diary.createdDate))
-                .from(diary)
-                .where(user.id.eq(userId))
-                .orderBy(diary.id.desc())
-                .offset(1)
-                .fetch();
-        return new DiaryListQueryResult(infoList);
-    }
 
     public DiaryListQueryPagingResult findAllDiaryListPaging(String cursor, int size){
         List<DiarySimpleInfoCriteria> infoList = queryFactory
                 .select(new QDiarySimpleInfoCriteria(diary,diary.id, diary.diaryContent,
                         user.name, user.profileImg, diary.feeling, diary.createdDate))
                 .from(diary)
+                .where(diaryIdCursorCondition(cursor))
                 .limit(size + 1)
                 .orderBy(diary.id.desc())
                 .offset(1)
                 .fetch();
+        hasDataCheck(infoList);
+
         boolean hasNext = hasNext(size, infoList);
         String nextCursor = hasNext ? getDiaryIdNextCursor(infoList) : null;
         return new DiaryListQueryPagingResult(infoList,hasNext,nextCursor);
@@ -185,6 +177,18 @@ public class DiaryQueryDao {
     }
     private boolean cursorValidate(String cursor) {
         return cursor == null || cursor.length() < 20;
+    }
+
+    public DiaryListQueryResult findMyDiaryList(Long userId){
+        List<DiarySimpleInfoCriteria> infoList = queryFactory
+                .select(new QDiarySimpleInfoCriteria(diary,diary.id, diary.diaryContent,
+                        user.name, user.profileImg, diary.feeling, diary.createdDate))
+                .from(diary)
+                .where(user.id.eq(userId))
+                .orderBy(diary.id.desc())
+                .offset(1)
+                .fetch();
+        return new DiaryListQueryResult(infoList);
     }
 
 //    public DiaryListQueryPagingResult findHappyDiaryList(String cursor, int size){
