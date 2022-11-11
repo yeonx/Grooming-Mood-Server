@@ -7,6 +7,7 @@ import com.be.grooming_mood.user.domain.User;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -59,6 +60,7 @@ public class Diary extends BaseTimeEntity {
     private List<Likes> likesList;
 
     @Transient
+    @ColumnDefault("0")
     private Integer likesCount;
 
     public void updateLikesCount(Integer likesCount) {
