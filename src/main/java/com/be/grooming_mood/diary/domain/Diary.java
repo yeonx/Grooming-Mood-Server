@@ -46,6 +46,7 @@ public class Diary extends BaseTimeEntity {
         this.diaryContent = diaryContent;
         this.isPublic = isPublic;
         this.createdDate = LocalDateTime.now();
+        this.likesCount = getLikesCount();
     }
 
     public void update(String diaryContent, Boolean isPublic){
@@ -59,7 +60,7 @@ public class Diary extends BaseTimeEntity {
     @OneToMany(mappedBy = "diary", cascade = CascadeType.REMOVE)
     private List<Likes> likesList;
 
-    @Transient
+    @Column(name = "like_count")
     @ColumnDefault("0")
     private Integer likesCount;
 
