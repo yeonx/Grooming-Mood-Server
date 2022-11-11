@@ -28,6 +28,7 @@ public class DiaryQueryService {
         Optional<Diary> diaryCheck = diaryJpaInterfaceRepository.findById(diaryId);
         Diary diary = diaryCheck.orElseThrow(() ->
                 new NotFoundException(DIARY_NOT_FOUND));
+        diary.updateLikesCount(diary.getLikesList().size());
         return diaryQueryDao.findSimpleInfo(diaryId)
                 .orElseThrow(() -> new NotFoundException(DIARY_NOT_FOUND));
     }
