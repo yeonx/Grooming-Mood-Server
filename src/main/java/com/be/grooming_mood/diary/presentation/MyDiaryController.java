@@ -4,6 +4,7 @@ import com.be.grooming_mood.diary.application.DiaryCommandService;
 import com.be.grooming_mood.diary.application.DiaryQueryService;
 import com.be.grooming_mood.diary.application.command.DiaryUpdateCommand;
 import com.be.grooming_mood.diary.application.criteria.DiaryDetailInfoCriteria;
+import com.be.grooming_mood.diary.application.criteria.DiaryListQueryPagingResult;
 import com.be.grooming_mood.diary.application.criteria.DiaryListQueryResult;
 import com.be.grooming_mood.diary.presentation.dto.DiaryCreateDto;
 import com.be.grooming_mood.user.service.UserService;
@@ -22,14 +23,9 @@ public class MyDiaryController {
 
     @ApiOperation(value = "일기 등록")
     @PostMapping("/{userId}")
-    public Long createDiary(@PathVariable("userId") Long userId, @Valid DiaryCreateDto diaryCreateDto){
+    public Long createDiary(@PathVariable("userId") Long userId,
+                            @Valid DiaryCreateDto diaryCreateDto){
         return diaryCommandService.create(userId, diaryCreateDto);
-    }
-
-    @ApiOperation(value ="내 일기 리스트")
-    @GetMapping("/{userId}")
-    public DiaryListQueryResult getMyDiaryList(@PathVariable("userId") Long userId){
-        return diaryQueryService.findMyDiaryList(userId);
     }
 
     @ApiOperation(value ="일기 상세 보기")
@@ -40,7 +36,8 @@ public class MyDiaryController {
 
     @ApiOperation(value = "일기 수정")
     @PostMapping("/{userId}/{diaryId}")
-    public void updateDiary(@PathVariable("diaryId") Long diaryId,@Valid DiaryUpdateCommand diaryUpdateCommand){
+    public void updateDiary(@PathVariable("diaryId") Long diaryId,
+                            @Valid DiaryUpdateCommand diaryUpdateCommand){
         diaryCommandService.update(diaryId,diaryUpdateCommand);
     }
 
@@ -49,5 +46,22 @@ public class MyDiaryController {
     public void deleteDiary(@PathVariable("diaryId") Long diaryId){
         diaryCommandService.delete(diaryId);
     }
+
+    @ApiOperation(value ="내 일기 리스트")
+    @GetMapping("/{userId}")
+    public DiaryListQueryPagingResult getMyDiaryList(@PathVariable("userId") Long userId,
+                                                     @RequestParam(required = false) String cursor,
+                                                     @RequestParam(required = false, defaultValue = "3") int size){
+        return diaryQueryService.findMyDiaryList(userId,cursor,size);
+    }
+
+    /**
+     * 스크롤
+     */
+//    @ApiOperation(value ="내 일기 리스트")
+//    @GetMapping("/{userId}")
+//    public DiaryListQueryResult getMyDiaryList(@PathVariable("userId") Long userId){
+//        return diaryQueryService.findMyDiaryList(userId);
+//    }
 
 }
