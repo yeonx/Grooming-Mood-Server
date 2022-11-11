@@ -30,5 +30,6 @@ public class DiarySimpleInfoCriteria {
         this.feeling = feeling;
         this.createdDate = createdDate;
         this.likesCount = diary.getLikesCount();
+        diary.updateLikesCount(diary.getLikesList().size());
     }
 }
