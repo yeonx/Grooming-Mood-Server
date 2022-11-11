@@ -5,10 +5,15 @@ import com.be.grooming_mood.feeling.domain.FeelingHistory;
 import com.be.grooming_mood.feeling.dto.FeelingHistoryCreateDto;
 import com.be.grooming_mood.feeling.dto.FeelingHistoryInfo;
 import com.be.grooming_mood.feeling.dto.FeelingHistoryInfoList;
+import com.be.grooming_mood.feeling.dto.FeelingStatisticInfoList;
 import com.be.grooming_mood.feeling.repository.FeelingHistoryQueryDao;
 import com.be.grooming_mood.feeling.repository.FeelingHistoryRepository;
 import com.be.grooming_mood.user.domain.User;
 import com.be.grooming_mood.user.domain.UserRepository;
+import java.text.SimpleDateFormat;
+import java.time.ZoneId;
+import java.util.Calendar;
+import java.util.Date;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -35,9 +40,40 @@ public class FeelingHistoryService {
         LocalDateTime start = YearMonth.now().atDay(1).atStartOfDay();
         LocalDateTime end = YearMonth.now().atEndOfMonth().atStartOfDay();
 
-        // feelingHistoryRepository.findAllByCreatedDateBetween(start, end);
-
         return feelingHistoryQueryDao.findAllFeelingHistoryInThisMonth(start, end);
+    }
+
+    @Transactional(readOnly = true)
+    public FeelingStatisticInfoList getFeelingInLastWeek(Long userId){
+
+        Calendar cal1 = Calendar.getInstance();
+        Calendar cal2 = Calendar.getInstance();
+
+        cal1.add(Calendar.DATE, -7);
+        cal2.add(Calendar.DATE, -7);
+
+        cal1.set(Calendar.DAY_OF_WEEK, Calendar.MONTH);
+        cal2.set(Calendar.DAY_OF_WEEK, Calendar.FRIDAY);
+
+        LocalDateTime mondayInLastWeek = cal1.getTime().toInstant() .atZone(ZoneId.systemDefault()).toLocalDateTime();
+        LocalDateTime fridayInLastWeek = cal2.getTime().toInstant() .atZone(ZoneId.systemDefault()).toLocalDateTime();
+
+        return feelingHistoryQueryDao.findAllFeelingStatisticsInLastWeek(userId, mondayInLastWeek, fridayInLastWeek);
+    }
+
+
+    @Transactional(readOnly = true)
+    public FeelingStatisticInfoList getFeelingInThisWeek(Long userId){
+        Calendar cal1 = Calendar.getInstance();
+        Calendar cal2 = Calendar.getInstance();
+
+        cal1.set(Calendar.DAY_OF_WEEK, Calendar.MONTH);
+        cal2.set(Calendar.DAY_OF_WEEK, Calendar.FRIDAY);
+
+        LocalDateTime mondayInThisWeek = cal1.getTime().toInstant() .atZone(ZoneId.systemDefault()).toLocalDateTime();
+        LocalDateTime fridayInThisWeek = cal2.getTime().toInstant() .atZone(ZoneId.systemDefault()).toLocalDateTime();
+
+        return feelingHistoryQueryDao.findAllFeelingStatisticsInThisWeek(userId, mondayInThisWeek, fridayInThisWeek);
     }
 
     @Transactional
