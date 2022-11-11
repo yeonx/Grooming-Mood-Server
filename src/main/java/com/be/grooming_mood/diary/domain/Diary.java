@@ -63,6 +63,11 @@ public class Diary extends BaseTimeEntity {
     @ColumnDefault("0")
     private Integer likesCount;
 
+    @PrePersist
+    public void prePersist() {
+        this.likesCount = this.likesCount == null ? 0 : this.likesCount;
+    }
+
     public void updateLikesCount(Integer likesCount) {
         this.likesCount = likesCount;
     }
