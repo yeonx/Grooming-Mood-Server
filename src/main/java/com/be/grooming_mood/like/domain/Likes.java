@@ -1,6 +1,7 @@
 package com.be.grooming_mood.like.domain;
 
 import com.be.grooming_mood.diary.domain.Diary;
+import com.be.grooming_mood.feeling.domain.FeelingType;
 import com.be.grooming_mood.user.domain.User;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -8,6 +9,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -36,6 +38,10 @@ public class Likes {
 
     @Transient
     private long likesCount;
+
+    public long getLikesCount(){
+        return this.likesCount;
+    }
     public void updateLikesCount(long likesCount) {
         this.likesCount = likesCount;
     }
