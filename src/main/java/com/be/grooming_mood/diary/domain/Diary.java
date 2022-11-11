@@ -69,8 +69,8 @@ public class Diary extends BaseTimeEntity {
         this.likesCount = this.likesCount == null ? 0 : this.likesCount;
     }
 
-    public void updateLikesCount(Integer likesCount) {
-        this.likesCount = likesCount;
+    public void updateLikesCount() {
+        this.likesCount = this.likesCount + 1;
     }
 
 }
