@@ -14,7 +14,6 @@ public class DiarySimpleInfoCriteria {
     private String userName;
     private String profileImg;
     private Long diaryId;
-    @Size(max = 27)
     private String diaryContent;
     private FeelingType feeling;
     private LocalDateTime createdDate;
@@ -26,7 +25,10 @@ public class DiarySimpleInfoCriteria {
                                    String profileImg, FeelingType feeling,
                                    LocalDateTime createdDate){
         this.diaryId = diaryId;
-        this.diaryContent = diaryContent;
+        if (diaryContent.length() > 27)
+            this.diaryContent = diaryContent.substring(0,27);
+        else
+            this.diaryContent = diaryContent;
         this.userName = userName;
         this.profileImg = profileImg;
         this.feeling = feeling;
