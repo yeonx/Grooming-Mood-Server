@@ -6,6 +6,7 @@ import com.querydsl.core.annotations.QueryProjection;
 import lombok.Builder;
 import lombok.Getter;
 
+import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
 @Getter
@@ -13,6 +14,7 @@ public class DiarySimpleInfoCriteria {
     private String userName;
     private String profileImg;
     private Long diaryId;
+    @Size(max = 27)
     private String diaryContent;
     private FeelingType feeling;
     private LocalDateTime createdDate;
