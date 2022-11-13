@@ -6,6 +6,7 @@ import com.querydsl.core.annotations.QueryProjection;
 import lombok.Builder;
 import lombok.Getter;
 
+import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
 @Getter
@@ -24,7 +25,10 @@ public class DiarySimpleInfoCriteria {
                                    String profileImg, FeelingType feeling,
                                    LocalDateTime createdDate){
         this.diaryId = diaryId;
-        this.diaryContent = diaryContent;
+        if (diaryContent.length() > 27)
+            this.diaryContent = diaryContent.substring(0,27);
+        else
+            this.diaryContent = diaryContent;
         this.userName = userName;
         this.profileImg = profileImg;
         this.feeling = feeling;

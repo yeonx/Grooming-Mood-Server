@@ -7,6 +7,7 @@ import com.be.grooming_mood.user.domain.User;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -45,6 +46,7 @@ public class Diary extends BaseTimeEntity {
         this.diaryContent = diaryContent;
         this.isPublic = isPublic;
         this.createdDate = LocalDateTime.now();
+        this.likesCount = getLikesCount();
     }
 
     public void update(String diaryContent, Boolean isPublic){
@@ -58,11 +60,17 @@ public class Diary extends BaseTimeEntity {
     @OneToMany(mappedBy = "diary", cascade = CascadeType.REMOVE)
     private List<Likes> likesList;
 
-    @Transient
+    @Column(name = "like_count")
+    @ColumnDefault("0")
     private Integer likesCount;
 
-    public void updateLikesCount(Integer likesCount) {
-        this.likesCount = likesCount;
+    @PrePersist
+    public void prePersist() {
+        this.likesCount = this.likesCount == null ? 0 : this.likesCount;
+    }
+
+    public void updateLikesCount() {
+        this.likesCount = this.likesCount + 1;
     }
 
 }
