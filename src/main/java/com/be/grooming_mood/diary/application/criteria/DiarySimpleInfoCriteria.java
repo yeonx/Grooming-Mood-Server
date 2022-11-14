@@ -25,8 +25,8 @@ public class DiarySimpleInfoCriteria {
                                    String profileImg, FeelingType feeling,
                                    LocalDateTime createdDate){
         this.diaryId = diaryId;
-        if (diaryContent.length() > 27)
-            this.diaryContent = diaryContent.substring(0,27);
+        if (diaryContent.length() > 25)
+            this.diaryContent = diaryContent.substring(0,25) + " ...";
         else
             this.diaryContent = diaryContent;
         this.userName = userName;
