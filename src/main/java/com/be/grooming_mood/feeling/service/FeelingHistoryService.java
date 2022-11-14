@@ -55,8 +55,11 @@ public class FeelingHistoryService {
         cal1.set(Calendar.DAY_OF_WEEK, Calendar.MONTH);
         cal2.set(Calendar.DAY_OF_WEEK, Calendar.FRIDAY);
 
-        LocalDateTime mondayInLastWeek = cal1.getTime().toInstant() .atZone(ZoneId.systemDefault()).toLocalDateTime();
-        LocalDateTime fridayInLastWeek = cal2.getTime().toInstant() .atZone(ZoneId.systemDefault()).toLocalDateTime();
+        LocalDateTime monday = cal1.getTime().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+        LocalDateTime friday = cal2.getTime().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+
+        LocalDateTime mondayInLastWeek = LocalDateTime.of(monday.getYear(), monday.getMonth(), monday.getDayOfMonth(), 0, 0);
+        LocalDateTime fridayInLastWeek = LocalDateTime.of(friday.getYear(), friday.getMonth(), friday.getDayOfMonth(), 23, 59);
 
         return feelingHistoryQueryDao.findAllFeelingStatisticsInLastWeek(userId, mondayInLastWeek, fridayInLastWeek);
     }
@@ -70,8 +73,12 @@ public class FeelingHistoryService {
         cal1.set(Calendar.DAY_OF_WEEK, Calendar.MONTH);
         cal2.set(Calendar.DAY_OF_WEEK, Calendar.FRIDAY);
 
-        LocalDateTime mondayInThisWeek = cal1.getTime().toInstant() .atZone(ZoneId.systemDefault()).toLocalDateTime();
-        LocalDateTime fridayInThisWeek = cal2.getTime().toInstant() .atZone(ZoneId.systemDefault()).toLocalDateTime();
+        LocalDateTime monday = cal1.getTime().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+        LocalDateTime friday = cal2.getTime().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+
+        LocalDateTime mondayInThisWeek = LocalDateTime.of(monday.getYear(), monday.getMonth(), monday.getDayOfMonth(), 0, 0);
+        LocalDateTime fridayInThisWeek = LocalDateTime.of(friday.getYear(), friday.getMonth(), friday.getDayOfMonth(), 23, 59);
+
 
         return feelingHistoryQueryDao.findAllFeelingStatisticsInThisWeek(userId, mondayInThisWeek, fridayInThisWeek);
     }
