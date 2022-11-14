@@ -83,6 +83,44 @@ public class FeelingHistoryService {
         return feelingHistoryQueryDao.findAllFeelingStatisticsInThisWeek(userId, mondayInThisWeek, fridayInThisWeek);
     }
 
+    @Transactional(readOnly = true)
+    public long getFeelingCountInLastWeek(Long userId) {
+        Calendar cal1 = Calendar.getInstance();
+        Calendar cal2 = Calendar.getInstance();
+
+        cal1.add(Calendar.DATE, -7);
+        cal2.add(Calendar.DATE, -7);
+
+        cal1.set(Calendar.DAY_OF_WEEK, Calendar.MONTH);
+        cal2.set(Calendar.DAY_OF_WEEK, Calendar.FRIDAY);
+
+        LocalDateTime monday = cal1.getTime().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+        LocalDateTime friday = cal2.getTime().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+
+        LocalDateTime mondayInLastWeek = LocalDateTime.of(monday.getYear(), monday.getMonth(), monday.getDayOfMonth(), 0, 0);
+        LocalDateTime fridayInLastWeek = LocalDateTime.of(friday.getYear(), friday.getMonth(), friday.getDayOfMonth(), 23, 59);
+
+        return feelingHistoryQueryDao.getTotalCountInWeek(userId, mondayInLastWeek, fridayInLastWeek);
+    }
+
+
+    @Transactional(readOnly = true)
+    public long getFeelingCountInThisWeek(Long userId) {
+        Calendar cal1 = Calendar.getInstance();
+        Calendar cal2 = Calendar.getInstance();
+
+        cal1.set(Calendar.DAY_OF_WEEK, Calendar.MONTH);
+        cal2.set(Calendar.DAY_OF_WEEK, Calendar.FRIDAY);
+
+        LocalDateTime monday = cal1.getTime().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+        LocalDateTime friday = cal2.getTime().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+
+        LocalDateTime mondayInThisWeek = LocalDateTime.of(monday.getYear(), monday.getMonth(), monday.getDayOfMonth(), 0, 0);
+        LocalDateTime fridayInThisWeek = LocalDateTime.of(friday.getYear(), friday.getMonth(), friday.getDayOfMonth(), 23, 59);
+
+        return feelingHistoryQueryDao.getTotalCountInWeek(userId, mondayInThisWeek, fridayInThisWeek);
+    }
+
     @Transactional
     public String createFeelingHistory(FeelingHistoryCreateDto feelingHistoryCreateDto) {
         Optional<User> userCheck = userRepository.findById(feelingHistoryCreateDto.getUserId());

@@ -38,6 +38,18 @@ public class FeelingHistoryController {
         return feelingHistoryService.getFeelingInThisWeek(userId);
     }
 
+    @ApiOperation(value ="지난주 감정 분석 개수 조회")
+    @GetMapping("/last-week/total-count/userId/{userId}")
+    public long getFeelingCountInLastWeek(@PathVariable("userId") Long userId) {
+        return feelingHistoryService.getFeelingCountInLastWeek(userId);
+    }
+
+    @ApiOperation(value ="이번주 감정 분석 개수 조회")
+    @GetMapping("/today-week/total-count/userId/{userId}")
+    public long getFeelingCountInThisWeek(@PathVariable("userId") Long userId) {
+        return feelingHistoryService.getFeelingCountInThisWeek(userId);
+    }
+
     @ApiOperation(value ="감정 히스토리 생성")
     @PostMapping("")
     public String createFeelingHistory(@Valid @RequestBody FeelingHistoryCreateDto feelingHistoryCreateDto) {
