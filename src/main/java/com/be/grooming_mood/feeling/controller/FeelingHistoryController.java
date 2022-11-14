@@ -20,24 +20,28 @@ public class FeelingHistoryController {
 
     private final FeelingHistoryService feelingHistoryService;
 
+    @CrossOrigin(origins = "*")
     @ApiOperation(value ="월별 감정 히스토리 조회(사용 X)")
     @GetMapping("/userId/{userId}")
     public FeelingHistoryInfoList getFeelingHistoryInMonth(@PathVariable("userId") Long userId) {
         return feelingHistoryService.getFeelingHistoryList(userId);
     }
 
+    @CrossOrigin(origins = "*")
     @ApiOperation(value ="지난주 감정 통계 조회")
     @GetMapping("/last-week/userId/{userId}")
     public FeelingStatisticInfoList getFeelingInLastWeek(@PathVariable("userId") Long userId) {
         return feelingHistoryService.getFeelingInLastWeek(userId);
     }
 
+    @CrossOrigin(origins = "*")
     @ApiOperation(value ="이번주 감정 통계 조회")
     @GetMapping("/today-week/userId/{userId}")
     public FeelingStatisticInfoList getFeelingInThisWeek(@PathVariable("userId") Long userId) {
         return feelingHistoryService.getFeelingInThisWeek(userId);
     }
 
+    @CrossOrigin(origins = "*")
     @ApiOperation(value ="감정 히스토리 생성")
     @PostMapping("")
     public String createFeelingHistory(@Valid @RequestBody FeelingHistoryCreateDto feelingHistoryCreateDto) {
