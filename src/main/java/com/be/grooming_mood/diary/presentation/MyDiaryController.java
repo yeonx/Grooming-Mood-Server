@@ -21,6 +21,7 @@ public class MyDiaryController {
     private final DiaryQueryService diaryQueryService;
     private final DiaryCommandService diaryCommandService;
 
+    @CrossOrigin(origins = "*")
     @ApiOperation(value = "일기 등록")
     @PostMapping("/{userId}")
     public Long createDiary(@PathVariable("userId") Long userId,
@@ -28,12 +29,14 @@ public class MyDiaryController {
         return diaryCommandService.create(userId, diaryCreateDto);
     }
 
+    @CrossOrigin(origins = "*")
     @ApiOperation(value ="일기 상세 보기")
     @GetMapping("/{diaryId}/diary-detail")
     public DiaryDetailInfoCriteria getDiaryInfo(@PathVariable Long diaryId){
         return diaryQueryService.findDetailInfo(diaryId);
     }
 
+    @CrossOrigin(origins = "*")
     @ApiOperation(value = "일기 수정")
     @PostMapping("/{userId}/{diaryId}")
     public void updateDiary(@PathVariable("diaryId") Long diaryId,
@@ -41,12 +44,14 @@ public class MyDiaryController {
         diaryCommandService.update(diaryId,diaryUpdateCommand);
     }
 
+    @CrossOrigin(origins = "*")
     @ApiOperation(value = "일기 삭제")
     @DeleteMapping("/{userId}/{diaryId}")
     public void deleteDiary(@PathVariable("diaryId") Long diaryId){
         diaryCommandService.delete(diaryId);
     }
 
+    @CrossOrigin(origins = "*")
     @ApiOperation(value ="내 일기 리스트")
     @GetMapping("/{userId}")
     public DiaryListQueryPagingResult getMyDiaryList(@PathVariable("userId") Long userId,

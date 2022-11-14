@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 public class FeedDiaryController {
     private final DiaryQueryService diaryQueryService;
 
+    @CrossOrigin(origins = "*")
     @ApiOperation(value ="전체 일기 조회")
     @GetMapping("/all-paging")
     public DiaryListQueryPagingResult getAllDiaryList(@RequestParam(required = false) String cursor,
@@ -21,6 +22,7 @@ public class FeedDiaryController {
         return diaryQueryService.findAllDiaryList(cursor,size);
     }
 
+    @CrossOrigin(origins = "*")
     @ApiOperation(value ="행복 일기 조회")
     @GetMapping("/happy-paging")
     public DiaryListQueryPagingResult getHappyDiaryList(@RequestParam(required = false) String cursor,
@@ -28,6 +30,7 @@ public class FeedDiaryController {
         return diaryQueryService.findHappyDiaryList(cursor,size);
     }
 
+    @CrossOrigin(origins = "*")
     @ApiOperation(value ="슬픈 일기 조회")
     @GetMapping("/sad-paging")
     public DiaryListQueryPagingResult getSadDiaryList(@RequestParam(required = false) String cursor,
@@ -35,6 +38,7 @@ public class FeedDiaryController {
         return diaryQueryService.findSadDiaryList(cursor,size);
     }
 
+    @CrossOrigin(origins = "*")
     @ApiOperation(value ="평범 일기 조회")
     @GetMapping("/normal-paging")
     public DiaryListQueryPagingResult getNormalDiaryList(@RequestParam(required = false) String cursor,
@@ -42,6 +46,7 @@ public class FeedDiaryController {
         return diaryQueryService.findNormalDiaryList(cursor,size);
     }
 
+    @CrossOrigin(origins = "*")
     @ApiOperation(value ="화남 일기 조회")
     @GetMapping("/angry-paging")
     public DiaryListQueryPagingResult getAngryDiaryList(@RequestParam(required = false) String cursor,

@@ -17,6 +17,7 @@ public class ReactionController {
 
     private final ReactionService reactionService;
 
+    @CrossOrigin(origins = "*")
     @PostMapping("")
     public Integer createReaction(@Valid @RequestBody ReactionDto reactionDto) {
 
@@ -26,6 +27,7 @@ public class ReactionController {
                 reactionDto.getReaction());
     }
 
+    @CrossOrigin(origins = "*")
     @DeleteMapping("")
     public Integer cancelReaction(@Valid @RequestBody ReactionDeleteDto reactionDto) {
 
