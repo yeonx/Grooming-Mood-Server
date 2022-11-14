@@ -45,7 +45,6 @@ public class FeelingHistoryQueryDao {
         return new FeelingStatisticInfoList(infoList);
     }
 
-//    select feelinghis0_.feeling as col_0_0_, count(feelinghis0_.feeling) as col_1_0_ from feeling_history feelinghis0_ where feelinghis0_.user_id=1 and (feelinghis0_.created_date between '2022-11-07T17:13:21.775+0900' and '2022-11-11T17:13:21.775+0900') group by feelinghis0_.feeling;
     public FeelingStatisticInfoList findAllFeelingStatisticsInThisWeek(Long userId, LocalDateTime start, LocalDateTime end) {
 
         List<FeelingStatisticInfo> infoList =
@@ -58,6 +57,14 @@ public class FeelingHistoryQueryDao {
 
         System.out.println(infoList);
         return new FeelingStatisticInfoList(infoList);
+    }
+
+    public long getTotalCountInWeek(Long userId, LocalDateTime start, LocalDateTime end) {
+        return jpaQueryFactory.select(feelingHistory.count())
+            .from(feelingHistory)
+            .where(feelingHistory.user.id.eq(userId))
+            .where(feelingHistory.createdDate.between(start, end))
+            .fetchOne();
     }
 
 }
