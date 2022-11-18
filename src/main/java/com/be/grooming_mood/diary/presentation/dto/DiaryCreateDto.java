@@ -14,7 +14,6 @@ public class DiaryCreateDto{
 
     private FeelingType feeling;
     private String diaryContent;
-    @JsonProperty("isPublic")
     private Boolean isPublic;
 
     @Builder
