@@ -35,7 +35,6 @@ public class Diary extends BaseTimeEntity {
     @Column(name = "diary_content", nullable = false)
     private String diaryContent;
 
-    @JsonProperty("isPublic")
     @Column(name = "is_public", nullable = false)
     private Boolean isPublic;
 
