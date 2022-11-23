@@ -60,7 +60,7 @@ public class Diary extends BaseTimeEntity {
     @JsonBackReference
     @OneToMany(mappedBy = "diary", cascade = CascadeType.REMOVE)
     private List<Likes> likesList;
-    
+
     @Transient
     private Integer likesCount;
 
