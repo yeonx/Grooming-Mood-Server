@@ -23,11 +23,11 @@ public class Likes {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "diary_id")
+    @JoinColumn(name = "diary_id", nullable = false)
     private Diary diary;
 
     @Builder
@@ -39,9 +39,9 @@ public class Likes {
     @Transient
     private long likesCount;
 
-    public long getLikesCount(){
-        return this.likesCount;
-    }
+//    public long getLikesCount(){
+//        return this.likesCount;
+//    }
     public void updateLikesCount(long likesCount) {
         this.likesCount = likesCount;
     }

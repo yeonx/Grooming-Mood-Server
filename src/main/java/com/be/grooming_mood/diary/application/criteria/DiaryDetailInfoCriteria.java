@@ -27,14 +27,15 @@ public class DiaryDetailInfoCriteria {
                                    FeelingType feeling,
                                    String userName,
                                    String profileImg,
-                                   LocalDateTime createdDate){
+                                   LocalDateTime createdDate,
+                                   Integer likesCount){
         this.diaryId = diaryId;
         this.diaryContent = diaryContent;
         this.feeling = feeling;
         this.userName = userName;
         this.profileImg = profileImg;
         this.createdDate = createdDate;
-        this.likesCount = diary.getLikesCount();
+        this.likesCount = likesCount;
     }
 
 }

@@ -12,15 +12,13 @@ public class LikesController {
 
     @CrossOrigin(origins = "*")
     @PutMapping("/feed-diary/{diaryId}/like")
-    public void likes(@PathVariable("diaryId") long diaryId,
-                      @RequestBody long userId){
+    public void likes(@PathVariable("diaryId") long diaryId,long userId){
         likesService.likes(diaryId,userId);
     }
 
     @CrossOrigin(origins = "*")
     @DeleteMapping("/feed-diary/{diaryId}/unlike")
-    public void unlikes(@PathVariable("diaryId") long diaryId,
-                        @RequestBody long userId){
+    public void unlikes(@PathVariable("diaryId") long diaryId,long userId){
         likesService.unlikes(diaryId,userId);
     }
 

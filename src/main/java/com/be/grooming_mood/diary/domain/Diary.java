@@ -61,17 +61,30 @@ public class Diary extends BaseTimeEntity {
     @OneToMany(mappedBy = "diary", cascade = CascadeType.REMOVE)
     private List<Likes> likesList;
 
-    @Column(name = "like_count")
-    private Integer likesCount;
-
+//    @Column(name = "like_count")
+//    private Integer likesCount;
+//
 //    @PrePersist
 //    public void prePersist() {
 //        if (this.likesCount == null)
 //            this.likesCount = 0;
 //    }
+//
+//    public void updateLikesCount() {
+//        this.likesCount += 1;
+//    }
+    @Transient
+    private Integer likesCount;
 
-    public void updateLikesCount() {
-        this.likesCount += 1;
+    @Transient
+    private boolean likesState;
+
+    public void updateLikesCount(Integer likesCount) {
+        this.likesCount = likesCount;
+    }
+
+    public void updateLikesState(boolean likesState) {
+        this.likesState = likesState;
     }
 
 }
