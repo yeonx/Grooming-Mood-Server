@@ -64,11 +64,11 @@ public class Diary extends BaseTimeEntity {
     @Column(name = "like_count")
     private Integer likesCount;
 
-    @PrePersist
-    public void prePersist() {
-        if (this.likesCount == null)
-            this.likesCount = 0;
-    }
+//    @PrePersist
+//    public void prePersist() {
+//        if (this.likesCount == null)
+//            this.likesCount = 0;
+//    }
 
     public void updateLikesCount() {
         this.likesCount += 1;
