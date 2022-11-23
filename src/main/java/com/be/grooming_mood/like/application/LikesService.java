@@ -23,7 +23,7 @@ public class LikesService {
     private final DiaryJpaInterfaceRepository diaryJpaInterfaceRepository;
 
     @Transactional
-    public Integer likes(long diaryId, long userId){
+    public Integer likes(Long diaryId, Long userId){
         Optional<User> userCheck = userRepository.findById(userId);
         User user = userCheck.orElseThrow(() ->
                 new NotFoundException(USER_NOT_FOUND));
@@ -36,7 +36,7 @@ public class LikesService {
     }
 
     @Transactional
-    public Integer unlikes(long diaryId, Long userId){
+    public Integer unlikes(Long diaryId, Long userId){
         Optional<User> userCheck = userRepository.findById(userId);
         User user = userCheck.orElseThrow(() ->
                 new NotFoundException(USER_NOT_FOUND));

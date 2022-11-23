@@ -52,7 +52,8 @@ public class DiaryQueryDao {
                         .transform(
                                 groupBy(diary.id).as(
                                         new QDiaryDetailInfoCriteria(diary,diary.id, diary.diaryContent, diary.feeling,
-                                                user.name, user.profileImg, diary.createdDate)
+                                                user.name, user.profileImg, diary.createdDate,
+                                                diary.likesList.size())
                                 )
                         ).get(diaryId)
         );
