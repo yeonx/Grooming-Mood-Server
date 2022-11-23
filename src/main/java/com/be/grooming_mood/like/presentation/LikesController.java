@@ -11,8 +11,9 @@ public class LikesController {
     private final LikesService likesService;
 
     @CrossOrigin(origins = "*")
-    @PutMapping("/feed-diary/{diaryId}/like")
-    public void likes(@PathVariable("diaryId") long diaryId,long userId){
+    @PostMapping("/feed-diary/{diaryId}/like")
+    public void likes(@PathVariable("diaryId") long diaryId,
+                      @RequestBody long userId){
         likesService.likes(diaryId,userId);
     }
 
