@@ -2,7 +2,6 @@
 
 ## 데모영상
 
-https://user-images.githubusercontent.com/71878202/205047969-449f7873-2cd0-434d-ba72-35078806cfd6.MP4
 
 
 ## 아키텍처
