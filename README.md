@@ -21,6 +21,10 @@ https://user-images.githubusercontent.com/71878202/205049283-ea543d56-2f61-4043-
 <img width="960" alt="image" src="https://user-images.githubusercontent.com/71878202/205048191-9e461be6-7649-43a7-82d4-7a7ad364b0e8.png">
 
 </br>
+## Swagger 명세서
+[Groomingmood-Swagger](http://ec2-52-196-145-123.ap-northeast-1.compute.amazonaws.com:8080/swagger-ui/index.html)
+
+</br>
 
 ## 주요기능
 - [x] 회원가입 및 로그인
