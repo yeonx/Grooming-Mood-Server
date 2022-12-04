@@ -20,6 +20,11 @@ https://user-images.githubusercontent.com/71878202/205049283-ea543d56-2f61-4043-
 ## 아키텍처
 <img width="960" alt="image" src="https://user-images.githubusercontent.com/71878202/205048191-9e461be6-7649-43a7-82d4-7a7ad364b0e8.png">
 
+</br>
+
+
+## 개발기간
+`2022.09` ~ `2022.11`
 
 
 </br>
